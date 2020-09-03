@@ -22,7 +22,6 @@ func show_game_over():
 	$Message.text = "Dodge the Tiles!"
 	$Message.show()
 	
-	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
 	
 func update_score(score):
