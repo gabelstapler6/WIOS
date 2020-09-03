@@ -15,8 +15,7 @@ var level_up = false
 func _ready():
 	screen_size = get_viewport_rect().size
 	hide()
-
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
