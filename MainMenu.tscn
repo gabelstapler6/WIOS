@@ -1,7 +1,0 @@
-[gd_scene format=2]
-
-[node name="Game Label" type="Label"]
-text = "Simple Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
