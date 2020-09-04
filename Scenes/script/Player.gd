@@ -2,6 +2,7 @@ extends Area2D
 
 signal hit
 signal shoot_bullet
+signal ammo_change
 
 
 # export -> damit man in der godot gui speed anfassen kann Einheit pixel/sec
@@ -9,8 +10,8 @@ export var speed = 400
 var screen_size
 
 var vertical_movement = false
-var shooting = true
-var ammo = 10
+var shooting = false
+var ammo = 3
 
 
 
@@ -38,7 +39,9 @@ func _process(delta):
 	if shooting:
 		if Input.is_action_just_pressed("ui_shoot"):
 			if ammo > 0:
+				ammo -= 1
 				emit_signal("shoot_bullet")
+				emit_signal("ammo_change")
 
 	
 	if velocity.length() > 0:
