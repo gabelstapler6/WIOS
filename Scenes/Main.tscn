@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/CollisionTile.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -13,6 +14,7 @@ _data = {
 [node name="Main" type="Node"]
 script = ExtResource( 1 )
 Tile = ExtResource( 3 )
+Bullet = ExtResource( 5 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -43,8 +45,9 @@ curve = SubResource( 1 )
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
-[connection signal="body_entered" from="Player" to="Player" method="_on_Player_body_entered"]
+[connection signal="ammo_change" from="Player" to="." method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

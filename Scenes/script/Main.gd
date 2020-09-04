@@ -2,6 +2,7 @@ extends Node
 
 
 export (PackedScene) var Tile
+export (PackedScene) var Bullet
 var score
 
 
@@ -45,11 +46,36 @@ func _on_MobTimer_timeout():
 func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
-	if score > 20:
-		$HUD.show_message("Level up!")
-		$Player.level_up = true
+	
+	if score == 20:
+		$Player.vertical_movement = true
+		$HUD.show_message("Level up!\nVertical movement enabled!")
+	
+	if score == 60:
+		$Player.shooting = true
+		$HUD.show_message("Level up!\nshooting enabled!")
+		$HUD/AmmoCount.show()
+		$Player.emit_signal("ammo_change")
+		
+	if score > 60:
+		if score % 10 == 0:
+			$Player.ammo += 3
+			$Player.emit_signal("ammo_change")
 
 
 func _on_StartTimer_timeout():
 	$MobTimer.start()
 	$ScoreTimer.start()
+
+
+func _on_Player_shoot_bullet():
+	var bullet = Bullet.instance()
+	bullet.add_to_group("tiles")
+	add_child(bullet)
+	bullet.position = $Player.get_position()
+	bullet.position.y -= 100
+	bullet.linear_velocity = Vector2(1, -bullet.speed)
+
+
+func _on_Player_ammo_change():
+	$HUD/AmmoCount.text = "Ammo: " + str($Player.ammo)
