@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://font/Akira Expanded Demo.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://Scenes/script/HUD.gd" type="Script" id=2]
@@ -6,6 +6,12 @@
 [sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 1 )
+
+[sub_resource type="InputEventAction" id=2]
+action = "ui_accept"
+
+[sub_resource type="ShortCut" id=3]
+shortcut = SubResource( 2 )
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -26,9 +32,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -36.0
-margin_bottom = 32.0
+margin_bottom = -2.0
 custom_fonts/font = SubResource( 1 )
-text = "Dodge the Tiles!"
+text = "Wasted in outta space"
 align = 1
 autowrap = true
 __meta__ = {
@@ -45,6 +51,7 @@ margin_top = -264.0
 margin_right = 96.0
 margin_bottom = -213.0
 custom_fonts/font = SubResource( 1 )
+shortcut = SubResource( 3 )
 text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
