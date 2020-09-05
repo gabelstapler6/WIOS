@@ -5,7 +5,7 @@ signal start_game
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$AmmoCount.hide()
 
 func show_message(text):
 	$Message.text = text
@@ -22,8 +22,8 @@ func show_game_over():
 	$Message.text = "Dodge the Tiles!"
 	$Message.show()
 	
-	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
+	$AmmoCount.hide()
 	
 func update_score(score):
 	$ScoreLabel.text = str(score)
