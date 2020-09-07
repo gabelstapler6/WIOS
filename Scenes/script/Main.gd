@@ -9,7 +9,6 @@ var score
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	
 	$Music.play()
 
 
@@ -65,7 +64,13 @@ func _on_ScoreTimer_timeout():
 	if score > 60:
 		if score % 10 == 0:
 			$Player.ammo += 3
+			if score > 200:
+				$Player.ammo += 3
 			$Player.emit_signal("ammo_change")
+	
+	if score == 200:
+		$MobTimer.wait_time = 0.25
+		$HUD.show_message("Watch out!")
 
 
 func _on_StartTimer_timeout():

@@ -12,7 +12,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 37.2364, 37.1815 )
+extents = Vector2( 33.7167, 33.8449 )
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends VisibilityNotifier2D

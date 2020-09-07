@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
+[ext_resource path="res://img/Galaxy.jpg" type="Texture" id=7]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -17,10 +18,10 @@ script = ExtResource( 1 )
 Tile = ExtResource( 3 )
 Bullet = ExtResource( 5 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.564706, 0.596078, 0.666667, 1 )
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
