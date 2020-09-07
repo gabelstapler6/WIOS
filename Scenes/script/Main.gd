@@ -22,6 +22,7 @@ func game_over():
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	get_tree().call_group("tiles", "queue_free")
+	$MobTimer.wait_time = 0.5
 	$Player.ammo = 3
 	$Player.shooting = false
 	$Player.vertical_movement = false
