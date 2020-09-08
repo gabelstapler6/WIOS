@@ -19,7 +19,7 @@ func show_game_over():
 	# wartet bis der Timer zuende ist
 	yield($MessageTimer, "timeout")
 	
-	$Message.text = "wasted in otta space!"
+	$Message.text = "wasted in outta space"
 	$Message.show()
 	
 	$StartButton.show()
