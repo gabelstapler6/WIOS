@@ -24,8 +24,8 @@ func game_over():
 	get_tree().call_group("tiles", "queue_free")
 	$MobTimer.wait_time = 0.5
 	$Player.ammo = 3
-	$Player.shooting = false
-	$Player.vertical_movement = false
+	#$Player.shooting = false
+	#$Player.vertical_movement = false
 	
 func new_game():
 	score = 0
@@ -33,6 +33,8 @@ func new_game():
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
+	$HUD/AmmoCount.show()
+	$Player.emit_signal("ammo_change")
 	
 
 func _on_MobTimer_timeout():
@@ -52,25 +54,23 @@ func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
 	
-	if score == 20:
-		$Player.vertical_movement = true
-		$HUD.show_message("Level up!\nVertical movement enabled!")
-	
-	if score == 60:
-		$Player.shooting = true
-		$HUD.show_message("Level up!\nshooting enabled!")
-		$HUD/AmmoCount.show()
+		
+	if score % 10 == 0:
+		$Player.ammo += 3
+		if score > 100:
+			$Player.ammo += 3
+		if score > 200:
+			$Player.ammo += 1
+			
 		$Player.emit_signal("ammo_change")
 		
-	if score > 60:
-		if score % 10 == 0:
-			$Player.ammo += 3
-			if score > 200:
-				$Player.ammo += 3
-			$Player.emit_signal("ammo_change")
 	
-	if score == 200:
+	if score == 100:
 		$MobTimer.wait_time = 0.25
+		$HUD.show_message("Watch out!")
+		
+	if score == 200:
+		$MobTimer.wait_time = 0.20
 		$HUD.show_message("Watch out!")
 
 

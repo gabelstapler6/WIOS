@@ -9,8 +9,8 @@ signal ammo_change
 export var speed = 400
 var screen_size
 
-var vertical_movement = false
-var shooting = false
+var vertical_movement = true
+var shooting = true
 var ammo = 3
 
 
