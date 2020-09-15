@@ -1,19 +1,27 @@
 extends MarginContainer
 
+signal sound_on
+signal sound_off
+signal start_game
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+export var version = 1.3
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$VBoxContainer/HBoxContainer/VersionLabel.text = "v" + str(version)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func update_score(player_score):
+	$VBoxContainer/HBoxTopBar/scoreLabel.text = "score: " + str(player_score)
+
+func _on_SoundButton_toggled(button_pressed):
+	if button_pressed:
+		emit_signal("sound_off")
+	else:
+		emit_signal("sound_on")
 
 
-
+func _on_PlayButton_pressed():
+	emit_signal("start_game")
+	hide()

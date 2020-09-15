@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
 [ext_resource path="res://img/Galaxy.jpg" type="Texture" id=7]
+[ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -46,14 +47,18 @@ curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
-[node name="HUD" parent="." instance=ExtResource( 4 )]
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+
+[node name="MainMenu" parent="." instance=ExtResource( 8 )]
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
 [connection signal="ammo_change" from="Player" to="." method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
-[connection signal="start_game" from="HUD" to="." method="new_game"]
+[connection signal="sound_off" from="MainMenu" to="." method="_on_MainMenu_sound_off"]
+[connection signal="sound_on" from="MainMenu" to="." method="_on_MainMenu_sound_on"]
+[connection signal="start_game" from="MainMenu" to="." method="_on_MainMenu_start_game"]
