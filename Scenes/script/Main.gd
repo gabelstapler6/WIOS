@@ -10,29 +10,22 @@ var score
 func _ready():
 	randomize()
 	$Music.play()
+	$GUI.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$HUD.show_game_over()
+	$GUI.show_game_over()
 	get_tree().call_group("tiles", "queue_free")
 	$MobTimer.wait_time = 0.5
 	$Player.ammo = 3
-	$Player.shooting = false
-	$Player.vertical_movement = false
-	
-func new_game():
-	score = 0
-	$Player.start($StartPosition.position)
-	$StartTimer.start()
-	$HUD.update_score(score)
-	$HUD.show_message("Get Ready")
+	$Player.score += score
+	$MainMenu.update_score($Player.score)
 	
 
 func _on_MobTimer_timeout():
@@ -50,28 +43,24 @@ func _on_MobTimer_timeout():
 
 func _on_ScoreTimer_timeout():
 	score += 1
-	$HUD.update_score(score)
-	
-	if score == 20:
-		$Player.vertical_movement = true
-		$HUD.show_message("Level up!\nVertical movement enabled!")
-	
-	if score == 60:
-		$Player.shooting = true
-		$HUD.show_message("Level up!\nshooting enabled!")
-		$HUD/AmmoCount.show()
+	$GUI.update_score(score)
+		
+	if score % 10 == 0:
+		$Player.ammo += 3
+		if score > 100:
+			$Player.ammo += 3
+		if score > 200:
+			$Player.ammo += 1
+			
 		$Player.emit_signal("ammo_change")
 		
-	if score > 60:
-		if score % 10 == 0:
-			$Player.ammo += 3
-			if score > 200:
-				$Player.ammo += 3
-			$Player.emit_signal("ammo_change")
-	
-	if score == 200:
+	if score == 100:
 		$MobTimer.wait_time = 0.25
-		$HUD.show_message("Watch out!")
+		$GUI.show_message("Watch out!")
+		
+	if score == 200:
+		$MobTimer.wait_time = 0.20
+		$GUI.show_message("Watch out!")
 
 
 func _on_StartTimer_timeout():
@@ -89,4 +78,25 @@ func _on_Player_shoot_bullet():
 
 
 func _on_Player_ammo_change():
-	$HUD/AmmoCount.text = "Ammo: " + str($Player.ammo)
+	$GUI/VBoxContainer/AmmoCount.text = "Ammo: " + str($Player.ammo)
+
+
+func _on_MainMenu_sound_off():
+	$Music.stop()
+
+func _on_MainMenu_sound_on():
+	$Music.play()
+
+
+func _on_MainMenu_start_game():
+	score = 0
+	$GUI.show()
+	$Player.start($StartPosition.position)
+	$StartTimer.start()
+	$GUI.update_score(score)
+	$GUI.show_message("Get Ready")
+	$Player.emit_signal("ammo_change")
+
+
+func _on_GUI_main_menu():
+	$MainMenu.show()
