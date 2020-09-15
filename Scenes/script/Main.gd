@@ -10,28 +10,22 @@ var score
 func _ready():
 	randomize()
 	$Music.play()
-	$HUD.hide()
+	$GUI.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$HUD.show_game_over()
+	$GUI.show_game_over()
 	get_tree().call_group("tiles", "queue_free")
 	$MobTimer.wait_time = 0.5
 	$Player.ammo = 3
-	yield($HUD/MessageTimer, "timeout")
-	$HUD.hide()
-	$MainMenu.show()
 	$Player.score += score
 	$MainMenu.update_score($Player.score)
-	#$Player.shooting = false
-	#$Player.vertical_movement = false
 	
 
 func _on_MobTimer_timeout():
@@ -49,7 +43,7 @@ func _on_MobTimer_timeout():
 
 func _on_ScoreTimer_timeout():
 	score += 1
-	$HUD.update_score(score)
+	$GUI.update_score(score)
 		
 	if score % 10 == 0:
 		$Player.ammo += 3
@@ -62,11 +56,11 @@ func _on_ScoreTimer_timeout():
 		
 	if score == 100:
 		$MobTimer.wait_time = 0.25
-		$HUD.show_message("Watch out!")
+		$GUI.show_message("Watch out!")
 		
 	if score == 200:
 		$MobTimer.wait_time = 0.20
-		$HUD.show_message("Watch out!")
+		$GUI.show_message("Watch out!")
 
 
 func _on_StartTimer_timeout():
@@ -84,7 +78,7 @@ func _on_Player_shoot_bullet():
 
 
 func _on_Player_ammo_change():
-	$HUD/AmmoCount.text = "Ammo: " + str($Player.ammo)
+	$GUI/VBoxContainer/AmmoCount.text = "Ammo: " + str($Player.ammo)
 
 
 func _on_MainMenu_sound_off():
@@ -96,9 +90,13 @@ func _on_MainMenu_sound_on():
 
 func _on_MainMenu_start_game():
 	score = 0
-	$HUD.show()
+	$GUI.show()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	$HUD.update_score(score)
-	$HUD.show_message("Get Ready")
+	$GUI.update_score(score)
+	$GUI.show_message("Get Ready")
 	$Player.emit_signal("ammo_change")
+
+
+func _on_GUI_main_menu():
+	$MainMenu.show()
