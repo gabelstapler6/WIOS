@@ -10,7 +10,7 @@ var score
 func _ready():
 	randomize()
 	$Music.play()
-	$GUI.hide()
+	$Canvas/GUI.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,12 +20,11 @@ func _ready():
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$GUI.show_game_over()
+	$Canvas/GUI.show_game_over()
 	get_tree().call_group("tiles", "queue_free")
-	$MobTimer.wait_time = 0.5
-	$Player.ammo = 3
 	$Player.score += score
-	$MainMenu.update_score($Player.score)
+	$Canvas/MainMenu.update_score($Player.score)
+	$Player.shooting = false
 	
 
 func _on_MobTimer_timeout():
@@ -43,24 +42,24 @@ func _on_MobTimer_timeout():
 
 func _on_ScoreTimer_timeout():
 	score += 1
-	$GUI.update_score(score)
+	$Canvas/GUI.update_score(score)
 		
 	if score % 10 == 0:
-		$Player.ammo += 3
+		$Player.ammo += 1
 		if score > 100:
-			$Player.ammo += 3
+			$Player.ammo += 5
 		if score > 200:
-			$Player.ammo += 1
+			$Player.ammo += 2
 			
 		$Player.emit_signal("ammo_change")
 		
 	if score == 100:
 		$MobTimer.wait_time = 0.25
-		$GUI.show_message("Watch out!")
+		$Canvas/GUI.show_message("Watch out!")
 		
 	if score == 200:
 		$MobTimer.wait_time = 0.20
-		$GUI.show_message("Watch out!")
+		$Canvas/GUI.show_message("Watch out!")
 
 
 func _on_StartTimer_timeout():
@@ -78,7 +77,7 @@ func _on_Player_shoot_bullet():
 
 
 func _on_Player_ammo_change():
-	$GUI/VBoxContainer/AmmoCount.text = "Ammo: " + str($Player.ammo)
+	$Canvas/GUI/VBoxContainer/AmmoCount.text = "Ammo: " + str($Player.ammo)
 
 
 func _on_MainMenu_sound_off():
@@ -89,14 +88,17 @@ func _on_MainMenu_sound_on():
 
 
 func _on_MainMenu_start_game():
+	$Player.shooting = true
+	$MobTimer.wait_time = 0.5
+	$Player.ammo = 1
 	score = 0
-	$GUI.show()
+	$Canvas/GUI.show()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	$GUI.update_score(score)
-	$GUI.show_message("Get Ready")
+	$Canvas/GUI.update_score(score)
+	$Canvas/GUI.show_message("Get Ready")
 	$Player.emit_signal("ammo_change")
 
 
 func _on_GUI_main_menu():
-	$MainMenu.show()
+	$Canvas/MainMenu.show()
