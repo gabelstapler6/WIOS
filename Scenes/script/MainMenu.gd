@@ -4,12 +4,12 @@ signal sound_on
 signal sound_off
 signal start_game
 
-export var version = 1.3
+export var version = "1.4.1"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/HBoxContainer/VersionLabel.text = "v" + str(version)
+	$VBoxContainer/HBoxContainer/VersionLabel.text = "v" + version
 
 
 func update_score(player_score):
