@@ -10,7 +10,7 @@ export var speed = 400
 var screen_size
 
 var vertical_movement = true
-var shooting = true
+var shooting = false
 var ammo = 3
 var score = 0
 
