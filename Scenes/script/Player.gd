@@ -3,15 +3,16 @@ extends Area2D
 signal hit
 signal shoot_bullet
 signal ammo_change
-
+signal vertical_movement_bought
+signal not_enough_cash_mf
 
 # export -> damit man in der godot gui speed anfassen kann Einheit pixel/sec
 export var speed = 400
 var screen_size
 
-var vertical_movement = true
+var vertical_movement = false
 var shooting = false
-var ammo = 3
+var ammo = 1
 var score = 0
 
 
@@ -46,11 +47,8 @@ func _process(delta):
 
 	
 	if velocity.length() > 0:
-		# normalize damit bei gleichzeitigem drücken keine Speedboost entsteht
+		# normalize damit bei gleichzeitigem drücken kein Speedboost entsteht
 		velocity = velocity.normalized() * speed
-		$AnimatedSprite.play()
-	else:
-		$AnimatedSprite.stop()
 
 	# hier wird mit delta multipliziert damit bei fps drop der speed gleich bleibt
 	position += velocity * delta
@@ -70,3 +68,12 @@ func _on_Player_body_entered(_body):
 	emit_signal("hit")
 	# collision sicher entfernen
 	$CollisionShape2D.set_deferred("disabled", true)
+
+
+func _on_Shop_buy_vertical_movement():
+	if $PlayerInventory/Items.vertical_movement_price <= score:
+		score -= $PlayerInventory/Items.vertical_movement_price
+		vertical_movement = true
+		emit_signal("vertical_movement_bought")
+	else:
+		emit_signal("not_enough_cash_mf")
