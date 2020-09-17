@@ -1,0 +1,68 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/script/ShopItem.gd" type="Script" id=1]
+
+[node name="ShopItem" type="GridContainer"]
+margin_right = 338.0
+margin_bottom = 41.0
+custom_constants/vseparation = 7
+custom_constants/hseparation = 56
+columns = 4
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Filler" type="Label" parent="."]
+margin_right = 69.0
+margin_bottom = 14.0
+
+[node name="PriceLabel" type="Label" parent="."]
+margin_left = 125.0
+margin_right = 157.0
+margin_bottom = 14.0
+text = "Price"
+
+[node name="StockLabel" type="Label" parent="."]
+margin_left = 213.0
+margin_right = 247.0
+margin_bottom = 14.0
+text = "Stock"
+
+[node name="Filler2" type="Label" parent="."]
+margin_left = 303.0
+margin_right = 338.0
+margin_bottom = 14.0
+
+[node name="ItemName" type="Label" parent="."]
+margin_top = 24.0
+margin_right = 69.0
+margin_bottom = 38.0
+text = "ItemName"
+
+[node name="ItemPrice" type="Label" parent="."]
+margin_left = 125.0
+margin_top = 24.0
+margin_right = 157.0
+margin_bottom = 38.0
+text = "Price"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemStock" type="Label" parent="."]
+margin_left = 213.0
+margin_top = 24.0
+margin_right = 247.0
+margin_bottom = 38.0
+text = "Stock"
+align = 1
+
+[node name="BuyButton" type="Button" parent="."]
+margin_left = 303.0
+margin_top = 21.0
+margin_right = 338.0
+margin_bottom = 41.0
+size_flags_horizontal = 2
+text = "buy"

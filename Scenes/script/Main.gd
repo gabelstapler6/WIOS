@@ -46,19 +46,31 @@ func _on_ScoreTimer_timeout():
 		
 	if score % 10 == 0:
 		$Player.ammo += 1
+		if score > 50:
+			$Player.ammo += 1
 		if score > 100:
-			$Player.ammo += 5
+			$Player.ammo += 1
+		if score > 150:
+			$Player.ammo += 1
 		if score > 200:
-			$Player.ammo += 2
-			
-		$Player.emit_signal("ammo_change")
+			$Player.ammo += 1
 		
+		$Player.emit_signal("ammo_change")
+	
+	if score == 50:
+		$MobTimer.wait_time = 0.4
+		$Canvas/GUI.show_message("Watch out!")
+
 	if score == 100:
-		$MobTimer.wait_time = 0.25
+		$MobTimer.wait_time = 0.3
+		$Canvas/GUI.show_message("Watch out!")
+	
+	if score == 150:
+		$MobTimer.wait_time = 0.2
 		$Canvas/GUI.show_message("Watch out!")
 		
 	if score == 200:
-		$MobTimer.wait_time = 0.20
+		$MobTimer.wait_time = 0.1
 		$Canvas/GUI.show_message("Watch out!")
 
 
