@@ -1,13 +1,17 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/CollisionTile.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
-[ext_resource path="res://music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
-[ext_resource path="res://img/Galaxy.jpg" type="Texture" id=7]
+[ext_resource path="res://Assets/music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
+[ext_resource path="res://Assets/img/Galaxy.jpg" type="Texture" id=7]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/script/Canvas.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/PlayerScoreBalance.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/SoundButton.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -47,14 +51,22 @@ curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-
 [node name="Canvas" type="CanvasLayer" parent="."]
+script = ExtResource( 10 )
+
+[node name="Music" type="AudioStreamPlayer" parent="Canvas"]
+stream = ExtResource( 6 )
 
 [node name="GUI" parent="Canvas" instance=ExtResource( 4 )]
 
+[node name="PlayerScoreBalance" parent="Canvas" instance=ExtResource( 11 )]
+
+[node name="Shop" parent="Canvas" instance=ExtResource( 9 )]
+visible = false
+
 [node name="MainMenu" parent="Canvas" instance=ExtResource( 8 )]
+
+[node name="SoundButton" parent="Canvas" instance=ExtResource( 12 )]
 [connection signal="ammo_change" from="Player" to="." method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
@@ -63,6 +75,10 @@ stream = ExtResource( 6 )
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="main_menu" from="Canvas/GUI" to="." method="_on_GUI_main_menu"]
 [connection signal="play_again" from="Canvas/GUI" to="." method="_on_MainMenu_start_game"]
+[connection signal="go_back" from="Canvas/Shop" to="Canvas" method="_on_Shop_go_back"]
+[connection signal="open_shop" from="Canvas/MainMenu" to="Canvas" method="_on_MainMenu_open_shop"]
 [connection signal="sound_off" from="Canvas/MainMenu" to="." method="_on_MainMenu_sound_off"]
 [connection signal="sound_on" from="Canvas/MainMenu" to="." method="_on_MainMenu_sound_on"]
 [connection signal="start_game" from="Canvas/MainMenu" to="." method="_on_MainMenu_start_game"]
+[connection signal="sound_off" from="Canvas/SoundButton" to="Canvas" method="_on_SoundButton_sound_off"]
+[connection signal="sound_on" from="Canvas/SoundButton" to="Canvas" method="_on_SoundButton_sound_on"]

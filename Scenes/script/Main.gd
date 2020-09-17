@@ -9,8 +9,6 @@ var score
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	$Music.play()
-	$Canvas/GUI.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,9 +19,10 @@ func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$Canvas/GUI.show_game_over()
+	$Canvas/SoundButton.show()
 	get_tree().call_group("tiles", "queue_free")
 	$Player.score += score
-	$Canvas/MainMenu.update_score($Player.score)
+	$Canvas/PlayerScoreBalance.update_score($Player.score)
 	$Player.shooting = false
 	
 
@@ -91,20 +90,14 @@ func _on_Player_shoot_bullet():
 func _on_Player_ammo_change():
 	$Canvas/GUI/VBoxContainer/AmmoCount.text = "Ammo: " + str($Player.ammo)
 
-
-func _on_MainMenu_sound_off():
-	$Music.stop()
-
-func _on_MainMenu_sound_on():
-	$Music.play()
-
-
 func _on_MainMenu_start_game():
 	$Player.shooting = true
 	$MobTimer.wait_time = 0.5
 	$Player.ammo = 1
 	score = 0
 	$Canvas/GUI.show()
+	$Canvas/PlayerScoreBalance.hide()
+	$Canvas/SoundButton.hide()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$Canvas/GUI.update_score(score)
@@ -114,3 +107,4 @@ func _on_MainMenu_start_game():
 
 func _on_GUI_main_menu():
 	$Canvas/MainMenu.show()
+	$Canvas/PlayerScoreBalance.show()
