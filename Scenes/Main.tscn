@@ -51,7 +51,7 @@ curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2( -36.3195, 1.46259 )
-rotation = -0.000110546
+rotation = -0.000110607
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
@@ -71,14 +71,21 @@ visible = false
 [node name="MainMenu" parent="Canvas" instance=ExtResource( 8 )]
 
 [node name="SoundButton" parent="Canvas" instance=ExtResource( 12 )]
-[connection signal="ammo_change" from="Player" to="." method="_on_Player_ammo_change"]
+[connection signal="ammo_change" from="Player" to="Canvas/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="not_enough_cash_mf" from="Player" to="Canvas/Shop" method="_on_Player_not_enough_cash_mf"]
+[connection signal="rage_mode_off" from="Player" to="Canvas/GUI" method="_on_Player_rage_mode_off"]
+[connection signal="rage_mode_on" from="Player" to="Canvas/GUI" method="_on_Player_rage_mode_on"]
+[connection signal="rage_mode_on" from="Player" to="Canvas/Shop" method="decrease_rage_mode_stock"]
 [connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
+[connection signal="update_score" from="Player" to="Canvas/PlayerScoreBalance" method="update_score"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="main_menu" from="Canvas/GUI" to="." method="_on_GUI_main_menu"]
 [connection signal="play_again" from="Canvas/GUI" to="." method="_on_MainMenu_start_game"]
+[connection signal="buy_ammo_increase" from="Canvas/Shop" to="Player" method="_on_Shop_buy_ammo_increase"]
+[connection signal="buy_rage_mode" from="Canvas/Shop" to="Player" method="_on_Shop_buy_rage_mode"]
 [connection signal="buy_vertical_movement" from="Canvas/Shop" to="Player" method="_on_Shop_buy_vertical_movement"]
 [connection signal="go_back" from="Canvas/Shop" to="Canvas" method="_on_Shop_go_back"]
 [connection signal="open_shop" from="Canvas/MainMenu" to="Canvas" method="_on_MainMenu_open_shop"]

@@ -9,6 +9,7 @@ var score
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	$Canvas/PlayerScoreBalance.update_score($Player.score)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,6 +22,15 @@ func game_over():
 	$Canvas/GUI.show_game_over()
 	$Canvas/SoundButton.show()
 	get_tree().call_group("tiles", "queue_free")
+	if score > 200:
+		var help = score - 200
+		help *= 2
+		if score > 400:
+			var help2 = score - 400
+			help2 *= 4
+			score += help2
+		score += help
+		
 	$Player.score += score
 	$Canvas/PlayerScoreBalance.update_score($Player.score)
 	$Player.shooting = false
@@ -44,17 +54,15 @@ func _on_ScoreTimer_timeout():
 	$Canvas/GUI.update_score(score)
 		
 	if score % 10 == 0:
-		$Player.ammo += 1
+		$Player.add_ammo()
 		if score > 50:
-			$Player.ammo += 1
+			$Player.add_ammo()
 		if score > 100:
-			$Player.ammo += 1
+			$Player.add_ammo()
 		if score > 150:
-			$Player.ammo += 1
+			$Player.add_ammo()
 		if score > 200:
-			$Player.ammo += 1
-		
-		$Player.emit_signal("ammo_change")
+			$Player.add_ammo()
 	
 	if score == 50:
 		$MobTimer.wait_time = 0.4
@@ -70,8 +78,19 @@ func _on_ScoreTimer_timeout():
 		
 	if score == 200:
 		$MobTimer.wait_time = 0.1
-		$Canvas/GUI.show_message("Watch out!")
-
+		$Canvas/GUI.show_message("Watch out!\n2x Score multiplier!")
+	
+	if score == 250:
+		$MobTimer.wait_time = 0.2
+		$Canvas/GUI.show_message("you made the hardest part bro")
+		
+	if score == 300:
+		$MobTimer.wait_time = 0.3
+		$Canvas/GUI.show_message("chill a little")
+		
+	if score == 400:
+		$MobTimer.wait_time = 0.2
+		$Canvas/GUI.show_message("Watch out!\n4x Score multiplier!")
 
 func _on_StartTimer_timeout():
 	$MobTimer.start()
@@ -86,14 +105,11 @@ func _on_Player_shoot_bullet():
 	bullet.position.y -= 100
 	bullet.linear_velocity = Vector2(1, -bullet.speed)
 
-
-func _on_Player_ammo_change():
-	$Canvas/GUI/VBoxContainer/AmmoCount.text = "Ammo: " + str($Player.ammo)
-
 func _on_MainMenu_start_game():
 	$Player.shooting = true
+	$Player.ammo = 0
+	$Player.add_ammo()
 	$MobTimer.wait_time = 0.5
-	$Player.ammo = 1
 	score = 0
 	$Canvas/GUI.show()
 	$Canvas/PlayerScoreBalance.hide()
@@ -102,7 +118,7 @@ func _on_MainMenu_start_game():
 	$StartTimer.start()
 	$Canvas/GUI.update_score(score)
 	$Canvas/GUI.show_message("Get Ready")
-	$Player.emit_signal("ammo_change")
+	$Player.emit_signal("ammo_change", $Player.ammo)
 
 
 func _on_GUI_main_menu():

@@ -50,3 +50,16 @@ func _on_PlayAgainButton_pressed():
 func _on_MainMenuButton_pressed():
 	emit_signal("main_menu")
 	hide()
+
+
+func _on_Player_rage_mode_on():
+	$VBoxContainer/AmmoCount.add_color_override("font_color", "c70000")
+	$VBoxContainer/AmmoCount.text = "Ammo: RAGE MODE"
+
+
+func _on_Player_rage_mode_off():
+	$VBoxContainer/AmmoCount.add_color_override("font_color", "ffffff")
+	
+
+func _on_Player_ammo_change(player_ammo):
+	$VBoxContainer/AmmoCount.text = "Ammo: " + str(player_ammo)
