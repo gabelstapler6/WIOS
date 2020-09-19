@@ -8,8 +8,7 @@ signal update_shop_stock(rage_stock, ammo_stock, vertical_stock)
 signal update_shop_price(rage_price, ammo_price, vertical_price)
 
 signal vertical_movement_bought
-signal ammo_increase_bought
-signal rage_mode_bought
+
 signal rage_mode_on
 signal rage_mode_off
 
@@ -22,7 +21,7 @@ var screen_size
 
 var shooting = false
 var ammo = 0
-var score = 20000
+var score = 0
 
 var rage_mode_on = false
 var ammo_save = 0
@@ -110,6 +109,7 @@ func _on_Shop_buy_vertical_movement():
 		$PlayerInventory.vertical_movement_stock = 1
 		update_shop_stock($PlayerInventory.rage_mode_stock, $PlayerInventory.ammo_increase_stock, $PlayerInventory.vertical_movement_stock)
 		emit_signal("update_score", score)
+		emit_signal("vertical_movement_bought")
 	else:
 		emit_signal("not_enough_cash_mf")
 

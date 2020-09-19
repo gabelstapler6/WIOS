@@ -52,25 +52,13 @@ func _on_Player_vertical_movement_bought():
 	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementButton.add_color_override("font_color", "8a8a8a")
 
 
-func increase_rage_mode_stock():
-	var stock = int($VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock.text) 
-	stock += 1
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock.text = str(stock)
-	
-func decrease_rage_mode_stock():
-	var stock = int($VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock.text) 
-	stock -= 1
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock.text = str(stock)
-	
-func _on_Player_rage_mode_bought():
-	# show_success_popup()
-	increase_rage_mode_stock()
+func update_shop_stock(rage_stock, ammo_stock, vertical_stock):
+	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncStock.text = str(ammo_stock)
+	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock.text = str(rage_stock)
+	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementStock.text = str(vertical_stock)
 
-func increase_ammo_increase_stock():
-	var stock = int($VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncStock.text) 
-	stock += 1
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncStock.text = str(stock)
 
-func _on_Player_ammo_increase_bought():
-	increase_ammo_increase_stock()
-	
+func _on_Player_update_shop_price(rage_price, ammo_price, vertical_price):
+	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncPrice.text = str(ammo_price)
+	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModePrice.text = str(rage_price)
+	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementPrice.text = str(vertical_price)
