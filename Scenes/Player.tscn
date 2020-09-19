@@ -31,4 +31,11 @@ animation = "move"
 shape = SubResource( 2 )
 
 [node name="PlayerInventory" parent="." instance=ExtResource( 3 )]
+
+[node name="RageModeTimer" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
+[connection signal="update_shop_price" from="PlayerInventory" to="." method="update_shop_price"]
+[connection signal="update_shop_stock" from="PlayerInventory" to="." method="update_shop_stock"]
+[connection signal="timeout" from="RageModeTimer" to="." method="_on_RageModeTimer_timeout"]
