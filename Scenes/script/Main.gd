@@ -4,6 +4,10 @@ extends Node
 export (PackedScene) var Tile
 export (PackedScene) var Bullet
 var score
+var score_balance
+var score_multiplier = 2
+
+var cycle_counter = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,21 +24,24 @@ func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$Canvas/GUI.show_game_over()
-	$Canvas/SoundButton.show()
 	get_tree().call_group("tiles", "queue_free")
+	
+	score_balance = score
+	# score wird bei 200 2x, bei 400 3x, 600 4x usw multiplied 
+	# nur die Differenz zu den Stufen wird multipliziert
 	if score > 200:
-		var help = score - 200
-		help *= 2
-		if score > 400:
-			var help2 = score - 400
-			help2 *= 4
-			score += help2
-		score += help
+		var i = 2
+		while i <= score_multiplier:
+			var x = 0
+			var help = score - ((i + x) * 100)
+			help *= i
+			score_balance += help
+			i += 1
+			x += 1
 		
-	$Player.score += score
+	$Player.score += score_balance
 	$Canvas/PlayerScoreBalance.update_score($Player.score)
 	$Player.shooting = false
-	
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -64,33 +71,20 @@ func _on_ScoreTimer_timeout():
 		if score > 200:
 			$Player.add_ammo()
 	
-	if score == 50:
-		$MobTimer.wait_time = 0.4
-		$Canvas/GUI.show_message("Watch out!")
-
-	if score == 100:
-		$MobTimer.wait_time = 0.3
-		$Canvas/GUI.show_message("Watch out!")
-	
-	if score == 150:
-		$MobTimer.wait_time = 0.2
-		$Canvas/GUI.show_message("Watch out!")
+	if score % 50 == 0:
+		if $MobTimer.wait_time == 0.1:
+			cycle_counter += 1
+			
+		if cycle_counter % 2 == 1:
+			$MobTimer.wait_time -= 0.1
+		else:
+			$MobTimer.wait_time += 0.1
 		
-	if score == 200:
-		$MobTimer.wait_time = 0.1
-		$Canvas/GUI.show_message("Watch out!\n2x Score multiplier!")
-	
-	if score == 250:
-		$MobTimer.wait_time = 0.2
-		$Canvas/GUI.show_message("you made the hardest part bro")
-		
-	if score == 300:
-		$MobTimer.wait_time = 0.3
-		$Canvas/GUI.show_message("chill a little")
-		
-	if score == 400:
-		$MobTimer.wait_time = 0.2
-		$Canvas/GUI.show_message("Watch out!\n4x Score multiplier!")
+		if score % 200 == 0:
+			$Canvas/GUI.show_message( str(score_multiplier) + "x Score multiplier!")
+			score_multiplier += 1
+			return
+		$Canvas/GUI.show_message("Tiles spawn faster\nwatch out!")
 
 func _on_StartTimer_timeout():
 	$MobTimer.start()
@@ -113,14 +107,19 @@ func _on_MainMenu_start_game():
 	score = 0
 	$Canvas/GUI.show()
 	$Canvas/PlayerScoreBalance.hide()
-	$Canvas/SoundButton.hide()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$Canvas/GUI.update_score(score)
 	$Canvas/GUI.show_message("Get Ready")
 	$Player.emit_signal("ammo_change", $Player.ammo)
+	$Canvas/GUI.is_disabled(false)
 
 
 func _on_GUI_main_menu():
 	$Canvas/MainMenu.show()
 	$Canvas/PlayerScoreBalance.show()
+
+
+func _on_GUI_save_button_pressed():
+	$Canvas/GUI.set_highscore_entry(score)
+	$Canvas/GUI.is_disabled(true)
