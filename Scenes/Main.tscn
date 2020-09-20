@@ -86,6 +86,7 @@ visible = false
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="main_menu" from="Canvas/GUI" to="." method="_on_GUI_main_menu"]
 [connection signal="play_again" from="Canvas/GUI" to="." method="_on_MainMenu_start_game"]
+[connection signal="save_button_pressed" from="Canvas/GUI" to="." method="_on_GUI_save_button_pressed"]
 [connection signal="buy_ammo_increase" from="Canvas/Shop" to="Player" method="_on_Shop_buy_ammo_increase"]
 [connection signal="buy_rage_mode" from="Canvas/Shop" to="Player" method="_on_Shop_buy_rage_mode"]
 [connection signal="buy_vertical_movement" from="Canvas/Shop" to="Player" method="_on_Shop_buy_vertical_movement"]
