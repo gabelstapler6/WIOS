@@ -1,7 +1,6 @@
 extends MarginContainer
 
-signal sound_on
-signal sound_off
+
 signal start_game
 
 

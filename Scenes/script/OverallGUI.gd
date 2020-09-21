@@ -24,11 +24,6 @@ func _ready():
 
 
 
-func _on_Shop_go_back():
-	$PlayerScoreBalance.show()
-	$MainMenu.show()
-
-
 func _on_SoundButton_sound_off():
 	$Music.stop()
 
@@ -38,16 +33,19 @@ func _on_SoundButton_sound_on():
 
 
 func _on_ShopButton_open_shop():
+	shop_button.hide()
 	$GUI.hide()
 	$MainMenu.hide()
 	$Shop.show()
 
 
-func setup_gui():
+func setup_gui(player_values):
 	$LoginView.hide()
 	$MainMenu.show()
 	$PlayerScoreBalance.show()
 	$ShopButton.show()
+	shop.update_shop_stock(player_values.RageMode_stock, player_values.AmmoIncrease_stock, player_values.VerticalMovement_stock)
+	update_score_tag(player_values.scoreBalance)
 
 func update_score(score):
 	gui.update_score(score)
@@ -65,6 +63,7 @@ func start_game():
 func show_game_over():
 	gui.show_game_over()
 	version_tag.show()
+	player_score_tag.show()
 	shop_button.show()
 	
 func show_message(message):
@@ -76,3 +75,10 @@ func get_username():
 	
 func get_password():
 	return login_view.get_password()
+
+
+func main_menu():
+	gui.hide()
+	shop.hide()
+	main_menu.show()
+	shop_button.show()

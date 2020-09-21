@@ -9,7 +9,7 @@
 [ext_resource path="res://Assets/img/Galaxy.jpg" type="Texture" id=7]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/script/Canvas.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/script/OverallGUI.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/PlayerScoreBalance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SoundButton.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/VersionTag.tscn" type="PackedScene" id=13]
@@ -59,63 +59,62 @@ rotation = -0.000110607
 
 [node name="Database" parent="." instance=ExtResource( 15 )]
 
-[node name="Canvas" type="CanvasLayer" parent="."]
+[node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
 
-[node name="Music" type="AudioStreamPlayer" parent="Canvas"]
+[node name="Music" type="AudioStreamPlayer" parent="GUI"]
 stream = ExtResource( 6 )
 
-[node name="LoginView" parent="Canvas" instance=ExtResource( 14 )]
+[node name="LoginView" parent="GUI" instance=ExtResource( 14 )]
 
-[node name="VersionTag" parent="Canvas" instance=ExtResource( 13 )]
+[node name="VersionTag" parent="GUI" instance=ExtResource( 13 )]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -50.0
 margin_right = 163.0
 margin_bottom = 0.0
 
-[node name="GUI" parent="Canvas" instance=ExtResource( 4 )]
+[node name="GUI" parent="GUI" instance=ExtResource( 4 )]
 visible = false
 
-[node name="PlayerScoreBalance" parent="Canvas" instance=ExtResource( 11 )]
+[node name="PlayerScoreBalance" parent="GUI" instance=ExtResource( 11 )]
 visible = false
 margin_right = -1171.0
 margin_bottom = -677.0
 
-[node name="Shop" parent="Canvas" instance=ExtResource( 9 )]
+[node name="Shop" parent="GUI" instance=ExtResource( 9 )]
 visible = false
 
-[node name="MainMenu" parent="Canvas" instance=ExtResource( 8 )]
+[node name="MainMenu" parent="GUI" instance=ExtResource( 8 )]
 visible = false
 
-[node name="SoundButton" parent="Canvas" instance=ExtResource( 12 )]
+[node name="SoundButton" parent="GUI" instance=ExtResource( 12 )]
 
-[node name="ShopButton" parent="Canvas" instance=ExtResource( 16 )]
+[node name="ShopButton" parent="GUI" instance=ExtResource( 16 )]
 visible = false
-[connection signal="ammo_change" from="Player" to="Canvas/GUI" method="_on_Player_ammo_change"]
+[connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
-[connection signal="not_enough_cash_mf" from="Player" to="Canvas/Shop" method="_on_Player_not_enough_cash_mf"]
-[connection signal="rage_mode_off" from="Player" to="Canvas/GUI" method="_on_Player_rage_mode_off"]
-[connection signal="rage_mode_on" from="Player" to="Canvas/GUI" method="_on_Player_rage_mode_on"]
+[connection signal="not_enough_cash_mf" from="Player" to="GUI/Shop" method="_on_Player_not_enough_cash_mf"]
+[connection signal="rage_mode_off" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_off"]
+[connection signal="rage_mode_on" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_on"]
 [connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
-[connection signal="update_score" from="Player" to="Canvas/PlayerScoreBalance" method="update_score"]
-[connection signal="update_shop_price" from="Player" to="Canvas/Shop" method="_on_Player_update_shop_price"]
-[connection signal="update_shop_stock" from="Player" to="Canvas/Shop" method="update_shop_stock"]
-[connection signal="vertical_movement_bought" from="Player" to="Canvas/Shop" method="_on_Player_vertical_movement_bought"]
+[connection signal="update_score" from="Player" to="GUI/PlayerScoreBalance" method="update_score"]
+[connection signal="update_shop_price" from="Player" to="GUI/Shop" method="_on_Player_update_shop_price"]
+[connection signal="update_shop_stock" from="Player" to="GUI/Shop" method="update_shop_stock"]
+[connection signal="vertical_movement_bought" from="Player" to="GUI/Shop" method="_on_Player_vertical_movement_bought"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
-[connection signal="enter_pressed" from="Canvas/LoginView" to="." method="_on_LoginView_enter_pressed"]
-[connection signal="main_menu" from="Canvas/GUI" to="." method="_on_GUI_main_menu"]
-[connection signal="play_again" from="Canvas/GUI" to="." method="_on_MainMenu_start_game"]
-[connection signal="save_button_pressed" from="Canvas/GUI" to="." method="_on_GUI_save_button_pressed"]
-[connection signal="buy_ammo_increase" from="Canvas/Shop" to="Player" method="_on_Shop_buy_ammo_increase"]
-[connection signal="buy_rage_mode" from="Canvas/Shop" to="Player" method="_on_Shop_buy_rage_mode"]
-[connection signal="buy_vertical_movement" from="Canvas/Shop" to="Player" method="_on_Shop_buy_vertical_movement"]
-[connection signal="go_back" from="Canvas/Shop" to="Canvas" method="_on_Shop_go_back"]
-[connection signal="sound_off" from="Canvas/MainMenu" to="." method="_on_MainMenu_sound_off"]
-[connection signal="sound_on" from="Canvas/MainMenu" to="." method="_on_MainMenu_sound_on"]
-[connection signal="start_game" from="Canvas/MainMenu" to="." method="_on_MainMenu_start_game"]
-[connection signal="sound_off" from="Canvas/SoundButton" to="Canvas" method="_on_SoundButton_sound_off"]
-[connection signal="sound_on" from="Canvas/SoundButton" to="Canvas" method="_on_SoundButton_sound_on"]
-[connection signal="open_shop" from="Canvas/ShopButton" to="Canvas" method="_on_ShopButton_open_shop"]
+[connection signal="enter_pressed" from="GUI/LoginView" to="." method="_on_LoginView_enter_pressed"]
+[connection signal="main_menu" from="GUI/GUI" to="GUI" method="main_menu"]
+[connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
+[connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
+[connection signal="buy_ammo_increase" from="GUI/Shop" to="Player" method="_on_Shop_buy_ammo_increase"]
+[connection signal="buy_rage_mode" from="GUI/Shop" to="Player" method="_on_Shop_buy_rage_mode"]
+[connection signal="buy_vertical_movement" from="GUI/Shop" to="Player" method="_on_Shop_buy_vertical_movement"]
+[connection signal="go_back" from="GUI/Shop" to="GUI" method="main_menu"]
+[connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]
+[connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
+[connection signal="sound_off" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_off"]
+[connection signal="sound_on" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_on"]
+[connection signal="open_shop" from="GUI/ShopButton" to="GUI" method="_on_ShopButton_open_shop"]

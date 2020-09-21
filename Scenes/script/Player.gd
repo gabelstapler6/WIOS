@@ -89,6 +89,7 @@ func use_rage_mode():
 			ammo_save = ammo
 			ammo = 9999999999
 			rage_mode_on = true
+			update_shop_stock($PlayerInventory.rage_mode_stock, $PlayerInventory.ammo_increase_stock, $PlayerInventory.vertical_movement_stock)
 			emit_signal("rage_mode_on")
 
 func _on_Player_body_entered(_body):

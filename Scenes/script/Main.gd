@@ -11,14 +11,8 @@ var cycle_counter = 1
 
 var player_values
 
-onready var main_menu = $Canvas/MainMenu
-onready var gui = $Canvas/GUI
-onready var login_view = $Canvas/LoginView
-onready var player_score_tag = $Canvas/PlayerScoreBalance
-onready var version_tag = $Canvas/VersionTag
-onready var shop = $Canvas/Shop
-onready var sound_button = $Canvas/SoundButton
 
+onready var gui = $GUI
 onready var player = $Player
 var db
 
@@ -27,8 +21,6 @@ func _ready():
 	randomize()
 	db = $Database
 	db.open_connection()
-	player_score_tag.update_score($Player.score)
-	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +30,10 @@ func _ready():
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	player.shooting = false
+	
 	gui.show_game_over()
+	
 	get_tree().call_group("tiles", "queue_free")
 	
 	score_balance = score
@@ -55,14 +50,11 @@ func game_over():
 			x += 1
 		
 	player.score += score_balance
-	player_score_tag.update_score(player.score)
+	gui.update_score_tag(player.score)
 	
 	# den run in die Datenbank packen
 	db.update_player_scoreBalance(player.score)
 	db.update_player_highscore(score)
-		
-	player.shooting = false
-	version_tag.show()
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -79,7 +71,7 @@ func _on_MobTimer_timeout():
 
 func _on_ScoreTimer_timeout():
 	score += 1
-	$Canvas/GUI.update_score(score)
+	gui.update_score(score)
 		
 	if score % 10 == 0:
 		$Player.add_ammo()
@@ -102,10 +94,11 @@ func _on_ScoreTimer_timeout():
 			$MobTimer.wait_time += 0.1
 		
 		if score % 200 == 0:
-			$Canvas/GUI.show_message( str(score_multiplier) + "x Score multiplier!")
+			gui.show_message( str(score_multiplier) + "x Score multiplier!")
 			score_multiplier += 1
 			return
-		$Canvas/GUI.show_message("Tiles spawn faster\nwatch out!")
+		gui.show_message("Tiles spawn faster\nwatch out!")
+
 
 func _on_StartTimer_timeout():
 	$MobTimer.start()
@@ -116,47 +109,35 @@ func _on_Player_shoot_bullet():
 	var bullet = Bullet.instance()
 	bullet.add_to_group("tiles")
 	add_child(bullet)
-	bullet.position = $Player.get_position()
+	bullet.position = player.get_position()
 	bullet.position.y -= 100
 	bullet.linear_velocity = Vector2(1, -bullet.speed)
 
+
 func _on_MainMenu_start_game():
-	version_tag.hide()
-	gui.show_ingame_hud()
-	
-	$Player.shooting = true
-	$Player.ammo = 0
-	$Player.add_ammo()
+	player.shooting = true
+	player.ammo = 0
+	player.add_ammo()
 	$MobTimer.wait_time = 0.5
 	score = 0
-	
-	$Canvas/PlayerScoreBalance.hide()
-	$Player.start($StartPosition.position)
+	player.start($StartPosition.position)
 	$StartTimer.start()
-	$Canvas/GUI.update_score(score)
-	$Canvas/GUI.show_message("Get Ready")
-	$Player.emit_signal("ammo_change", $Player.ammo)
-	$Canvas/GUI.is_disabled(false)
-
-
-func _on_GUI_main_menu():
-	$Canvas/MainMenu.show()
-	$Canvas/PlayerScoreBalance.show()
-
-
-func _on_GUI_save_button_pressed():
-	$Canvas/GUI.set_highscore_entry(score)
-	$Canvas/GUI.is_disabled(true)
-
+	player.emit_signal("ammo_change", player.ammo)
+	
+	gui.update_score(score)
+	
 
 func _on_LoginView_enter_pressed():
-	if db.check_password(login_view.get_username(), login_view.get_password()):
-		$Canvas._on_LoginView_enter_pressed()
+	if db.check_password(gui.get_username(), gui.get_password()):
+		
 		db.setup_game()
 		
 		player_values = db.retrieve_player_values()
 		player.score = player_values.scoreBalance
-		player_score_tag.update_score(player.score)
+		$Player/PlayerInventory.ammo_increase_stock = player_values.AmmoIncrease_stock
+		$Player/PlayerInventory.vertical_movement_stock = player_values.VerticalMovement_stock
+		$Player/PlayerInventory.rage_mode_stock = player_values.RageMode_stock
+		gui.setup_gui(player_values)
 	else:
 		#TODO fail popup
 		pass
