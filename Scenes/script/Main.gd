@@ -9,11 +9,21 @@ var score_multiplier = 2
 
 var cycle_counter = 1
 
+onready var main_menu = $Canvas/MainMenu
+onready var gui = $Canvas/GUI
+onready var login_view = $Canvas/LoginView
+onready var player_score_tag = $Canvas/PlayerScoreBalance
+onready var version_tag = $Canvas/VersionTag
+onready var shop = $Canvas/Shop
+onready var sound_button = $Canvas/SoundButton
+onready var db = $Database
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	$Canvas/PlayerScoreBalance.update_score($Player.score)
+	db.open_connection()
+	player_score_tag.update_score($Player.score)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -101,13 +111,15 @@ func _on_Player_shoot_bullet():
 	bullet.linear_velocity = Vector2(1, -bullet.speed)
 
 func _on_MainMenu_start_game():
-	$Canvas/VersionTag.hide()
+	version_tag.hide()
+	gui.show_ingame_hud()
+	
 	$Player.shooting = true
 	$Player.ammo = 0
 	$Player.add_ammo()
 	$MobTimer.wait_time = 0.5
 	score = 0
-	$Canvas/GUI.show()
+	
 	$Canvas/PlayerScoreBalance.hide()
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
@@ -125,3 +137,15 @@ func _on_GUI_main_menu():
 func _on_GUI_save_button_pressed():
 	$Canvas/GUI.set_highscore_entry(score)
 	$Canvas/GUI.is_disabled(true)
+
+
+func _on_LoginView_enter_pressed():
+	if db.check_password(login_view.get_username(), login_view.get_password()):
+		login_view.hide()
+		main_menu.show()
+		player_score_tag.show()
+	else:
+		#TODO popup
+		pass
+	
+	

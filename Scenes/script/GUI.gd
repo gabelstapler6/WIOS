@@ -13,31 +13,27 @@ onready var first_score_label = $VBoxContainer/CenterContainer/VBoxContainer/VBo
 onready var second_score_label = $VBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/SecondScore
 onready var third_score_label = $VBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/ThirdScore
 onready var highscore_label = $VBoxContainer/CenterContainer/VBoxContainer/VBoxContainer/HighScores
-
+onready var play_again_button = $VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/PlayAgainButton
+onready var main_menu_button = $VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/MainMenuButton
+onready var name_line_edit = $VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/NameLineEdit
+onready var save_button = $VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/SaveScoreButton
+onready var ammo_label = $VBoxContainer/AmmoCount
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	third_score_label.hide()
-	highscore_label.hide()
 	pass
 
-
-func hide():
-	$VBoxContainer/CenterScore/ScoreLabel.hide()
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.hide()
-	$VBoxContainer/AmmoCount.hide()
-	$VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/PlayAgainButton.hide()
-	$VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/MainMenuButton.hide()
+func show_ingame_hud():
+	show()
+	ammo_label.show()
+	highscore_label.hide()
 	first_score_label.hide()
 	second_score_label.hide()
 	third_score_label.hide()
-	highscore_label.hide()
-	$VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/NameLineEdit.hide()
-	$VBoxContainer/CenterContainer/VBoxContainer/HBoxContainer/SaveScoreButton.hide()
+	play_again_button.hide()
+	main_menu_button.hide()
+	name_line_edit.hide()
+	save_button.hide()
 	
-func show():
-	$VBoxContainer/CenterScore/ScoreLabel.show()
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.show()
-	$VBoxContainer/AmmoCount.show()
 
 func show_message(text):
 	$VBoxContainer/CenterContainer/VBoxContainer/Message.text = text

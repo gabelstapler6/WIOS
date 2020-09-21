@@ -26,12 +26,6 @@ func _ready():
 	
 	db.verbose_mode = true
 	db.foreign_keys = true
-	
-	open_connection()
-	
-	current_select = db.select_rows(Items_Table, "", ["*"])
-	for i in current_select:
-		items_array.append(i)
 
 
 func close_connection():
@@ -45,7 +39,10 @@ func open_connection():
 	else:
 		print(db.error_message)
 		return
-	
+		
+	current_select = db.select_rows(Items_Table, "", ["*"])
+	for i in current_select:
+		items_array.append(i)
 
 func check_password(username, pw):
 	username = "'" + username + "'"

@@ -96,3 +96,4 @@ margin_bottom = 25.0
 custom_fonts/font = SubResource( 8 )
 shortcut = SubResource( 10 )
 text = "enter"
+[connection signal="pressed" from="VBox/Margin/VBox/Center/enterButton" to="." method="_on_enterButton_pressed"]
