@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Scenes/VersionTag.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/LoginView.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/Database.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/ShopButton.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -88,6 +89,9 @@ visible = false
 visible = false
 
 [node name="SoundButton" parent="Canvas" instance=ExtResource( 12 )]
+
+[node name="ShopButton" parent="Canvas" instance=ExtResource( 16 )]
+visible = false
 [connection signal="ammo_change" from="Player" to="Canvas/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="not_enough_cash_mf" from="Player" to="Canvas/Shop" method="_on_Player_not_enough_cash_mf"]
@@ -109,9 +113,9 @@ visible = false
 [connection signal="buy_rage_mode" from="Canvas/Shop" to="Player" method="_on_Shop_buy_rage_mode"]
 [connection signal="buy_vertical_movement" from="Canvas/Shop" to="Player" method="_on_Shop_buy_vertical_movement"]
 [connection signal="go_back" from="Canvas/Shop" to="Canvas" method="_on_Shop_go_back"]
-[connection signal="open_shop" from="Canvas/MainMenu" to="Canvas" method="_on_MainMenu_open_shop"]
 [connection signal="sound_off" from="Canvas/MainMenu" to="." method="_on_MainMenu_sound_off"]
 [connection signal="sound_on" from="Canvas/MainMenu" to="." method="_on_MainMenu_sound_on"]
 [connection signal="start_game" from="Canvas/MainMenu" to="." method="_on_MainMenu_start_game"]
 [connection signal="sound_off" from="Canvas/SoundButton" to="Canvas" method="_on_SoundButton_sound_off"]
 [connection signal="sound_on" from="Canvas/SoundButton" to="Canvas" method="_on_SoundButton_sound_on"]
+[connection signal="open_shop" from="Canvas/ShopButton" to="Canvas" method="_on_ShopButton_open_shop"]

@@ -11,15 +11,9 @@ func _ready():
 	$Music.play()
 	$GUI.hide()
 	$Shop.hide()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-func _on_MainMenu_open_shop():
-	$Shop.show()
+	$MainMenu.hide()
+	$ShopButton.hide()
+	$PlayerScoreBalance.hide()
 
 
 func _on_Shop_go_back():
@@ -32,3 +26,16 @@ func _on_SoundButton_sound_off():
 
 func _on_SoundButton_sound_on():
 	$Music.play()
+
+
+func _on_ShopButton_open_shop():
+	$GUI.hide()
+	$MainMenu.hide()
+	$Shop.show()
+
+
+func _on_LoginView_enter_pressed():
+	$LoginView.hide()
+	$MainMenu.show()
+	$PlayerScoreBalance.show()
+	$ShopButton.show()

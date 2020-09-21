@@ -4,6 +4,7 @@ extends Node
 const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
 var db
 var path_to_db = "res://data"
+var json_path = "res://data.json"
 
 var Player_Table = "Player"
 var where_user_is = "username = "
@@ -23,26 +24,22 @@ func _ready():
 	db = SQLite.new()
 	db.path = path_to_db
 	
+	db.verbose_mode = true
+	db.foreign_keys = true
+
+
+func close_connection():
+	db.export_to_json(json_path)
+	db.close_connection()
+	
+func open_connection():
+	# db.import_from_json(json_path)
 	if db.open_db() :
 		print("Database opened successfully")
 	else:
 		print(db.error_message)
 		return
-	
-	db.verbose_mode = true
-	db.foreign_keys = true
-	
-	current_select = db.select_rows(Items_Table, "", ["*"])
-	for i in current_select:
-		items_array.append(i)
-	
-	# db.import_from_json("res://json_export.json")
-	db.export_to_json("res://data.json")
-	
-	# TODO: das entfernen (zum testen) #################################################
-	if check_password("yunggabel", "yunggabel123"):
-		setup_inventory()
-		retrieve_player_values()
+		
 
 func check_password(username, pw):
 	username = "'" + username + "'"
@@ -63,7 +60,7 @@ func check_password(username, pw):
 	return false
 
 # fuellt das inventory des Players mit den Startitems, falls noch nicht getan
-func setup_inventory():	
+func setup_game():	
 	current_select = db.select_rows(Inventory_Table, "playerID=" + str(logged_player.ID), ["*"])
 	if current_select.size() == 3:
 		return
@@ -79,6 +76,11 @@ func setup_inventory():
 		def_stock = 0
 			
 	db.insert_rows(Inventory_Table, join)
+	
+	# die items in ein array speichern
+	current_select = db.select_rows(Items_Table, "", ["*"])
+	for i in current_select:
+		items_array.append(i)
 
 
 func update_player_scoreBalance(scoreBalance):

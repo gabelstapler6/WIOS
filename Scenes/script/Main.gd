@@ -9,6 +9,8 @@ var score_multiplier = 2
 
 var cycle_counter = 1
 
+var player_values
+
 onready var main_menu = $Canvas/MainMenu
 onready var gui = $Canvas/GUI
 onready var login_view = $Canvas/LoginView
@@ -16,11 +18,14 @@ onready var player_score_tag = $Canvas/PlayerScoreBalance
 onready var version_tag = $Canvas/VersionTag
 onready var shop = $Canvas/Shop
 onready var sound_button = $Canvas/SoundButton
-onready var db = $Database
+
+onready var player = $Player
+var db
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	db = $Database
 	db.open_connection()
 	player_score_tag.update_score($Player.score)
 	
@@ -33,7 +38,7 @@ func _ready():
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$Canvas/GUI.show_game_over()
+	gui.show_game_over()
 	get_tree().call_group("tiles", "queue_free")
 	
 	score_balance = score
@@ -49,10 +54,15 @@ func game_over():
 			i += 1
 			x += 1
 		
-	$Player.score += score_balance
-	$Canvas/PlayerScoreBalance.update_score($Player.score)
-	$Player.shooting = false
-	$Canvas/VersionTag.show()
+	player.score += score_balance
+	player_score_tag.update_score(player.score)
+	
+	# den run in die Datenbank packen
+	db.update_player_scoreBalance(player.score)
+	db.update_player_highscore(score)
+		
+	player.shooting = false
+	version_tag.show()
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -141,11 +151,14 @@ func _on_GUI_save_button_pressed():
 
 func _on_LoginView_enter_pressed():
 	if db.check_password(login_view.get_username(), login_view.get_password()):
-		login_view.hide()
-		main_menu.show()
-		player_score_tag.show()
+		$Canvas._on_LoginView_enter_pressed()
+		db.setup_game()
+		
+		player_values = db.retrieve_player_values()
+		player.score = player_values.scoreBalance
+		player_score_tag.update_score(player.score)
 	else:
-		#TODO popup
+		#TODO fail popup
 		pass
 	
 	
