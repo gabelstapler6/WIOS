@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/script/MainMenu.gd" type="Script" id=2]
 
@@ -8,37 +8,31 @@ font_path = "res://Assets/font/Akira Expanded Demo.otf"
 [sub_resource type="DynamicFont" id=2]
 font_data = SubResource( 1 )
 
-[sub_resource type="InputEventAction" id=11]
+[sub_resource type="InputEventAction" id=3]
 action = "enter_shop"
 
-[sub_resource type="ShortCut" id=12]
-shortcut = SubResource( 11 )
-
-[sub_resource type="DynamicFontData" id=3]
-font_path = "res://Assets/font/Akira Expanded Demo.otf"
-
-[sub_resource type="DynamicFont" id=4]
-size = 40
-font_data = SubResource( 3 )
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
 
 [sub_resource type="DynamicFontData" id=5]
 font_path = "res://Assets/font/Akira Expanded Demo.otf"
 
 [sub_resource type="DynamicFont" id=6]
-size = 20
+size = 40
 font_data = SubResource( 5 )
 
-[sub_resource type="InputEventAction" id=7]
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://Assets/font/Akira Expanded Demo.otf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 20
+font_data = SubResource( 7 )
+
+[sub_resource type="InputEventAction" id=9]
 action = "play_game"
 
-[sub_resource type="ShortCut" id=8]
-shortcut = SubResource( 7 )
-
-[sub_resource type="DynamicFontData" id=9]
-font_path = "res://Assets/font/ArialMdm.ttf"
-
-[sub_resource type="DynamicFont" id=10]
-font_data = SubResource( 9 )
+[sub_resource type="ShortCut" id=10]
+shortcut = SubResource( 9 )
 
 [node name="MainMenu" type="MarginContainer"]
 anchor_right = 1.0
@@ -64,7 +58,7 @@ margin_right = 974.0
 margin_bottom = 24.0
 size_flags_horizontal = 8
 custom_fonts/font = SubResource( 2 )
-shortcut = SubResource( 12 )
+shortcut = SubResource( 4 )
 text = "shop"
 flat = true
 __meta__ = {
@@ -74,20 +68,20 @@ __meta__ = {
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
 margin_top = 28.0
 margin_right = 974.0
-margin_bottom = 497.0
+margin_bottom = 526.0
 size_flags_vertical = 3
 
 [node name="VBoxTitleScreen" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
 margin_left = 129.0
-margin_top = 182.0
+margin_top = 197.0
 margin_right = 845.0
-margin_bottom = 286.0
+margin_bottom = 301.0
 custom_constants/separation = 33
 
 [node name="GameTitle" type="Label" parent="VBoxContainer/CenterContainer/VBoxTitleScreen"]
 margin_right = 716.0
 margin_bottom = 43.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "wasted in outta space"
 
 [node name="MarginPlayButtons" type="MarginContainer" parent="VBoxContainer/CenterContainer/VBoxTitleScreen"]
@@ -101,36 +95,9 @@ custom_constants/margin_left = 200
 margin_left = 200.0
 margin_right = 516.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 6 )
-shortcut = SubResource( 8 )
+custom_fonts/font = SubResource( 8 )
+shortcut = SubResource( 10 )
 text = "play"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 501.0
-margin_right = 974.0
-margin_bottom = 526.0
-custom_constants/separation = 50
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VersionLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
-margin_top = 3.0
-margin_right = 28.0
-margin_bottom = 22.0
-custom_fonts/font = SubResource( 10 )
-text = "v1.3"
-
-[node name="CreditButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 78.0
-margin_right = 138.0
-margin_bottom = 25.0
-custom_fonts/font = SubResource( 10 )
-text = "credits"
-flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

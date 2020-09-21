@@ -42,6 +42,7 @@ func game_over():
 	$Player.score += score_balance
 	$Canvas/PlayerScoreBalance.update_score($Player.score)
 	$Player.shooting = false
+	$Canvas/VersionTag.show()
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -100,6 +101,7 @@ func _on_Player_shoot_bullet():
 	bullet.linear_velocity = Vector2(1, -bullet.speed)
 
 func _on_MainMenu_start_game():
+	$Canvas/VersionTag.hide()
 	$Player.shooting = true
 	$Player.ammo = 0
 	$Player.add_ammo()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scenes/script/Canvas.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/PlayerScoreBalance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SoundButton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/VersionTag.tscn" type="PackedScene" id=13]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -55,6 +56,13 @@ rotation = -0.000110607
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
+
+[node name="VersionTag" parent="Canvas" instance=ExtResource( 13 )]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -50.0
+margin_right = 163.0
+margin_bottom = 0.0
 
 [node name="Music" type="AudioStreamPlayer" parent="Canvas"]
 stream = ExtResource( 6 )

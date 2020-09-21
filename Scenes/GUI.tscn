@@ -22,36 +22,36 @@ font_path = "res://Assets/font/Akira Expanded Demo.otf"
 [sub_resource type="DynamicFont" id=6]
 font_data = SubResource( 5 )
 
-[sub_resource type="DynamicFontData" id=9]
-font_path = "res://Assets/font/Akira Expanded Demo.otf"
-
-[sub_resource type="DynamicFont" id=10]
-size = 36
-font_data = SubResource( 9 )
-
 [sub_resource type="DynamicFontData" id=7]
 font_path = "res://Assets/font/Akira Expanded Demo.otf"
 
 [sub_resource type="DynamicFont" id=8]
+size = 36
 font_data = SubResource( 7 )
 
-[sub_resource type="InputEventAction" id=13]
+[sub_resource type="DynamicFontData" id=9]
+font_path = "res://Assets/font/Akira Expanded Demo.otf"
+
+[sub_resource type="DynamicFont" id=10]
+font_data = SubResource( 9 )
+
+[sub_resource type="InputEventAction" id=11]
 action = "play_game"
+
+[sub_resource type="ShortCut" id=12]
+shortcut = SubResource( 11 )
+
+[sub_resource type="InputEventAction" id=13]
+action = "go_to_main_menu"
 
 [sub_resource type="ShortCut" id=14]
 shortcut = SubResource( 13 )
 
 [sub_resource type="InputEventAction" id=15]
-action = "go_to_main_menu"
+action = "enter"
 
 [sub_resource type="ShortCut" id=16]
 shortcut = SubResource( 15 )
-
-[sub_resource type="InputEventAction" id=11]
-action = "enter_highscore"
-
-[sub_resource type="ShortCut" id=12]
-shortcut = SubResource( 11 )
 
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
@@ -148,7 +148,7 @@ __meta__ = {
 margin_top = 140.0
 margin_right = 287.0
 margin_bottom = 179.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 8 )
 text = "Game over"
 align = 1
 
@@ -171,8 +171,8 @@ custom_constants/separation = 8
 [node name="PlayAgainButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
 margin_right = 207.0
 margin_bottom = 24.0
-custom_fonts/font = SubResource( 8 )
-shortcut = SubResource( 14 )
+custom_fonts/font = SubResource( 10 )
+shortcut = SubResource( 12 )
 text = "play again"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -182,8 +182,8 @@ __meta__ = {
 margin_top = 32.0
 margin_right = 207.0
 margin_bottom = 56.0
-custom_fonts/font = SubResource( 8 )
-shortcut = SubResource( 16 )
+custom_fonts/font = SubResource( 10 )
+shortcut = SubResource( 14 )
 text = "main menu"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -201,7 +201,7 @@ __meta__ = {
 margin_right = 211.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 10 )
 text = "Flowerboy"
 align = 1
 __meta__ = {
@@ -212,8 +212,8 @@ __meta__ = {
 margin_left = 215.0
 margin_right = 287.0
 margin_bottom = 28.0
-custom_fonts/font = SubResource( 8 )
-shortcut = SubResource( 12 )
+custom_fonts/font = SubResource( 10 )
+shortcut = SubResource( 16 )
 text = "save"
 
 [node name="AmmoCount" type="Label" parent="VBoxContainer"]

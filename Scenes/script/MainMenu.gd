@@ -5,12 +5,10 @@ signal sound_off
 signal start_game
 signal open_shop
 
-export var version = "1.4.1"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/HBoxContainer/VersionLabel.text = "v" + version
+	pass
 
 func _on_PlayButton_pressed():
 	emit_signal("start_game")
