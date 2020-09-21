@@ -9,18 +9,17 @@ font_path = "res://Assets/font/Akira Expanded Demo.otf"
 size = 40
 font_data = SubResource( 5 )
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://Assets/font/Plateia Bold.ttf"
+[sub_resource type="DynamicFontData" id=9]
+font_path = "res://Assets/font/Akira Expanded Demo.otf"
 
-[sub_resource type="DynamicFont" id=2]
-size = 19
-font_data = SubResource( 1 )
+[sub_resource type="DynamicFont" id=10]
+font_data = SubResource( 9 )
 
-[sub_resource type="InputEventAction" id=9]
+[sub_resource type="InputEventAction" id=11]
 action = "play_game"
 
-[sub_resource type="ShortCut" id=10]
-shortcut = SubResource( 9 )
+[sub_resource type="ShortCut" id=12]
+shortcut = SubResource( 11 )
 
 [node name="MainMenu" type="MarginContainer"]
 anchor_right = 1.0
@@ -47,7 +46,7 @@ size_flags_vertical = 3
 
 [node name="VBoxTitleScreen" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
 margin_left = 129.0
-margin_top = 212.0
+margin_top = 213.0
 margin_right = 845.0
 margin_bottom = 313.0
 custom_constants/separation = 33
@@ -61,15 +60,15 @@ text = "wasted in outta space"
 [node name="MarginPlayButtons" type="CenterContainer" parent="VBoxContainer/CenterContainer/VBoxTitleScreen"]
 margin_top = 76.0
 margin_right = 716.0
-margin_bottom = 101.0
+margin_bottom = 100.0
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxTitleScreen/MarginPlayButtons"]
-margin_left = 317.0
-margin_right = 398.0
-margin_bottom = 25.0
+margin_left = 322.0
+margin_right = 393.0
+margin_bottom = 24.0
 size_flags_horizontal = 2
-custom_fonts/font = SubResource( 2 )
-shortcut = SubResource( 10 )
+custom_fonts/font = SubResource( 10 )
+shortcut = SubResource( 12 )
 text = "play"
 __meta__ = {
 "_edit_use_anchors_": false
