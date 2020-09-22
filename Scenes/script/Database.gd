@@ -113,3 +113,7 @@ func get_items_array():
 	for i in current_select:
 		items_array.append(i)
 	return items_array
+	
+func get_all_players_highscores():
+	current_select = db.select_rows(Player_Table, "", ["username", "highscore"])
+	return current_select
