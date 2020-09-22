@@ -83,10 +83,7 @@ func update_player_scoreBalance(scoreBalance):
 	
 
 func update_player_highscore(run_score):
-	current_select = db.select_rows(Player_Table, where_user_is, ["highscore"])
-	for i in current_select:
-		if i["highscore"] < run_score:
-			db.update_rows(Player_Table, where_user_is, {"highscore": run_score})
+	db.update_rows(Player_Table, where_user_is, {"highscore": run_score})
 
 
 func update_item_stock(item_name, stock):

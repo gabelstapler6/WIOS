@@ -66,11 +66,12 @@ func start_game():
 	player_score_tag.hide()
 	gui.show_message("Get Ready")
 	
-func show_game_over():
+func show_game_over(highscore):
 	gui.show_game_over()
 	version_tag.show()
 	player_score_tag.show()
 	shop_button.show()
+	gui.my_highscore.text = "your Highscore: " + str(highscore)
 	
 func show_message(message):
 	gui.show_message(message)

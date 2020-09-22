@@ -32,9 +32,6 @@ func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	player.shooting = false
-	
-	gui.show_game_over()
-	
 	get_tree().call_group("tiles", "queue_free")
 	
 	score_balance = score
@@ -52,10 +49,13 @@ func game_over():
 		
 	player.score += score_balance
 	gui.update_score_tag(player.score)
-	
 	# den run in die Datenbank packen
 	db.update_player_scoreBalance(player.score)
-	db.update_player_highscore(score)
+	if player_values["highscore"] < score:
+		db.update_player_highscore(score)
+		player_values["highscore"] = score
+		
+	gui.show_game_over(player_values["highscore"])
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
