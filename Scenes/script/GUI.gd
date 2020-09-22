@@ -53,12 +53,14 @@ func _on_MainMenuButton_pressed():
 
 
 func _on_Player_rage_mode_on():
-	$VBoxContainer/AmmoCount.add_color_override("font_color", "c70000")
-	$VBoxContainer/AmmoCount.text = "Ammo: RAGE MODE"
+	ammo_label.add_color_override("font_color", "c70000")
+	ammo_label.text = "Ammo: RAGE MODE"
+	
+	
 
 
 func _on_Player_rage_mode_off():
-	$VBoxContainer/AmmoCount.add_color_override("font_color", "ffffff")
+	ammo_label.add_color_override("font_color", "ffffff")
 	
 
 func _on_Player_ammo_change(player_ammo):

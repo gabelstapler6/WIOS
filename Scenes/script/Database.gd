@@ -76,11 +76,6 @@ func setup_game():
 		def_stock = 0
 			
 	db.insert_rows(Inventory_Table, join)
-	
-	# die items in ein array speichern
-	current_select = db.select_rows(Items_Table, "", ["*"])
-	for i in current_select:
-		items_array.append(i)
 
 
 func update_player_scoreBalance(scoreBalance):
@@ -88,16 +83,13 @@ func update_player_scoreBalance(scoreBalance):
 	
 
 func update_player_highscore(run_score):
-	current_select = db.select_rows(Player_Table, where_user_is, ["highscore"])
-	for i in current_select:
-		if i["highscore"] < run_score:
-			db.update_rows(Player_Table, where_user_is, {"highscore": run_score})
+	db.update_rows(Player_Table, where_user_is, {"highscore": run_score})
 
 
 func update_item_stock(item_name, stock):
 	for i in items_array:
 		if i["name"] == item_name:
-			db.update_rows(Inventory_Table, "itemID=" + str(i["ID"]), {"stock": stock})
+			db.update_rows(Inventory_Table, "itemID=" + str(i["ID"]) + " AND playerID=" + str(logged_player.ID) , {"stock": stock})
 			return
 
 func retrieve_player_values():
@@ -106,8 +98,18 @@ func retrieve_player_values():
 		"scoreBalance": logged_player.scoreBalance,
 		"highscore": logged_player.highscore
 	}
+	return dict
+
+func get_player_inventory():
 	current_select = db.select_rows("Inventory, Items", "playerID=" + str(logged_player.ID) + " AND Items.ID = itemID", ["*"])
+	var dict = {}
 	for i in current_select:
 		dict[i["name"] + "_stock"] = i["stock"]
-		
 	return dict
+
+func get_items_array():
+	# die items in ein array speichern
+	current_select = db.select_rows(Items_Table, "", ["*"])
+	for i in current_select:
+		items_array.append(i)
+	return items_array
