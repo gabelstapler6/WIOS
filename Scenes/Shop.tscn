@@ -20,32 +20,32 @@ action = "go_to_main_menu"
 [sub_resource type="ShortCut" id=6]
 shortcut = SubResource( 5 )
 
-[sub_resource type="DynamicFontData" id=13]
+[sub_resource type="DynamicFontData" id=7]
 font_path = "res://Assets/font/Plateia Bold.ttf"
 
-[sub_resource type="DynamicFont" id=14]
+[sub_resource type="DynamicFont" id=8]
 size = 38
-font_data = SubResource( 13 )
+font_data = SubResource( 7 )
 
-[sub_resource type="DynamicFontData" id=15]
+[sub_resource type="DynamicFontData" id=9]
 font_path = "res://Assets/font/Plateia Bold.ttf"
 
-[sub_resource type="DynamicFont" id=16]
+[sub_resource type="DynamicFont" id=10]
 size = 27
-font_data = SubResource( 15 )
-
-[sub_resource type="DynamicFontData" id=17]
-font_path = "res://Assets/font/Plateia Bold.ttf"
-
-[sub_resource type="DynamicFont" id=18]
-size = 17
-font_data = SubResource( 17 )
+font_data = SubResource( 9 )
 
 [sub_resource type="DynamicFontData" id=11]
-font_path = "res://Assets/font/Akira Expanded Demo.otf"
+font_path = "res://Assets/font/Plateia Bold.ttf"
 
 [sub_resource type="DynamicFont" id=12]
+size = 17
 font_data = SubResource( 11 )
+
+[sub_resource type="DynamicFontData" id=13]
+font_path = "res://Assets/font/Akira Expanded Demo.otf"
+
+[sub_resource type="DynamicFont" id=14]
+font_data = SubResource( 13 )
 
 [node name="Shop" type="MarginContainer"]
 anchor_right = 1.0
@@ -95,7 +95,7 @@ size_flags_horizontal = 3
 margin_left = 410.0
 margin_right = 564.0
 margin_bottom = 38.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 8 )
 text = "SHOP"
 
 [node name="ItemsCenter" type="CenterContainer" parent="VBox/ShopVBox"]
@@ -118,14 +118,14 @@ columns = 4
 [node name="ConsumablesLabel" type="Label" parent="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items"]
 margin_right = 490.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 10 )
 text = "Consumables"
 
 [node name="PriceLabel" type="Label" parent="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items"]
 margin_left = 546.0
 margin_right = 650.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 10 )
 text = "Price"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -135,7 +135,7 @@ __meta__ = {
 margin_left = 706.0
 margin_right = 828.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 10 )
 text = "Stock"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -154,7 +154,7 @@ __meta__ = {
 margin_top = 42.0
 margin_right = 490.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "Rage Mode (unlimited Ammo for 20sec)"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -165,7 +165,7 @@ margin_left = 546.0
 margin_top = 42.0
 margin_right = 650.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "242"
 align = 1
 __meta__ = {
@@ -177,7 +177,7 @@ margin_left = 706.0
 margin_top = 42.0
 margin_right = 828.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "0"
 align = 1
 __meta__ = {
@@ -189,7 +189,7 @@ margin_left = 884.0
 margin_top = 39.0
 margin_right = 941.0
 margin_bottom = 63.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "buy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -222,7 +222,7 @@ margin_bottom = 89.0
 margin_top = 101.0
 margin_right = 490.0
 margin_bottom = 128.0
-custom_fonts/font = SubResource( 16 )
+custom_fonts/font = SubResource( 10 )
 text = "Upgrades"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -253,7 +253,7 @@ __meta__ = {
 margin_top = 143.0
 margin_right = 490.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "Ammo increase +1 every 10sec"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -264,7 +264,7 @@ margin_left = 546.0
 margin_top = 143.0
 margin_right = 650.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "2000"
 align = 1
 
@@ -273,7 +273,7 @@ margin_left = 706.0
 margin_top = 143.0
 margin_right = 828.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "0"
 align = 1
 
@@ -282,7 +282,7 @@ margin_left = 884.0
 margin_top = 140.0
 margin_right = 941.0
 margin_bottom = 164.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "buy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -292,7 +292,7 @@ __meta__ = {
 margin_top = 179.0
 margin_right = 490.0
 margin_bottom = 196.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "enable vertical movement"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -303,7 +303,7 @@ margin_left = 546.0
 margin_top = 179.0
 margin_right = 650.0
 margin_bottom = 196.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "420"
 align = 1
 
@@ -312,7 +312,7 @@ margin_left = 706.0
 margin_top = 179.0
 margin_right = 828.0
 margin_bottom = 196.0
-custom_fonts/font = SubResource( 18 )
+custom_fonts/font = SubResource( 12 )
 text = "0"
 align = 1
 
@@ -321,7 +321,7 @@ margin_left = 884.0
 margin_top = 176.0
 margin_right = 941.0
 margin_bottom = 200.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "buy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -335,6 +335,6 @@ margin_bottom = 129.0
 window_title = ""
 dialog_text = "You have not enough Score to buy this"
 [connection signal="pressed" from="VBox/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="pressed" from="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeBuy" to="." method="_on_RageModeBuy_pressed"]
-[connection signal="pressed" from="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncButton" to="." method="_on_AmmoIncButton_pressed"]
-[connection signal="pressed" from="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementButton" to="." method="_on_VerticalMovementButton_pressed"]
+[connection signal="pressed" from="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeBuy" to="." method="buy_item" binds= [ "RageMode" ]]
+[connection signal="pressed" from="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncButton" to="." method="buy_item" binds= [ "AmmoIncrease" ]]
+[connection signal="pressed" from="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementButton" to="." method="buy_item" binds= [ "VerticalMovement" ]]

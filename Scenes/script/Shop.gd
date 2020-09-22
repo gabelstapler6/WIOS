@@ -1,64 +1,63 @@
 extends MarginContainer
 
 signal go_back
-signal buy_rage_mode
-signal buy_ammo_increase
-signal buy_vertical_movement
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+signal buy_item(item_name)
 
+onready var popup = $VBox/ShopVBox/ItemsCenter/PopupNotification
+
+onready var vertical_movement_button = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementButton
+onready var vertical_movement_stock = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementStock
+onready var vertical_movement_label = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovement
+onready var vertical_movement_price = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementPrice
+onready var ammo_increase_stock = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncStock
+onready var ammo_increase_price = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncPrice
+onready var rage_mode_stock = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock
+onready var rage_mode_price = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModePrice
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
 func _on_BackButton_pressed():
 	emit_signal("go_back")
 	hide()
+
+
+func show_buy_fail():
+	popup.dialog_text = "You have not enough Score to buy this!"
+	popup.popup_centered_minsize()
+
+
+func vertical_movement_bought():
+	vertical_movement_button.disabled = true
+	vertical_movement_stock.text = "1"
+	vertical_movement_label.add_color_override("font_color", "8a8a8a")
+	vertical_movement_stock.add_color_override("font_color", "8a8a8a")
+	vertical_movement_price.add_color_override("font_color", "8a8a8a")
+	vertical_movement_button.add_color_override("font_color", "8a8a8a")
+
+
+func update_shop_stock(item_name, value):
+	if item_name == "VerticalMovement":
+		if value > 0:
+			vertical_movement_bought()
+		vertical_movement_stock.text = str(value)
+	if item_name == "AmmoIncrease":
+		ammo_increase_stock.text = str(value)
+	if item_name == "RageMode":
+		rage_mode_stock.text = str(value)
+
+
+func update_shop_price(item_name, value):
+	if item_name == "VerticalMovement":
+		vertical_movement_price.text = str(value)
+	if item_name == "AmmoIncrease":
+		ammo_increase_price.text = str(value)
+	if item_name == "RageMode":
+		rage_mode_price.text = str(value)
+		
+
+func buy_item(item_name):
+	emit_signal("buy_item", item_name)
 	
-
-func _on_RageModeBuy_pressed():
-	emit_signal("buy_rage_mode")
-
-func _on_AmmoIncButton_pressed():
-	emit_signal("buy_ammo_increase")
-
-func _on_VerticalMovementButton_pressed():
-	emit_signal("buy_vertical_movement")
-
-
-func _on_Player_not_enough_cash_mf():
-	$VBox/ShopVBox/ItemsCenter/PopupNotification.dialog_text = "You have not enough Score to buy this!"
-	$VBox/ShopVBox/ItemsCenter/PopupNotification.popup_centered_minsize()
-
-func show_success_popup():
-	$VBox/ShopVBox/ItemsCenter/PopupNotification.dialog_text = "Item successfully bought!"
-	$VBox/ShopVBox/ItemsCenter/PopupNotification.popup_centered_minsize()
-
-func _on_Player_vertical_movement_bought():
-	#show_success_popup()
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementButton.disabled = true
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementStock.text = "1"
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovement.add_color_override("font_color", "8a8a8a")
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementStock.add_color_override("font_color", "8a8a8a")
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementPrice.add_color_override("font_color", "8a8a8a")
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementButton.add_color_override("font_color", "8a8a8a")
-
-
-func update_shop_stock(rage_stock, ammo_stock, vertical_stock):
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncStock.text = str(ammo_stock)
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModeStock.text = str(rage_stock)
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementStock.text = str(vertical_stock)
-
-
-func _on_Player_update_shop_price(rage_price, ammo_price, vertical_price):
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/AmmoIncPrice.text = str(ammo_price)
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/RageModePrice.text = str(rage_price)
-	$VBox/ShopVBox/ItemsCenter/ItemsVBox/Items/VerticalMovementPrice.text = str(vertical_price)

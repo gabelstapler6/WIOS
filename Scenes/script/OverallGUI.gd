@@ -13,6 +13,8 @@ onready var gui = $GUI
 onready var shop_button = $ShopButton
 onready var sound_button = $SoundButton
 
+signal buy_item(item_name)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Music.play()
@@ -39,12 +41,16 @@ func _on_ShopButton_open_shop():
 	$Shop.show()
 
 
-func setup_gui(player_values):
+func setup_gui(player_values, items_array, stock):
 	$LoginView.hide()
 	$MainMenu.show()
 	$PlayerScoreBalance.show()
 	$ShopButton.show()
-	shop.update_shop_stock(player_values.RageMode_stock, player_values.AmmoIncrease_stock, player_values.VerticalMovement_stock)
+	
+	for i in items_array:
+		shop.update_shop_stock(i["name"], stock[i["name"]+ "_stock"])
+		shop.update_shop_price(i["name"], i["price"])
+		
 	update_score_tag(player_values.scoreBalance)
 
 func update_score(score):
@@ -82,3 +88,7 @@ func main_menu():
 	shop.hide()
 	main_menu.show()
 	shop_button.show()
+
+
+func buy_item(item_name):
+	emit_signal("buy_item", item_name)

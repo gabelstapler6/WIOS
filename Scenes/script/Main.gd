@@ -10,6 +10,7 @@ var score_multiplier = 2
 var cycle_counter = 1
 
 var player_values
+var items_array
 
 
 onready var gui = $GUI
@@ -133,13 +134,48 @@ func _on_LoginView_enter_pressed():
 		db.setup_game()
 		
 		player_values = db.retrieve_player_values()
+		player.inventory.init(db.get_player_inventory())
+		items_array = db.get_items_array()
+		
+		update_ammo_price()
+		player.vertical_movement_enabled()
+		
 		player.score = player_values.scoreBalance
-		$Player/PlayerInventory.ammo_increase_stock = player_values.AmmoIncrease_stock
-		$Player/PlayerInventory.vertical_movement_stock = player_values.VerticalMovement_stock
-		$Player/PlayerInventory.rage_mode_stock = player_values.RageMode_stock
-		gui.setup_gui(player_values)
+
+		gui.setup_gui(player_values, items_array, player.inventory.stock_dict)
 	else:
 		#TODO fail popup
 		pass
 	
-	
+func update_ammo_price():
+	for i in items_array:
+			if i["name"] == "AmmoIncrease":
+				i["price"] = player.inventory.stock_dict["AmmoIncrease_stock"] * 1000
+				gui.shop.update_shop_price(i["name"], i["price"])
+
+
+func item_bought(item_name):
+	var stock = player.inventory.stock_dict[item_name + "_stock"]
+	db.update_item_stock(item_name, stock)
+	db.update_player_scoreBalance(player.score)
+	gui.update_score_tag(player.score)
+	gui.shop.update_shop_stock(item_name, stock)
+	player.vertical_movement_enabled()
+
+
+func buy_item(item_name):
+	for i in items_array:
+		if i["name"] == item_name:
+			if player.score >= i["price"]:
+				player.score -= i["price"]
+				player.inventory.stock_dict[item_name+"_stock"] += 1
+				item_bought(item_name)
+				update_ammo_price()
+				return
+			else:
+				gui.shop.show_buy_fail()
+
+
+func _on_Player_inventory_stock_changed(item_name, stock):
+	db.update_item_stock(item_name, stock)
+	gui.shop.update_shop_stock(item_name, stock)
