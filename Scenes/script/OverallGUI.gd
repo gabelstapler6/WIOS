@@ -13,6 +13,9 @@ onready var gui = $GUI
 onready var shop_button = $ShopButton
 onready var sound_button = $SoundButton
 onready var highscores = $Highscores
+onready var credits = $Credits
+
+var credits_shown = false
 
 signal buy_item(item_name)
 signal refresh_highscores
@@ -103,3 +106,11 @@ func show_highscores():
 	main_menu.hide()
 	emit_signal("refresh_highscores")
 	highscores.show()
+
+func show_credits():
+	if credits_shown:
+		credits.hide()
+		credits_shown = false
+	else:
+		credits.show()
+		credits_shown = true
