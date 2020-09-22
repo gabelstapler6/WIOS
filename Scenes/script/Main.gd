@@ -179,3 +179,16 @@ func buy_item(item_name):
 func _on_Player_inventory_stock_changed(item_name, stock):
 	db.update_item_stock(item_name, stock)
 	gui.shop.update_shop_stock(item_name, stock)
+
+
+func refresh_highscores():
+	var player_array = db.get_all_players_highscores()
+	
+	for i in range(1, player_array.size()):
+		for j in range(0, player_array.size() - 1):
+			if player_array[j].highscore < player_array[j+1].highscore:
+				var c = player_array[j]
+				player_array[j]= player_array[j+1]
+				player_array[j+1] = c
+			
+	gui.highscores.add_entries(player_array)

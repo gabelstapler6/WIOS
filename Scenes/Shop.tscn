@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/script/Shop.gd" type="Script" id=1]
 
@@ -8,50 +8,44 @@ font_path = "res://Assets/font/Akira Expanded Demo.otf"
 [sub_resource type="DynamicFont" id=4]
 font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFontData" id=5]
-font_path = "res://Assets/font/Akira Expanded Demo.otf"
-
-[sub_resource type="DynamicFont" id=6]
-font_data = SubResource( 5 )
-
 [sub_resource type="InputEventAction" id=7]
 action = "go_to_main_menu"
 
 [sub_resource type="ShortCut" id=8]
 shortcut = SubResource( 7 )
 
-[sub_resource type="DynamicFontData" id=1]
-font_path = "res://Assets/font/Plateia Bold.ttf"
-
-[sub_resource type="DynamicFont" id=2]
-size = 38
-font_data = SubResource( 1 )
-
 [sub_resource type="DynamicFontData" id=9]
 font_path = "res://Assets/font/Plateia Bold.ttf"
 
 [sub_resource type="DynamicFont" id=10]
-size = 27
+size = 38
 font_data = SubResource( 9 )
 
 [sub_resource type="DynamicFontData" id=11]
 font_path = "res://Assets/font/Plateia Bold.ttf"
 
 [sub_resource type="DynamicFont" id=12]
-size = 17
+size = 27
 font_data = SubResource( 11 )
 
 [sub_resource type="DynamicFontData" id=13]
-font_path = "res://Assets/font/Akira Expanded Demo.otf"
+font_path = "res://Assets/font/Plateia Bold.ttf"
 
 [sub_resource type="DynamicFont" id=14]
+size = 17
 font_data = SubResource( 13 )
+
+[sub_resource type="DynamicFontData" id=15]
+font_path = "res://Assets/font/Akira Expanded Demo.otf"
+
+[sub_resource type="DynamicFont" id=16]
+font_data = SubResource( 15 )
 
 [node name="Shop" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 25
-custom_constants/margin_top = 25
+custom_constants/margin_top = 53
 custom_constants/margin_left = 25
 custom_constants/margin_bottom = 25
 script = ExtResource( 1 )
@@ -61,29 +55,23 @@ __meta__ = {
 
 [node name="VBox" type="VBoxContainer" parent="."]
 margin_left = 25.0
-margin_top = 25.0
+margin_top = 53.0
 margin_right = 999.0
 margin_bottom = 551.0
 custom_constants/separation = 12
 
-[node name="ScoreLabel" type="Label" parent="VBox"]
-margin_bottom = 18.0
-size_flags_horizontal = 2
-custom_fonts/font = SubResource( 4 )
-
 [node name="BackButton" type="Button" parent="VBox"]
-margin_top = 30.0
 margin_right = 72.0
-margin_bottom = 54.0
+margin_bottom = 24.0
 size_flags_horizontal = 0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 shortcut = SubResource( 8 )
 text = "back"
 
 [node name="ShopVBox" type="VBoxContainer" parent="VBox"]
-margin_top = 66.0
+margin_top = 36.0
 margin_right = 974.0
-margin_bottom = 356.0
+margin_bottom = 326.0
 custom_constants/separation = 52
 
 [node name="ShopCenter" type="CenterContainer" parent="VBox/ShopVBox"]
@@ -95,7 +83,7 @@ size_flags_horizontal = 3
 margin_left = 410.0
 margin_right = 564.0
 margin_bottom = 38.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 10 )
 text = "SHOP"
 
 [node name="ItemsCenter" type="CenterContainer" parent="VBox/ShopVBox"]
@@ -118,14 +106,14 @@ columns = 4
 [node name="ConsumablesLabel" type="Label" parent="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items"]
 margin_right = 490.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 12 )
 text = "Consumables"
 
 [node name="PriceLabel" type="Label" parent="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items"]
 margin_left = 546.0
 margin_right = 650.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 12 )
 text = "Price"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -135,7 +123,7 @@ __meta__ = {
 margin_left = 706.0
 margin_right = 828.0
 margin_bottom = 27.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 12 )
 text = "Stock"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -154,7 +142,7 @@ __meta__ = {
 margin_top = 42.0
 margin_right = 490.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "Rage Mode (unlimited Ammo for 20sec)"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -165,7 +153,7 @@ margin_left = 546.0
 margin_top = 42.0
 margin_right = 650.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "242"
 align = 1
 __meta__ = {
@@ -177,7 +165,7 @@ margin_left = 706.0
 margin_top = 42.0
 margin_right = 828.0
 margin_bottom = 59.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "0"
 align = 1
 __meta__ = {
@@ -189,7 +177,7 @@ margin_left = 884.0
 margin_top = 39.0
 margin_right = 941.0
 margin_bottom = 63.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 16 )
 text = "buy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -222,7 +210,7 @@ margin_bottom = 89.0
 margin_top = 101.0
 margin_right = 490.0
 margin_bottom = 128.0
-custom_fonts/font = SubResource( 10 )
+custom_fonts/font = SubResource( 12 )
 text = "Upgrades"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -253,7 +241,7 @@ __meta__ = {
 margin_top = 143.0
 margin_right = 490.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "Ammo increase +1 every 10sec"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -264,7 +252,7 @@ margin_left = 546.0
 margin_top = 143.0
 margin_right = 650.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "2000"
 align = 1
 
@@ -273,7 +261,7 @@ margin_left = 706.0
 margin_top = 143.0
 margin_right = 828.0
 margin_bottom = 160.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "0"
 align = 1
 
@@ -282,7 +270,7 @@ margin_left = 884.0
 margin_top = 140.0
 margin_right = 941.0
 margin_bottom = 164.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 16 )
 text = "buy"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -292,7 +280,7 @@ __meta__ = {
 margin_top = 179.0
 margin_right = 490.0
 margin_bottom = 196.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "enable vertical movement"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -303,7 +291,7 @@ margin_left = 546.0
 margin_top = 179.0
 margin_right = 650.0
 margin_bottom = 196.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "420"
 align = 1
 
@@ -312,7 +300,7 @@ margin_left = 706.0
 margin_top = 179.0
 margin_right = 828.0
 margin_bottom = 196.0
-custom_fonts/font = SubResource( 12 )
+custom_fonts/font = SubResource( 14 )
 text = "0"
 align = 1
 
@@ -321,7 +309,7 @@ margin_left = 884.0
 margin_top = 176.0
 margin_right = 941.0
 margin_bottom = 200.0
-custom_fonts/font = SubResource( 14 )
+custom_fonts/font = SubResource( 16 )
 text = "buy"
 __meta__ = {
 "_edit_use_anchors_": false

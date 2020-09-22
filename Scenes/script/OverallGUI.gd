@@ -12,8 +12,10 @@ onready var shop = $Shop
 onready var gui = $GUI
 onready var shop_button = $ShopButton
 onready var sound_button = $SoundButton
+onready var highscores = $Highscores
 
 signal buy_item(item_name)
+signal refresh_highscores
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -87,9 +89,17 @@ func get_password():
 func main_menu():
 	gui.hide()
 	shop.hide()
+	highscores.hide()
 	main_menu.show()
 	shop_button.show()
 
 
 func buy_item(item_name):
 	emit_signal("buy_item", item_name)
+
+
+func show_highscores():
+	shop_button.hide()
+	main_menu.hide()
+	emit_signal("refresh_highscores")
+	highscores.show()
