@@ -3,7 +3,7 @@ extends Node
 
 const SQLite = preload("res://addons/godot-sqlite/bin/gdsqlite.gdns")
 var db
-var path_to_db = "res://data"
+var path_to_db = "res://data.db"
 var json_path = "res://data.json"
 
 var Player_Table = "Player"
@@ -30,10 +30,9 @@ func _ready():
 
 func close_connection():
 	db.export_to_json(json_path)
-	db.close_connection()
+	db.close_db()
 	
 func open_connection():
-	# db.import_from_json(json_path)
 	if db.open_db() :
 		print("Database opened successfully")
 	else:
@@ -41,12 +40,14 @@ func open_connection():
 		return
 		
 
-func check_password(username, pw):
+func check_username(username):
+	logged_player.clear()
+	where_user_is = "username = "
 	username = "'" + username + "'"
 	current_select = db.select_rows(Player_Table, where_user_is + username, ["*"])
 	
-	for i in current_select:
-		if i["password"] == pw:
+	if current_select.size() == 1:
+		for i in current_select:
 			# sobald das hier ausgefuehrt wird ist der Spieler eingeloggt
 			where_user_is += username
 			logged_player = {
@@ -56,7 +57,6 @@ func check_password(username, pw):
 				"highscore": i["highscore"]
 				}
 			return true
-			
 	return false
 
 # fuellt das inventory des Players mit den Startitems, falls noch nicht getan
@@ -117,3 +117,12 @@ func get_items_array():
 func get_all_players_highscores():
 	current_select = db.select_rows(Player_Table, "", ["username", "highscore"])
 	return current_select
+
+
+func add_user(name):
+	var dict = {
+		"username": name,
+		"scoreBalance": 0,
+		"highscore": 0
+	}
+	db.insert_row(Player_Table, dict)

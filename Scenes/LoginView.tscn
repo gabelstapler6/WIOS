@@ -2,24 +2,24 @@
 
 [ext_resource path="res://Scenes/script/LoginView.gd" type="Script" id=1]
 
-[sub_resource type="DynamicFontData" id=5]
+[sub_resource type="DynamicFontData" id=1]
 font_path = "res://Assets/font/Akira Expanded Demo.otf"
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 size = 40
-font_data = SubResource( 5 )
+font_data = SubResource( 1 )
 
-[sub_resource type="DynamicFontData" id=7]
+[sub_resource type="DynamicFontData" id=3]
 font_path = "res://Assets/font/ArialMdm.ttf"
 
-[sub_resource type="DynamicFont" id=8]
-font_data = SubResource( 7 )
+[sub_resource type="DynamicFont" id=4]
+font_data = SubResource( 3 )
 
-[sub_resource type="InputEventAction" id=9]
+[sub_resource type="InputEventAction" id=5]
 action = "enter"
 
-[sub_resource type="ShortCut" id=10]
-shortcut = SubResource( 9 )
+[sub_resource type="ShortCut" id=6]
+shortcut = SubResource( 5 )
 
 [node name="LoginView" type="MarginContainer"]
 anchor_right = 1.0
@@ -43,21 +43,21 @@ custom_constants/separation = 150
 [node name="GameTitle" type="Label" parent="VBox"]
 margin_right = 974.0
 margin_bottom = 43.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 text = "wasted in outta space"
 align = 1
 
 [node name="Margin" type="MarginContainer" parent="VBox"]
 margin_top = 193.0
 margin_right = 974.0
-margin_bottom = 292.0
+margin_bottom = 255.0
 custom_constants/margin_right = 400
 custom_constants/margin_left = 400
 
 [node name="VBox" type="VBoxContainer" parent="VBox/Margin"]
 margin_left = 400.0
 margin_right = 574.0
-margin_bottom = 99.0
+margin_bottom = 62.0
 custom_constants/separation = 8
 __meta__ = {
 "_edit_use_anchors_": false
@@ -66,7 +66,7 @@ __meta__ = {
 [node name="UsernameLineEdit" type="LineEdit" parent="VBox/Margin/VBox"]
 margin_right = 174.0
 margin_bottom = 29.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 4 )
 align = 1
 max_length = 24
 placeholder_text = "username"
@@ -74,26 +74,39 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PasswordLineEdit" type="LineEdit" parent="VBox/Margin/VBox"]
+[node name="Center" type="CenterContainer" parent="VBox/Margin/VBox"]
 margin_top = 37.0
 margin_right = 174.0
-margin_bottom = 66.0
-custom_fonts/font = SubResource( 8 )
-align = 1
-max_length = 24
-secret = true
-placeholder_text = "password"
+margin_bottom = 62.0
 
-[node name="Center" type="CenterContainer" parent="VBox/Margin/VBox"]
-margin_top = 74.0
-margin_right = 174.0
-margin_bottom = 99.0
-
-[node name="enterButton" type="Button" parent="VBox/Margin/VBox/Center"]
-margin_left = 63.0
-margin_right = 110.0
+[node name="HBoxContainer" type="HBoxContainer" parent="VBox/Margin/VBox/Center"]
+margin_left = 20.0
+margin_right = 153.0
 margin_bottom = 25.0
-custom_fonts/font = SubResource( 8 )
-shortcut = SubResource( 10 )
+custom_constants/separation = 13
+
+[node name="AddUser" type="Button" parent="VBox/Margin/VBox/Center/HBoxContainer"]
+margin_right = 73.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 4 )
+text = "add user"
+
+[node name="enterButton" type="Button" parent="VBox/Margin/VBox/Center/HBoxContainer"]
+margin_left = 86.0
+margin_right = 133.0
+margin_bottom = 25.0
+custom_fonts/font = SubResource( 4 )
+shortcut_in_tooltip = false
+shortcut = SubResource( 6 )
 text = "enter"
-[connection signal="pressed" from="VBox/Margin/VBox/Center/enterButton" to="." method="_on_enterButton_pressed"]
+
+[node name="FailedLogin" type="AcceptDialog" parent="VBox/Margin/VBox/Center"]
+margin_left = -86.0
+margin_top = -25.0
+margin_right = 259.0
+margin_bottom = 50.0
+window_title = ""
+dialog_text = "This username does not exist!
+You can add a new User with the \"add user\" Button."
+[connection signal="pressed" from="VBox/Margin/VBox/Center/HBoxContainer/AddUser" to="." method="_on_AddUser_pressed"]
+[connection signal="pressed" from="VBox/Margin/VBox/Center/HBoxContainer/enterButton" to="." method="_on_enterButton_pressed"]
