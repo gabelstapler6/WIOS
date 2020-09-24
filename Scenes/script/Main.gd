@@ -5,7 +5,7 @@ export (PackedScene) var Tile
 export (PackedScene) var Bullet
 var score
 var score_balance
-var score_multiplier = 1
+var score_multiplier = 2
 
 var cycle_counter = 1
 
@@ -33,20 +33,23 @@ func game_over():
 	$MobTimer.stop()
 	player.shooting = false
 	get_tree().call_group("tiles", "queue_free")
+	
 	score = 303
-	score_multiplier = 3
+	score_multiplier = 4
+	var curr_multiplier = score_multiplier - 1
 	score_balance = score
+	
 	# score wird bei 200 2x, bei 400 3x, 600 4x usw multiplied 
 	# nur die Differenz zu den Stufen wird multipliziert
 	if score > 200:
-		for i in range(2, score_multiplier+1):
-			var x = 0
-			var help = score - ((i + x) * 100)
+		for i in range(curr_multiplier, 1, -1):
+			var help = score - i*100
+			score -= help
 			score_balance -= help
 			help *= i
 			score_balance += help
-			x += 1
-		
+			
+			
 	player.score += score_balance
 	gui.update_score_tag(player.score)
 	# den run in die Datenbank packen
@@ -95,8 +98,8 @@ func _on_ScoreTimer_timeout():
 			$MobTimer.wait_time += 0.1
 		
 		if score % 200 == 0:
-			score_multiplier += 1
 			gui.show_message( str(score_multiplier) + "x Score multiplier!")
+			score_multiplier += 1
 			return
 		gui.show_message("Tiles spawn faster\nwatch out!")
 
