@@ -34,19 +34,20 @@ func game_over():
 	player.shooting = false
 	get_tree().call_group("tiles", "queue_free")
 	
+	var curr_multiplier = score_multiplier - 1
 	score_balance = score
-	# score wird bei 200 2x, bei 400 3x, 600 4x usw multiplied 
-	# nur die Differenz zu den Stufen wird multipliziert
+	
+	# score multiplies at 200 2x, 300 3x and so on
+	# only the difference to another stage gets multiplied
 	if score > 200:
-		var i = 2
-		while i <= score_multiplier:
-			var x = 0
-			var help = score - ((i + x) * 100)
+		for i in range(curr_multiplier, 1, -1):
+			var help = score - i*100
+			score -= help
+			score_balance -= help
 			help *= i
 			score_balance += help
-			i += 1
-			x += 1
-		
+			
+			
 	player.score += score_balance
 	gui.update_score_tag(player.score)
 	# den run in die Datenbank packen
@@ -75,16 +76,11 @@ func _on_ScoreTimer_timeout():
 	gui.update_score(score)
 		
 	if score % 10 == 0:
-		$Player.add_ammo()
-		if score > 50:
-			$Player.add_ammo()
-		if score > 100:
-			$Player.add_ammo()
-		if score > 150:
-			$Player.add_ammo()
-		if score > 200:
-			$Player.add_ammo()
-	
+		player.add_ammo()
+		# every 100 score 1 ammo gets added
+		for i in range(100, score+1, 100):
+			player.add_ammo()
+
 	if score % 50 == 0:
 		if $MobTimer.wait_time == 0.1:
 			cycle_counter += 1
