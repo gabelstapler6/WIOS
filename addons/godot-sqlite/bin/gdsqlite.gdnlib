@@ -13,6 +13,7 @@ Windows.64="res://addons/godot-sqlite/bin/win64/libgdsqlite.dll"
 OSX.64="res://addons/godot-sqlite/bin/osx/libgdsqlite.dylib"
 
 [dependencies]
+
 X11.64=[  ]
 Server=[  ]
 Windows.64=[  ]
