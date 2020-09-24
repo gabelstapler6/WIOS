@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/script/VersionTag.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Assets/font/Plateia Bold.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 12
+font_data = SubResource( 1 )
+
+[node name="VersionTag" type="MarginContainer"]
+margin_bottom = 25.0
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+version = "2.0"
+
+[node name="HBox" type="HBoxContainer" parent="."]
+margin_left = 25.0
+margin_right = 208.0
+margin_bottom = 21.0
+custom_constants/separation = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VersionLabel" type="Label" parent="HBox"]
+margin_top = 4.0
+margin_right = 31.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 2 )
+text = "v1.3"
+
+[node name="CreditButton" type="Button" parent="HBox"]
+margin_left = 81.0
+margin_right = 164.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 2 )
+text = "credits"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="HBox/CreditButton" to="." method="_on_CreditButton_pressed"]
