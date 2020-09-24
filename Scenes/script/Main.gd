@@ -57,6 +57,7 @@ func game_over():
 		player_values["highscore"] = score
 		
 	gui.show_game_over(player_values["highscore"])
+	score_multiplier = 2
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
