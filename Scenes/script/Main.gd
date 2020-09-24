@@ -129,7 +129,7 @@ func _on_MainMenu_start_game():
 	
 
 func _on_LoginView_enter_pressed():
-	if db.check_password(gui.get_username(), gui.get_password()):
+	if db.check_username(gui.get_username()):
 		
 		db.setup_game()
 		
@@ -144,8 +144,8 @@ func _on_LoginView_enter_pressed():
 
 		gui.setup_gui(player_values, items_array, player.inventory.stock_dict)
 	else:
-		#TODO fail popup
-		pass
+		gui.login_view.popup.dialog_text = "This username does not exist!\nYou can add a new User with the 'add user' Button."
+		gui.login_view.popup.popup_centered_minsize()
 	
 func update_ammo_price():
 	for i in items_array:
@@ -192,3 +192,15 @@ func refresh_highscores():
 				player_array[j+1] = c
 			
 	gui.highscores.add_entries(player_array)
+
+
+func _on_Main_tree_exiting():
+	db.close_connection()
+
+
+func _on_LoginView_add_user_pressed():
+	if db.check_username(gui.login_view.get_username()):
+		gui.login_view.popup.dialog_text = "This user already exists!\nPick another username!"
+		gui.login_view.popup.popup_centered_minsize()
+	else:
+		db.add_user(gui.login_view.get_username())

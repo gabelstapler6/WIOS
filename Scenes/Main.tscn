@@ -101,6 +101,7 @@ anchor_bottom = 1.0
 margin_top = -50.0
 margin_right = 163.0
 margin_bottom = 0.0
+[connection signal="tree_exiting" from="." to="." method="_on_Main_tree_exiting"]
 [connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]
@@ -113,6 +114,7 @@ margin_bottom = 0.0
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="buy_item" from="GUI" to="." method="buy_item"]
 [connection signal="refresh_highscores" from="GUI" to="." method="refresh_highscores"]
+[connection signal="add_user_pressed" from="GUI/LoginView" to="." method="_on_LoginView_add_user_pressed"]
 [connection signal="enter_pressed" from="GUI/LoginView" to="." method="_on_LoginView_enter_pressed"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="main_menu"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
@@ -120,6 +122,7 @@ margin_bottom = 0.0
 [connection signal="buy_item" from="GUI/Shop" to="GUI" method="buy_item"]
 [connection signal="go_back" from="GUI/Shop" to="GUI" method="main_menu"]
 [connection signal="go_back" from="GUI/Highscores" to="GUI" method="main_menu"]
+[connection signal="change_user" from="GUI/MainMenu" to="GUI" method="_on_MainMenu_change_user"]
 [connection signal="show_highscores" from="GUI/MainMenu" to="GUI" method="show_highscores"]
 [connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
 [connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]

@@ -125,7 +125,9 @@ custom_constants/separation = 8
 [node name="PlayAgainButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2"]
 margin_right = 207.0
 margin_bottom = 24.0
+hint_tooltip = "move with arrow-keys or WASD, shoot with spacebar, use RageMode with R"
 custom_fonts/font = SubResource( 8 )
+shortcut_in_tooltip = false
 shortcut = SubResource( 10 )
 text = "play again"
 __meta__ = {

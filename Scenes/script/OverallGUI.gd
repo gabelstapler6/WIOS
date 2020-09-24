@@ -114,3 +114,10 @@ func show_credits():
 	else:
 		credits.show()
 		credits_shown = true
+
+
+func _on_MainMenu_change_user():
+	login_view.show()
+	shop_button.hide()
+	main_menu.hide()
+	player_score_tag.hide()
