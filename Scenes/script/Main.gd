@@ -34,8 +34,6 @@ func game_over():
 	player.shooting = false
 	get_tree().call_group("tiles", "queue_free")
 	
-	score = 303
-	score_multiplier = 4
 	var curr_multiplier = score_multiplier - 1
 	score_balance = score
 	
