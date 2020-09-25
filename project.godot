@@ -24,6 +24,11 @@ config/name="wastedinouttaspace"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Items="*res://Scenes/script/Items.gd"
+PlayerInventory="*res://Scenes/script/PlayerInventory.gd"
+
 [display]
 
 window/size/height=576
