@@ -89,7 +89,7 @@ func get_password():
 	return login_view.get_password()
 
 
-func main_menu():
+func go_to_main_menu():
 	gui.hide()
 	shop.hide()
 	highscores.hide()

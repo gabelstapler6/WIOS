@@ -7,7 +7,7 @@ var score
 var score_balance
 var score_multiplier = 2
 
-var cycle_counter = 1
+var cycle_counter = 0
 
 var player_values
 var items_array
@@ -37,6 +37,11 @@ func game_over():
 	var curr_multiplier = score_multiplier - 1
 	score_balance = score
 	
+	# check if current run was a new Highscore 
+	if player_values["highscore"] < score:
+		db.update_player_highscore(score)
+		player_values["highscore"] = score
+		
 	# score multiplies at 200 2x, 300 3x and so on
 	# only the difference to another stage gets multiplied
 	if score > 200:
@@ -47,16 +52,14 @@ func game_over():
 			help *= i
 			score_balance += help
 			
-			
+	# add the cash
 	player.score += score_balance
-	gui.update_score_tag(player.score)
-	# den run in die Datenbank packen
 	db.update_player_scoreBalance(player.score)
-	if player_values["highscore"] < score:
-		db.update_player_highscore(score)
-		player_values["highscore"] = score
+	gui.update_score_tag(player.score)
 		
 	gui.show_game_over(player_values["highscore"])
+	score_multiplier = 2
+	cycle_counter = 0
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -78,23 +81,30 @@ func _on_ScoreTimer_timeout():
 	if score % 10 == 0:
 		player.add_ammo()
 		# every 100 score 1 ammo gets added
-		for i in range(100, score+1, 100):
-			player.add_ammo()
-
+		# for _i in range(100, score+1, 100):
+			# player.add_ammo()
+	var message
 	if score % 50 == 0:
-		if $MobTimer.wait_time == 0.1:
+		if $MobTimer.wait_time <= 0.2:
+			cycle_counter += 1
+		if $MobTimer.wait_time == 0.5:
 			cycle_counter += 1
 			
 		if cycle_counter % 2 == 1:
 			$MobTimer.wait_time -= 0.1
+			
+			message = "Tiles spawn faster!"
 		else:
 			$MobTimer.wait_time += 0.1
+			message = "Tiles slow down!"
+			
 		
-		if score % 200 == 0:
-			gui.show_message( str(score_multiplier) + "x Score multiplier!")
-			score_multiplier += 1
-			return
-		gui.show_message("Tiles spawn faster\nwatch out!")
+		if score >= 200:
+			if score % 100 == 0:
+				gui.show_message( message + "\n" + str(score_multiplier) + "x Score multiplier!")
+				score_multiplier += 1
+				return
+		gui.show_message(message)
 
 
 func _on_StartTimer_timeout():
@@ -114,7 +124,6 @@ func _on_Player_shoot_bullet():
 func _on_MainMenu_start_game():
 	player.shooting = true
 	player.ammo = 0
-	player.add_ammo()
 	$MobTimer.wait_time = 0.5
 	score = 0
 	player.start($StartPosition.position)
@@ -180,7 +189,7 @@ func _on_Player_inventory_stock_changed(item_name, stock):
 func refresh_highscores():
 	var player_array = db.get_all_players_highscores()
 	
-	for i in range(1, player_array.size()):
+	for _i in range(1, player_array.size()):
 		for j in range(0, player_array.size() - 1):
 			if player_array[j].highscore < player_array[j+1].highscore:
 				var c = player_array[j]

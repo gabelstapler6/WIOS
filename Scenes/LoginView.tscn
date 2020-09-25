@@ -1,6 +1,35 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/script/LoginView.gd" type="Script" id=1]
+[ext_resource path="res://Assets/img/wios.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=7]
+resource_name = "Title"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 0,
+"values": [  ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, 1 ) ]
+}
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Assets/font/Akira Expanded Demo.otf"
@@ -21,40 +50,53 @@ action = "enter"
 [sub_resource type="ShortCut" id=6]
 shortcut = SubResource( 5 )
 
-[node name="LoginView" type="MarginContainer"]
+[node name="LoginView" type="TextureRect"]
+anchor_left = 0.008
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.192
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Title"
+anims/Title = SubResource( 7 )
+
+[node name="LoginView" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 25
 custom_constants/margin_top = 50
 custom_constants/margin_left = 25
 custom_constants/margin_bottom = 25
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBox" type="VBoxContainer" parent="."]
+[node name="VBox" type="VBoxContainer" parent="LoginView"]
 margin_left = 25.0
 margin_top = 50.0
 margin_right = 999.0
 margin_bottom = 551.0
 custom_constants/separation = 150
 
-[node name="GameTitle" type="Label" parent="VBox"]
+[node name="GameTitle" type="Label" parent="LoginView/VBox"]
 margin_right = 974.0
 margin_bottom = 43.0
 custom_fonts/font = SubResource( 2 )
-text = "wasted in outta space"
 align = 1
 
-[node name="Margin" type="MarginContainer" parent="VBox"]
+[node name="Margin" type="MarginContainer" parent="LoginView/VBox"]
 margin_top = 193.0
 margin_right = 974.0
 margin_bottom = 255.0
 custom_constants/margin_right = 400
 custom_constants/margin_left = 400
 
-[node name="VBox" type="VBoxContainer" parent="VBox/Margin"]
+[node name="VBox" type="VBoxContainer" parent="LoginView/VBox/Margin"]
 margin_left = 400.0
 margin_right = 574.0
 margin_bottom = 62.0
@@ -63,7 +105,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UsernameLineEdit" type="LineEdit" parent="VBox/Margin/VBox"]
+[node name="UsernameLineEdit" type="LineEdit" parent="LoginView/VBox/Margin/VBox"]
 margin_right = 174.0
 margin_bottom = 29.0
 custom_fonts/font = SubResource( 4 )
@@ -74,24 +116,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Center" type="CenterContainer" parent="VBox/Margin/VBox"]
+[node name="Center" type="CenterContainer" parent="LoginView/VBox/Margin/VBox"]
 margin_top = 37.0
 margin_right = 174.0
 margin_bottom = 62.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBox/Margin/VBox/Center"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LoginView/VBox/Margin/VBox/Center"]
 margin_left = 20.0
 margin_right = 153.0
 margin_bottom = 25.0
 custom_constants/separation = 13
 
-[node name="AddUser" type="Button" parent="VBox/Margin/VBox/Center/HBoxContainer"]
+[node name="AddUser" type="Button" parent="LoginView/VBox/Margin/VBox/Center/HBoxContainer"]
 margin_right = 73.0
 margin_bottom = 25.0
 custom_fonts/font = SubResource( 4 )
 text = "add user"
 
-[node name="enterButton" type="Button" parent="VBox/Margin/VBox/Center/HBoxContainer"]
+[node name="enterButton" type="Button" parent="LoginView/VBox/Margin/VBox/Center/HBoxContainer"]
 margin_left = 86.0
 margin_right = 133.0
 margin_bottom = 25.0
@@ -100,7 +142,7 @@ shortcut_in_tooltip = false
 shortcut = SubResource( 6 )
 text = "enter"
 
-[node name="FailedLogin" type="AcceptDialog" parent="VBox/Margin/VBox/Center"]
+[node name="FailedLogin" type="AcceptDialog" parent="LoginView/VBox/Margin/VBox/Center"]
 margin_left = -86.0
 margin_top = -25.0
 margin_right = 259.0
@@ -108,5 +150,5 @@ margin_bottom = 50.0
 window_title = ""
 dialog_text = "This username does not exist!
 You can add a new User with the \"add user\" Button."
-[connection signal="pressed" from="VBox/Margin/VBox/Center/HBoxContainer/AddUser" to="." method="_on_AddUser_pressed"]
-[connection signal="pressed" from="VBox/Margin/VBox/Center/HBoxContainer/enterButton" to="." method="_on_enterButton_pressed"]
+[connection signal="pressed" from="LoginView/VBox/Margin/VBox/Center/HBoxContainer/AddUser" to="." method="_on_AddUser_pressed"]
+[connection signal="pressed" from="LoginView/VBox/Margin/VBox/Center/HBoxContainer/enterButton" to="." method="_on_enterButton_pressed"]

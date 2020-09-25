@@ -7,8 +7,6 @@ signal ammo_change(player_ammo)
 signal rage_mode_on
 signal rage_mode_off
 
-
-signal update_score(score)
 signal inventory_stock_changed(item_name, stock)
 
 # export -> damit man in der godot gui speed anfassen kann Einheit pixel/sec
@@ -53,9 +51,9 @@ func _process(delta):
 				emit_signal("shoot_bullet")
 				if rage_mode_on == false:
 					emit_signal("ammo_change", ammo)
-	
-	if Input.is_action_just_pressed("ui_use_rage_mode"):
-			use_rage_mode()
+					
+		if Input.is_action_just_pressed("ui_use_rage_mode"):
+				use_rage_mode()
 	
 	if velocity.length() > 0:
 		# normalize damit bei gleichzeitigem drücken kein Speedboost entsteht
