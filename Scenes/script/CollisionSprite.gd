@@ -1,4 +1,4 @@
-extends MarginContainer
+extends AnimatedSprite
 
 
 # Declare member variables here. Examples:
@@ -8,13 +8,15 @@ extends MarginContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	randomize()
+	
+	var rn = rand_range(0.3,1)
+	var color = Color(rn, rn, rn, 1)
+	
+	set_modulate(color)
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func meta_clicked(meta):
-	return OS.shell_open(meta)

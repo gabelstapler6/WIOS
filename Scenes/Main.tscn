@@ -101,6 +101,7 @@ anchor_bottom = 1.0
 margin_top = -50.0
 margin_right = 163.0
 margin_bottom = 0.0
+version = "1.0"
 [connection signal="tree_exiting" from="." to="." method="_on_Main_tree_exiting"]
 [connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
@@ -108,7 +109,6 @@ margin_bottom = 0.0
 [connection signal="rage_mode_off" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_off"]
 [connection signal="rage_mode_on" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_on"]
 [connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
-[connection signal="update_score" from="Player" to="GUI/PlayerScoreBalance" method="update_score"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
@@ -116,12 +116,12 @@ margin_bottom = 0.0
 [connection signal="refresh_highscores" from="GUI" to="." method="refresh_highscores"]
 [connection signal="add_user_pressed" from="GUI/LoginView" to="." method="_on_LoginView_add_user_pressed"]
 [connection signal="enter_pressed" from="GUI/LoginView" to="." method="_on_LoginView_enter_pressed"]
-[connection signal="main_menu" from="GUI/GUI" to="GUI" method="main_menu"]
+[connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
 [connection signal="buy_item" from="GUI/Shop" to="GUI" method="buy_item"]
-[connection signal="go_back" from="GUI/Shop" to="GUI" method="main_menu"]
-[connection signal="go_back" from="GUI/Highscores" to="GUI" method="main_menu"]
+[connection signal="go_back" from="GUI/Shop" to="GUI" method="go_to_main_menu"]
+[connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
 [connection signal="change_user" from="GUI/MainMenu" to="GUI" method="_on_MainMenu_change_user"]
 [connection signal="show_highscores" from="GUI/MainMenu" to="GUI" method="show_highscores"]
 [connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]

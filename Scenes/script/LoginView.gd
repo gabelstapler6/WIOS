@@ -1,14 +1,14 @@
-extends MarginContainer
+extends TextureRect
 
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 
-onready var username_line_edit = $VBox/Margin/VBox/UsernameLineEdit
-onready var enter_button = $VBox/Margin/VBox/Center/enterButton
-onready var add_button = $VBox/Margin/VBox/Center/HBoxContainer/AddUser
-onready var popup = $VBox/Margin/VBox/Center/FailedLogin
+onready var username_line_edit = $LoginView/VBox/Margin/VBox/UsernameLineEdit
+onready var enter_button = $LoginView/VBox/Margin/VBox/Center/HBoxContainer/enterButton
+onready var add_button = $LoginView/VBox/Margin/VBox/Center/HBoxContainer/AddUser
+onready var popup = $LoginView/VBox/Margin/VBox/Center/FailedLogin
 
 signal enter_pressed
 signal add_user_pressed
