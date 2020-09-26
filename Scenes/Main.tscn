@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -13,10 +13,7 @@
 [ext_resource path="res://Scenes/PlayerScoreBalance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SoundButton.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/VersionTag.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/LoginView.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Database.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/ShopButton.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Scenes/Highscores.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Credits.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Curve2D" id=1]
@@ -60,35 +57,25 @@ curve = SubResource( 1 )
 position = Vector2( -36.3195, 1.46259 )
 rotation = -0.000110607
 
-[node name="Database" parent="." instance=ExtResource( 15 )]
-
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
 
 [node name="Music" type="AudioStreamPlayer" parent="GUI"]
 stream = ExtResource( 6 )
 
-[node name="LoginView" parent="GUI" instance=ExtResource( 14 )]
-
 [node name="GUI" parent="GUI" instance=ExtResource( 4 )]
 visible = false
 
 [node name="PlayerScoreBalance" parent="GUI" instance=ExtResource( 11 )]
-visible = false
 margin_right = -1171.0
 margin_bottom = -677.0
 
 [node name="Shop" parent="GUI" instance=ExtResource( 9 )]
 visible = false
 
-[node name="Highscores" parent="GUI" instance=ExtResource( 17 )]
-visible = false
-
 [node name="MainMenu" parent="GUI" instance=ExtResource( 8 )]
-visible = false
 
 [node name="ShopButton" parent="GUI" instance=ExtResource( 16 )]
-visible = false
 
 [node name="Credits" parent="GUI" instance=ExtResource( 18 )]
 visible = false
@@ -102,7 +89,6 @@ margin_top = -50.0
 margin_right = 163.0
 margin_bottom = 0.0
 version = "1.0"
-[connection signal="tree_exiting" from="." to="." method="_on_Main_tree_exiting"]
 [connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]
@@ -113,17 +99,11 @@ version = "1.0"
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="buy_item" from="GUI" to="." method="buy_item"]
-[connection signal="refresh_highscores" from="GUI" to="." method="refresh_highscores"]
-[connection signal="add_user_pressed" from="GUI/LoginView" to="." method="_on_LoginView_add_user_pressed"]
-[connection signal="enter_pressed" from="GUI/LoginView" to="." method="_on_LoginView_enter_pressed"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
 [connection signal="buy_item" from="GUI/Shop" to="GUI" method="buy_item"]
 [connection signal="go_back" from="GUI/Shop" to="GUI" method="go_to_main_menu"]
-[connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
-[connection signal="change_user" from="GUI/MainMenu" to="GUI" method="_on_MainMenu_change_user"]
-[connection signal="show_highscores" from="GUI/MainMenu" to="GUI" method="show_highscores"]
 [connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
 [connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]
 [connection signal="open_shop" from="GUI/ShopButton" to="GUI" method="_on_ShopButton_open_shop"]

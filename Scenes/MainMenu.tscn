@@ -46,9 +46,9 @@ size_flags_vertical = 3
 
 [node name="VBoxTitleScreen" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
 margin_left = 129.0
-margin_top = 180.0
+margin_top = 213.0
 margin_right = 845.0
-margin_bottom = 346.0
+margin_bottom = 313.0
 custom_constants/separation = 33
 
 [node name="GameTitle" type="Label" parent="VBoxContainer/CenterContainer/VBoxTitleScreen"]
@@ -60,16 +60,16 @@ text = "wasted in outta space"
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/CenterContainer/VBoxTitleScreen"]
 margin_top = 76.0
 margin_right = 716.0
-margin_bottom = 166.0
+margin_bottom = 100.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer"]
-margin_left = 275.0
-margin_right = 441.0
-margin_bottom = 90.0
+margin_left = 322.0
+margin_right = 393.0
+margin_bottom = 24.0
 custom_constants/separation = 9
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer"]
-margin_right = 166.0
+margin_right = 71.0
 margin_bottom = 24.0
 hint_tooltip = "move with arrow-keys or WASD, shoot with spacebar, use RageMode with R"
 custom_fonts/font = SubResource( 4 )
@@ -80,25 +80,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HighscoreButton" type="Button" parent="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer"]
-margin_top = 33.0
-margin_right = 166.0
-margin_bottom = 57.0
-custom_fonts/font = SubResource( 4 )
-text = "Highscores"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ChangeUser" type="Button" parent="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer"]
-margin_top = 66.0
-margin_right = 166.0
-margin_bottom = 90.0
-custom_fonts/font = SubResource( 4 )
-text = "change user"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Popup" type="AcceptDialog" parent="VBoxContainer/CenterContainer"]
+margin_left = 459.0
+margin_top = 234.0
+margin_right = 514.0
+margin_bottom = 292.0
+window_title = ""
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer/HighscoreButton" to="." method="_on_HighscoreButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer/ChangeUser" to="." method="_on_ChangeUser_pressed"]

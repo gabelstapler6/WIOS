@@ -32,19 +32,19 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2() # movement vector
-
-	if Input.is_action_pressed("ui_right"):
-		velocity.x += 1
-	if Input.is_action_pressed("ui_left"):
-		velocity.x -= 1
-		
-	if inventory.vertical_movement:
-		if Input.is_action_pressed("ui_down"):
-			velocity.y += 1
-		if Input.is_action_pressed("ui_up"):
-			velocity.y -= 1
 	
 	if shooting:
+		if Input.is_action_pressed("ui_right"):
+			velocity.x += 1
+		if Input.is_action_pressed("ui_left"):
+			velocity.x -= 1
+			
+		if PlayerInventory.inventory["VerticalMovementStock"]:
+			if Input.is_action_pressed("ui_down"):
+				velocity.y += 1
+			if Input.is_action_pressed("ui_up"):
+				velocity.y -= 1
+				
 		if Input.is_action_just_pressed("ui_shoot"):
 			if ammo > 0:
 				ammo -= 1
@@ -73,18 +73,18 @@ func start(pos):
 
 func add_ammo():
 	if rage_mode_on == false:
-		ammo += inventory.stock_dict["AmmoIncrease_stock"]
+		ammo += PlayerInventory.inventory["AmmoIncreaseStock"]
 		emit_signal("ammo_change", ammo)
 
 func use_rage_mode():
-	if inventory.stock_dict["RageMode_stock"] > 0:
+	if PlayerInventory.inventory["RageModeStock"] > 0:
 		if rage_mode_on == false:
-			inventory.stock_dict["RageMode_stock"] -= 1
+			PlayerInventory.inventory["RageModeStock"] -= 1
 			$RageModeTimer.start()
 			ammo_save = ammo
 			ammo = 9999999999
 			rage_mode_on = true
-			emit_signal("inventory_stock_changed", "RageMode", inventory.stock_dict["RageMode_stock"])
+			emit_signal("inventory_stock_changed", "RageMode", PlayerInventory.inventory["RageModeStock"])
 			emit_signal("rage_mode_on")
 
 
@@ -104,7 +104,3 @@ func _on_RageModeTimer_timeout():
 	ammo = ammo_save
 	emit_signal("ammo_change", ammo)
 	rage_mode_on = false
-
-func vertical_movement_enabled():
-	if inventory.stock_dict["VerticalMovement_stock"] > 0:
-		inventory.vertical_movement = true
