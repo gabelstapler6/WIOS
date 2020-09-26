@@ -104,7 +104,3 @@ func _on_RageModeTimer_timeout():
 	ammo = ammo_save
 	emit_signal("ammo_change", ammo)
 	rage_mode_on = false
-
-func vertical_movement_enabled():
-	if PlayerInventory.inventory["VerticalMovementStock"] > 0:
-		inventory.vertical_movement = true

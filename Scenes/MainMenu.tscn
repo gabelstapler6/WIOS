@@ -79,4 +79,11 @@ text = "play"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Popup" type="AcceptDialog" parent="VBoxContainer/CenterContainer"]
+margin_left = 459.0
+margin_top = 234.0
+margin_right = 514.0
+margin_bottom = 292.0
+window_title = ""
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxTitleScreen/CenterContainer/VBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]

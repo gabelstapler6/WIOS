@@ -43,6 +43,10 @@ func _on_ShopButton_open_shop():
 
 
 func setup_gui():
+	if not OS.is_userfs_persistent():
+		main_menu.popup.dialog_text = "Do you want to enable cookies to save your game?"
+		main_menu.popup.popup_centered_minsize()
+		
 	for i in Items.items:
 		shop.update_shop_stock(i["name"], PlayerInventory.inventory[i["name"] + "Stock"])
 		shop.update_shop_price(i["name"], i["price"])

@@ -89,7 +89,6 @@ margin_top = -50.0
 margin_right = 163.0
 margin_bottom = 0.0
 version = "1.0"
-[connection signal="tree_exiting" from="." to="." method="_on_Main_tree_exiting"]
 [connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]

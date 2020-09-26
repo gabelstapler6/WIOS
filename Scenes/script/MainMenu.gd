@@ -5,6 +5,7 @@ signal start_game
 # signal show_highscores
 # signal change_user
 
+onready var popup = $Popup
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

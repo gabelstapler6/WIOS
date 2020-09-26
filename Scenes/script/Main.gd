@@ -58,7 +58,7 @@ func game_over():
 	gui.show_game_over()
 	score_multiplier = 2
 	cycle_counter = 0
-	# save_game()
+	save_game()
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -164,7 +164,6 @@ func item_bought(item_name):
 	# db.update_player_scoreBalance(player.score)
 	gui.update_score_tag(PlayerInventory.score_balance)
 	gui.shop.update_shop_stock(item_name, stock)
-	player.vertical_movement_enabled()
 
 
 func buy_item(item_name):
@@ -175,6 +174,7 @@ func buy_item(item_name):
 				PlayerInventory.inventory[item_name + "Stock"] += 1
 				item_bought(item_name)
 				update_ammo_price()
+				save_game()
 				return
 			else:
 				gui.shop.show_buy_fail()
@@ -213,7 +213,6 @@ func _on_Player_inventory_stock_changed(item_name, stock):
 func save_game():
 	var save = File.new()
 	save.open_encrypted_with_pass("user://savegame.bin", File.WRITE, "VeryHardPassword")
-	
 	var save_nodes = get_tree().get_nodes_in_group("persistence")
 
 	for i in save_nodes:
@@ -248,8 +247,3 @@ func load_game():
 				PlayerInventory.set(key, node_data[key])
 
 	save.close()
-
-
-
-func _on_Main_tree_exiting():
-	save_game()
