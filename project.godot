@@ -24,6 +24,11 @@ config/name="wastedinouttaspace"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Items="*res://Scenes/script/Items.gd"
+PlayerInventory="*res://Scenes/script/PlayerInventory.gd"
+
 [display]
 
 window/size/height=576
@@ -103,7 +108,6 @@ enter_shop={
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"
