@@ -18,7 +18,7 @@ onready var player = $Player
 func _ready():
 	randomize()
 	load_game()
-	# gui.setup_gui()
+	gui.setup_gui()
 	# db = $Database
 	# db.open_connection()
 
@@ -58,7 +58,7 @@ func game_over():
 	gui.show_game_over()
 	score_multiplier = 2
 	cycle_counter = 0
-	save_game()
+	# save_game()
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -155,6 +155,7 @@ func update_ammo_price():
 	for i in Items.items:
 		if i["name"] == name:
 			i["price"] = PlayerInventory.inventory[name + "Stock"] * 1000
+			gui.shop.update_shop_price(i["name"], i["price"])
 
 
 func item_bought(item_name):
@@ -211,7 +212,7 @@ func _on_Player_inventory_stock_changed(item_name, stock):
 
 func save_game():
 	var save = File.new()
-	save.open("user://savegame.save", File.WRITE)
+	save.open_encrypted_with_pass("user://savegame.bin", File.WRITE, "VeryHardPassword")
 	
 	var save_nodes = get_tree().get_nodes_in_group("persistence")
 
@@ -228,27 +229,27 @@ func save_game():
 
 func load_game():
 	var save = File.new()
-	if not save.file_exists("user://savegame.save"):
+	if not save.file_exists("user://savegame.bin"):
 		return
 
 	# var save_nodes = get_tree().get_nodes_in_group("persistence")
 	# for i in save_nodes:
 	# 	i.queue_free()
 
-	save.open("user://savegame.save", File.READ)
+	save.open_encrypted_with_pass("user://savegame.bin", File.READ, "VeryHardPassword")
+
 	while save.get_position() < save.get_len():
 		var node_data = parse_json(save.get_line())
-		var save_nodes = get_tree().get_nodes_in_group("persistence")
 
-		for node in save_nodes:
-			for i in node_data:
-				for key in i:
-					node.set(key, i[key])
-		# var new_object = load(node_data["filename"]).instance()
-		# get_node(node_data["parent"]).add_child(new_object)
-
-		
-			
+		for key in node_data:
+			if node_data["filename"] == "Items":
+				Items.set(key, node_data[key])
+			else:
+				PlayerInventory.set(key, node_data[key])
 
 	save.close()
 
+
+
+func _on_Main_tree_exiting():
+	save_game()

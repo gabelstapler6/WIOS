@@ -1,6 +1,5 @@
 extends Node
 
-var vertical_movement = false
 var inventory = {}
 var score_balance = 0
 var highscore = 0
@@ -17,10 +16,10 @@ func _ready():
 
 func save():
 	var save_dict = {
+		"filename": "PlayerInventory",
 		"score_balance": score_balance,
-		"highscore": highscore
+		"highscore": highscore,
+		"inventory": inventory
 	}
-	for key in inventory:
-		save_dict[key] = inventory[key]
 	
 	return save_dict

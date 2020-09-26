@@ -23,5 +23,8 @@ func _ready():
 	pass
 
 func save():
-	var save_dict = items
+	var save_dict = {
+		"filename": "Items",
+		"items": items
+	}
 	return save_dict

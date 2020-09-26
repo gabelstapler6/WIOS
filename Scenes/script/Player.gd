@@ -39,7 +39,7 @@ func _process(delta):
 		if Input.is_action_pressed("ui_left"):
 			velocity.x -= 1
 			
-		if PlayerInventory.vertical_movement:
+		if PlayerInventory.inventory["VerticalMovementStock"]:
 			if Input.is_action_pressed("ui_down"):
 				velocity.y += 1
 			if Input.is_action_pressed("ui_up"):
@@ -77,7 +77,7 @@ func add_ammo():
 		emit_signal("ammo_change", ammo)
 
 func use_rage_mode():
-	if PlayerInventory.inventory["RageMode_stock"] > 0:
+	if PlayerInventory.inventory["RageModeStock"] > 0:
 		if rage_mode_on == false:
 			PlayerInventory.inventory["RageModeStock"] -= 1
 			$RageModeTimer.start()
