@@ -1,32 +1,43 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Assets/img/triangle.png" type="Texture" id=1]
+[ext_resource path="res://Assets/img/Spaceship/2.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/script/Player.gd" type="Script" id=2]
+[ext_resource path="res://Assets/img/Spaceship/5.png" type="Texture" id=3]
+[ext_resource path="res://Assets/img/Spaceship/3.png" type="Texture" id=4]
+[ext_resource path="res://Assets/img/Spaceship/4.png" type="Texture" id=5]
+[ext_resource path="res://Assets/img/Spaceship/Spaceship.png" type="Texture" id=6]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "move",
-"speed": 5.0
+"speed": 16.0
 } ]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 0, -100, -100, 100, 100, 100 )
+points = PoolVector2Array( 0, -100, -112, 100, 111, 100 )
 
 [node name="Player" type="Area2D"]
+scale = Vector2( 0.9, 0.9 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -2.21431 )
-scale = Vector2( 0.202, 0.234079 )
+position = Vector2( 3.12614, 54.9924 )
+scale = Vector2( 0.672039, 0.680315 )
 frames = SubResource( 1 )
-animation = "move"
+animation = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.793701, -2.3811 )
 shape = SubResource( 2 )
 
 [node name="RageModeTimer" type="Timer" parent="."]

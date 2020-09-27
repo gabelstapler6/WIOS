@@ -20,10 +20,11 @@ var score = 0
 var rage_mode_on = false
 var ammo_save = 0
 
-onready var inventory = $PlayerInventory
+onready var sprite = $AnimatedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	sprite.animation = "idle"
 	screen_size = get_viewport_rect().size
 	hide()
 	emit_signal("ammo_change", ammo)
@@ -42,8 +43,15 @@ func _process(delta):
 		if PlayerInventory.inventory["VerticalMovementStock"]:
 			if Input.is_action_pressed("ui_down"):
 				velocity.y += 1
-			if Input.is_action_pressed("ui_up"):
+				sprite.animation = "move"
+				sprite.play()
+			elif Input.is_action_pressed("ui_up"):
 				velocity.y -= 1
+				sprite.play()
+				sprite.animation = "move"
+			else:
+				sprite.animation = "idle"
+				sprite.stop()
 				
 		if Input.is_action_just_pressed("ui_shoot"):
 			if ammo > 0:

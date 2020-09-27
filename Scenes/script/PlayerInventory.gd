@@ -1,7 +1,7 @@
 extends Node
 
 var inventory = {}
-var score_balance = 0
+var score_balance = 20000
 var highscore = 0
 
 # Called when the node enters the scene tree for the first time.
