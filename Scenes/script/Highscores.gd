@@ -26,7 +26,7 @@ func add_entries(players_array):
 		var score = Label.new()
 		number.text = str(count) + "."
 		username.text = i["username"]
-		score.text = str(i["highscore"])
+		score.text = str(i["score"])
 
 		number.add_font_override("font", font)
 		username.add_font_override("font", font)

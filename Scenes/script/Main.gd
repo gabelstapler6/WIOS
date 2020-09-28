@@ -9,9 +9,11 @@ var score_multiplier = 2
 
 var cycle_counter = 0
 
+var highscore_list
 
 onready var gui = $GUI
 onready var player = $Player
+onready var client = $WiosClient
 # var db
 
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +21,7 @@ func _ready():
 	randomize()
 	load_game()
 	gui.setup_gui()
+	gui.show_gui()
 	# db = $Database
 	# db.open_connection()
 
@@ -39,6 +42,7 @@ func game_over():
 	if PlayerInventory.highscore < score:
 		# db.update_player_highscore(score)
 		PlayerInventory.highscore = score
+		client.post_highscore(PlayerInventory.username, PlayerInventory.highscore)
 		
 	# score multiplies at 200 2x, 300 3x and so on
 	# only the difference to another stage gets multiplied
@@ -213,6 +217,7 @@ func _on_Player_inventory_stock_changed(item_name, stock):
 func save_game():
 	var save = File.new()
 	save.open_encrypted_with_pass("user://savegame.bin", File.WRITE, "VeryHardPassword")
+	# save.open("user://savegame.save", File.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("persistence")
 
 	for i in save_nodes:
@@ -229,6 +234,7 @@ func save_game():
 func load_game():
 	var save = File.new()
 	if not save.file_exists("user://savegame.bin"):
+	# if not save.file_exists("user://savegame.save"):
 		return
 
 	# var save_nodes = get_tree().get_nodes_in_group("persistence")
@@ -236,7 +242,8 @@ func load_game():
 	# 	i.queue_free()
 
 	save.open_encrypted_with_pass("user://savegame.bin", File.READ, "VeryHardPassword")
-
+	# save.open("user://savegame.save", File.READ)
+	
 	while save.get_position() < save.get_len():
 		var node_data = parse_json(save.get_line())
 
@@ -247,3 +254,15 @@ func load_game():
 				PlayerInventory.set(key, node_data[key])
 
 	save.close()
+
+
+
+func show_highscores():
+	client.retrieve_highscore_list()
+
+
+func _on_WiosClient_data_arrived(data):
+	highscore_list = data
+	gui.highscores.add_entries(highscore_list)
+	gui.show_highscores()
+

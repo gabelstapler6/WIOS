@@ -12,7 +12,8 @@ onready var shop = $Shop
 onready var gui = $GUI
 onready var shop_button = $ShopButton
 onready var sound_button = $SoundButton
-# onready var highscores = $Highscores
+onready var startup = $Startup
+onready var highscores = $Highscores
 onready var credits = $Credits
 
 var credits_shown = false
@@ -22,10 +23,14 @@ signal buy_item(item_name)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Music.play()
-	$GUI.hide()
-	$Shop.hide()
+	
 
-
+func show_gui():
+	if PlayerInventory.username_set == true:
+		startup.hide()
+		main_menu.show()
+		player_score_tag.show()
+		shop_button.show()
 
 func _on_SoundButton_sound_off():
 	$Music.stop()
@@ -52,6 +57,7 @@ func setup_gui():
 		shop.update_shop_price(i["name"], i["price"])
 		
 	update_score_tag(PlayerInventory.score_balance)
+	main_menu.welcome_label.text = "Hello " + PlayerInventory.username + "!"
 
 func update_score(score):
 	gui.update_score(score)
@@ -87,7 +93,7 @@ func show_message(message):
 func go_to_main_menu():
 	gui.hide()
 	shop.hide()
-	# highscores.hide()
+	highscores.hide()
 	main_menu.show()
 	shop_button.show()
 
@@ -116,3 +122,14 @@ func show_credits():
 # 	shop_button.hide()
 # 	main_menu.hide()
 # 	player_score_tag.hide()
+
+func show_highscores():
+	main_menu.hide()
+	highscores.show()
+
+func _on_Startup_save_username(username):
+	PlayerInventory.username = username
+	PlayerInventory.username_set = true
+	setup_gui()
+	show_gui()
+	

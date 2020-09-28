@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://Scenes/script/Bullet.gd"
+}, {
+"base": "Node",
+"class": "WiosClient",
+"language": "GDScript",
+"path": "res://Scenes/script/Client.gd"
 } ]
 _global_script_class_icons={
-"Bullet": ""
+"Bullet": "",
+"WiosClient": ""
 }
 
 [application]
@@ -108,7 +114,6 @@ enter_shop={
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
 environment/default_environment="res://default_env.tres"

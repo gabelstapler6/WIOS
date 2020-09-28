@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/script/Startup.gd" type="Script" id=1]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Assets/font/RussoOne-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+font_data = SubResource( 1 )
+
+[node name="Startup" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 100
+custom_constants/margin_top = 100
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 100
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 924.0
+margin_bottom = 476.0
+custom_constants/separation = 110
+
+[node name="WiosLabel" type="Label" parent="VBox"]
+margin_right = 824.0
+margin_bottom = 14.0
+size_flags_horizontal = 3
+text = "WASTED IN OUTTA SPACE"
+align = 1
+
+[node name="VBox" type="VBoxContainer" parent="VBox"]
+margin_top = 124.0
+margin_right = 824.0
+margin_bottom = 224.0
+custom_constants/separation = 15
+
+[node name="WarningLabel" type="Label" parent="VBox/VBox"]
+margin_right = 824.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.894118, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+align = 1
+
+[node name="Margin" type="MarginContainer" parent="VBox/VBox"]
+margin_top = 35.0
+margin_right = 824.0
+margin_bottom = 100.0
+size_flags_horizontal = 5
+custom_constants/margin_right = 300
+custom_constants/margin_left = 300
+
+[node name="Panel" type="PanelContainer" parent="VBox/VBox/Margin"]
+margin_left = 300.0
+margin_right = 524.0
+margin_bottom = 65.0
+
+[node name="VBox" type="VBoxContainer" parent="VBox/VBox/Margin/Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 217.0
+margin_bottom = 58.0
+custom_constants/separation = 7
+
+[node name="LineEdit" type="LineEdit" parent="VBox/VBox/Margin/Panel/VBox"]
+margin_right = 210.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+align = 1
+max_length = 24
+placeholder_text = "enter a username"
+
+[node name="Margin" type="MarginContainer" parent="VBox/VBox/Margin/Panel/VBox"]
+margin_top = 31.0
+margin_right = 210.0
+margin_bottom = 51.0
+custom_constants/margin_right = 40
+custom_constants/margin_left = 40
+
+[node name="SaveButton" type="Button" parent="VBox/VBox/Margin/Panel/VBox/Margin"]
+margin_left = 40.0
+margin_right = 170.0
+margin_bottom = 20.0
+text = "save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="VBox/VBox/Margin/Panel/VBox/Margin/SaveButton" to="." method="_on_SaveButton_pressed"]

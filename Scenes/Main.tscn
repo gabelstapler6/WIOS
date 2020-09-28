@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,14 +6,17 @@
 [ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
-[ext_resource path="res://Assets/img/Galaxy.jpg" type="Texture" id=7]
+[ext_resource path="res://Assets/img/galaxy.jpeg" type="Texture" id=7]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/script/OverallGUI.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/PlayerScoreBalance.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/SoundButton.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/VersionTag.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/WiosClient.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/Startup.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/ShopButton.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Highscores.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Credits.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Curve2D" id=1]
@@ -30,12 +33,15 @@ Bullet = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 7 )
+expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="WiosClient" parent="." instance=ExtResource( 14 )]
+
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 1 )
+position = Vector2( -1.18921, 0 )
 scale = Vector2( 0.5, 0.5 )
 
 [node name="MobTimer" type="Timer" parent="."]
@@ -63,10 +69,20 @@ script = ExtResource( 10 )
 [node name="Music" type="AudioStreamPlayer" parent="GUI"]
 stream = ExtResource( 6 )
 
+[node name="Highscores" parent="GUI" instance=ExtResource( 17 )]
+visible = false
+
+[node name="Startup" parent="GUI" instance=ExtResource( 15 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1024.0
+margin_bottom = 576.0
+
 [node name="GUI" parent="GUI" instance=ExtResource( 4 )]
 visible = false
 
 [node name="PlayerScoreBalance" parent="GUI" instance=ExtResource( 11 )]
+visible = false
 margin_right = -1171.0
 margin_bottom = -677.0
 
@@ -74,8 +90,10 @@ margin_bottom = -677.0
 visible = false
 
 [node name="MainMenu" parent="GUI" instance=ExtResource( 8 )]
+visible = false
 
 [node name="ShopButton" parent="GUI" instance=ExtResource( 16 )]
+visible = false
 
 [node name="Credits" parent="GUI" instance=ExtResource( 18 )]
 visible = false
@@ -89,7 +107,7 @@ margin_top = -50.0
 margin_right = 163.0
 margin_bottom = 0.0
 version = "1.0"
-[connection signal="tree_exiting" from="." to="." method="_on_Main_tree_exiting"]
+[connection signal="data_arrived" from="WiosClient" to="." method="_on_WiosClient_data_arrived"]
 [connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]
@@ -100,11 +118,14 @@ version = "1.0"
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="buy_item" from="GUI" to="." method="buy_item"]
+[connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
+[connection signal="save_username" from="GUI/Startup" to="GUI" method="_on_Startup_save_username"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
 [connection signal="buy_item" from="GUI/Shop" to="GUI" method="buy_item"]
 [connection signal="go_back" from="GUI/Shop" to="GUI" method="go_to_main_menu"]
+[connection signal="show_highscores" from="GUI/MainMenu" to="." method="show_highscores"]
 [connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
 [connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]
 [connection signal="open_shop" from="GUI/ShopButton" to="GUI" method="_on_ShopButton_open_shop"]
