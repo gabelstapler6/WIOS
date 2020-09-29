@@ -6,18 +6,10 @@ var highscore_list = []
 func _ready():
 	pass
 
-# sort the list descending order with bubblesort
-func sort_highscores():
-	for _i in range(1, highscore_list.size()):
-		for j in range(0, highscore_list.size() - 1):
-			if highscore_list[j].highscore < highscore_list[j+1].highscore:
-				var c = highscore_list[j]
-				highscore_list[j]= highscore_list[j+1]
-				highscore_list[j+1] = c
-
+# sorter class sorting the arrray in descending order by score
 class Sorter:
 	static func sort_descending(a, b):
-		if a[1] > b[1]:
+		if a["score"] > b["score"]:
 			return true
 		return false
 

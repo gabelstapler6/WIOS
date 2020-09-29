@@ -26,15 +26,19 @@ func _ready():
 	
 
 func show_gui():
-	if PlayerInventory.username_set == true:
-		startup.hide()
-		main_menu.show()
-		player_score_tag.show()
-		shop_button.show()
+	startup.hide()
+	main_menu.show()
+	player_score_tag.show()
+	shop_button.show()
+
+func hide_gui():
+	startup.show()
+	main_menu.hide()
+	player_score_tag.hide()
+	shop_button.hide()
 
 func _on_SoundButton_sound_off():
 	$Music.stop()
-
 
 func _on_SoundButton_sound_on():
 	$Music.play()
@@ -42,14 +46,14 @@ func _on_SoundButton_sound_on():
 
 func _on_ShopButton_open_shop():
 	shop_button.hide()
-	$GUI.hide()
-	$MainMenu.hide()
-	$Shop.show()
+	gui.hide()
+	main_menu.hide()
+	shop.show()
 
 
 func setup_gui():
 	if not OS.is_userfs_persistent():
-		main_menu.popup.dialog_text = "Do you want to enable cookies to save your game?"
+		main_menu.popup.dialog_text = "you need to enable coockies to save your progress!"
 		main_menu.popup.popup_centered_minsize()
 		
 	for i in Items.items:
@@ -129,7 +133,9 @@ func show_highscores():
 
 func _on_Startup_save_username(username):
 	PlayerInventory.username = username
-	PlayerInventory.username_set = true
+	var main = get_parent()
+	main.save_path = "user://" + username + "_save.bin"
+	main.load_game()
 	setup_gui()
 	show_gui()
 	

@@ -10,6 +10,7 @@ var score_multiplier = 2
 var cycle_counter = 0
 
 var highscore_list
+var save_path
 
 onready var gui = $GUI
 onready var player = $Player
@@ -19,9 +20,6 @@ onready var client = $WiosClient
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	load_game()
-	gui.setup_gui()
-	gui.show_gui()
 	# db = $Database
 	# db.open_connection()
 
@@ -216,7 +214,7 @@ func _on_Player_inventory_stock_changed(item_name, stock):
 
 func save_game():
 	var save = File.new()
-	save.open_encrypted_with_pass("user://savegame.bin", File.WRITE, "VeryHardPassword")
+	save.open_encrypted_with_pass(save_path, File.WRITE, "VeryHardPassword")
 	# save.open("user://savegame.save", File.WRITE)
 	var save_nodes = get_tree().get_nodes_in_group("persistence")
 
@@ -233,7 +231,7 @@ func save_game():
 
 func load_game():
 	var save = File.new()
-	if not save.file_exists("user://savegame.bin"):
+	if not save.file_exists(save_path):
 	# if not save.file_exists("user://savegame.save"):
 		return
 
@@ -241,7 +239,7 @@ func load_game():
 	# for i in save_nodes:
 	# 	i.queue_free()
 
-	save.open_encrypted_with_pass("user://savegame.bin", File.READ, "VeryHardPassword")
+	save.open_encrypted_with_pass(save_path, File.READ, "VeryHardPassword")
 	# save.open("user://savegame.save", File.READ)
 	
 	while save.get_position() < save.get_len():

@@ -3,12 +3,13 @@ extends MarginContainer
 signal play_again
 signal main_menu
 
-
-
 onready var play_again_button = $VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/PlayAgainButton
 onready var main_menu_button = $VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/MainMenuButton
 onready var ammo_label = $VBoxContainer/AmmoCount
 onready var my_highscore = $VBoxContainer/CenterContainer/VBoxContainer/VBoxContainer2/MyHighscore
+onready var message = $VBoxContainer/CenterContainer/VBoxContainer/Message
+onready var score_label = $VBoxContainer/CenterScore/ScoreLabel
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -22,13 +23,14 @@ func show_ingame_hud():
 	
 
 func show_message(text):
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.text = text
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.show()
+	message.text = text
+	message.show()
 	$MessageTimer.start()
 
 func show_game_over():
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.text = "Game over"
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.show()
+	$MessageTimer.stop()
+	message.text = "Game over"
+	message.show()
 	ammo_label.hide()
 	
 	play_again_button.show()
@@ -36,11 +38,11 @@ func show_game_over():
 	my_highscore.show()
 
 func update_score(score):
-	$VBoxContainer/CenterScore/ScoreLabel.text = str(score)
+	score_label.text = str(score)
 	
 
 func _on_MessageTimer_timeout():
-	$VBoxContainer/CenterContainer/VBoxContainer/Message.hide()
+	message.hide()
 
 
 func _on_PlayAgainButton_pressed():

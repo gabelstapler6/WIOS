@@ -1,10 +1,9 @@
 extends Node
 
 var inventory = {}
-var score_balance = 20000
+var score_balance = 0
 var highscore = 0
 var username = ""
-var username_set = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +21,6 @@ func save():
 		"score_balance": score_balance,
 		"highscore": highscore,
 		"inventory": inventory,
-		"username_set": username_set,
 		"username": username
 	}
 	

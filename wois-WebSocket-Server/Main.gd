@@ -15,11 +15,12 @@ func _ready():
 	
 	load_backup()
 	
+	
 	var err = _server.listen(PORT)
 	if err != OK:
 		print("Unable to start Server!")
 		set_process(false)
-
+	
 
 func _process(_delta):
 	_server.poll()

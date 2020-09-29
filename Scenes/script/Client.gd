@@ -5,7 +5,7 @@ class_name WiosClient
 
 var client = WebSocketClient.new()
 
-var websocket_url = "ws://localhost:9080"
+var websocket_url = "ws://and1dev.space:9080"
 var is_connected_to_host = false
 signal data_arrived(data)
 
@@ -28,7 +28,7 @@ func _process(_delta):
 
 
 func _on_closed(was_clean = false):
-	print("was clean: ", was_clean)
+	print("Connected to Server: ", was_clean)
 	set_process(false)
 
 func _on_connected(proto = ""):
