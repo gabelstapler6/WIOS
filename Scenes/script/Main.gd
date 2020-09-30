@@ -15,11 +15,13 @@ var save_path
 onready var gui = $GUI
 onready var player = $Player
 onready var client = $WiosClient
+onready var ingame_bg = $InGameBackground
 # var db
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	ingame_bg.set_process(false)
 	# db = $Database
 	# db.open_connection()
 
@@ -32,6 +34,7 @@ func game_over():
 	$MobTimer.stop()
 	player.shooting = false
 	get_tree().call_group("tiles", "queue_free")
+	ingame_bg.set_process(false)
 	
 	var curr_multiplier = score_multiplier - 1
 	score_balance = score
@@ -71,8 +74,12 @@ func _on_MobTimer_timeout():
 	tile.position = $MobPath/MobSpawnLocation.position
 	
 	var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
-
-	tile.linear_velocity = Vector2(direction, rand_range(tile.min_speed, tile.max_speed))
+	var diff = 0
+	if score >= 400:
+		if score >= 600:
+			diff += 25
+		diff += 25
+	tile.linear_velocity = Vector2(direction, rand_range(tile.min_speed + diff, tile.max_speed + diff))
 
 
 func _on_ScoreTimer_timeout():
@@ -86,7 +93,7 @@ func _on_ScoreTimer_timeout():
 			# player.add_ammo()
 	var message
 	if score % 50 == 0:
-		if $MobTimer.wait_time <= 0.2:
+		if $MobTimer.wait_time <= 0.3:
 			cycle_counter += 1
 		if $MobTimer.wait_time == 0.5:
 			cycle_counter += 1
@@ -94,11 +101,13 @@ func _on_ScoreTimer_timeout():
 		if cycle_counter % 2 == 1:
 			$MobTimer.wait_time -= 0.1
 			
-			message = "Tiles spawn faster!"
+			message = "more meteorites ahead!"
 		else:
 			$MobTimer.wait_time += 0.1
-			message = "Tiles slow down!"
+			message = "the field becomes less dense!"
 			
+		if score == 400 or score == 600:
+			message += "\nspeed increases!"
 		
 		if score >= 200:
 			if score % 100 == 0:
@@ -123,6 +132,7 @@ func _on_Player_shoot_bullet():
 
 
 func _on_MainMenu_start_game():
+	ingame_bg.set_process(true)
 	player.shooting = true
 	player.ammo = 0
 	$MobTimer.wait_time = 0.5

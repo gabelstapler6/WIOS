@@ -7,7 +7,7 @@ signal show_how_to_play
 # signal change_user
 
 onready var popup = $VBox/Center/Popup
-onready var welcome_label = $VBox/Center/VBox/Center/VBox/WelcomeLabel
+onready var welcome_label = $VBox/WelcomeLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

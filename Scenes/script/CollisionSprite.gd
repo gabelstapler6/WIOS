@@ -10,7 +10,7 @@ extends AnimatedSprite
 func _ready():
 	randomize()
 	
-	var rn = rand_range(0.3,1)
+	var rn = rand_range(0.2,1)
 	var color = Color(rn, rn, rn, 1)
 	
 	set_modulate(color)
