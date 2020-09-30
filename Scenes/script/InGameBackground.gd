@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends ParallaxBackground
 
 
 # Declare member variables here. Examples:
@@ -8,15 +8,9 @@ extends AnimatedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize()
-	
-	var rn = rand_range(0.2,1)
-	var color = Color(rn, rn, rn, 1)
-	
-	set_modulate(color)
-	pass
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	scroll_offset.y += 64*delta

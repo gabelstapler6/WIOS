@@ -1,11 +1,11 @@
-extends MarginContainer
+extends Control
 
 signal play_again
 signal main_menu
 
 onready var play_again_button = $VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/PlayAgainButton
 onready var main_menu_button = $VBoxContainer/CenterContainer/VBoxContainer/MarginContainer/VBoxContainer2/MainMenuButton
-onready var ammo_label = $VBoxContainer/AmmoCount
+onready var ammo_label = $GUI/AmmoCount
 onready var my_highscore = $VBoxContainer/CenterContainer/VBoxContainer/VBoxContainer2/MyHighscore
 onready var message = $VBoxContainer/CenterContainer/VBoxContainer/Message
 onready var score_label = $VBoxContainer/CenterScore/ScoreLabel
@@ -54,9 +54,9 @@ func _on_MainMenuButton_pressed():
 	hide()
 
 
-func _on_Player_rage_mode_on():
+func _on_Player_rage_mode_on(sec):
 	ammo_label.add_color_override("font_color", "c70000")
-	ammo_label.text = "Ammo: RAGE MODE"
+	ammo_label.text = "RAGE MODE: " + str(sec)
 	
 	
 
@@ -66,4 +66,4 @@ func _on_Player_rage_mode_off():
 	
 
 func _on_Player_ammo_change(player_ammo):
-	$VBoxContainer/AmmoCount.text = "Ammo: " + str(player_ammo)
+	ammo_label.text = "Ammo: " + str(player_ammo)

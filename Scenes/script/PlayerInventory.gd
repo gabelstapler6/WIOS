@@ -1,7 +1,7 @@
 extends Node
 
 var inventory = {}
-var score_balance = 0
+var score_balance = 200000
 var highscore = 0
 var username = ""
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
-[ext_resource path="res://Assets/img/galaxy.jpeg" type="Texture" id=7]
 [ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/script/OverallGUI.gd" type="Script" id=10]
@@ -18,6 +17,8 @@
 [ext_resource path="res://Scenes/ShopButton.tscn" type="PackedScene" id=16]
 [ext_resource path="res://Scenes/Highscores.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Scenes/Credits.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Assets/img/light/light.png" type="Texture" id=19]
+[ext_resource path="res://Scenes/InGameBackground.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -29,14 +30,54 @@ script = ExtResource( 1 )
 Tile = ExtResource( 3 )
 Bullet = ExtResource( 5 )
 
-[node name="TextureRect" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 7 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="InGameBackground" parent="." instance=ExtResource( 20 )]
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 1128, 104 )
+scale = Vector2( 1.12891, 0.6875 )
+texture = ExtResource( 19 )
+shadow_enabled = true
+shadow_gradient_length = 5.0
+shadow_filter = 2
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource( 10 )
+
+[node name="Music" type="AudioStreamPlayer" parent="GUI"]
+stream = ExtResource( 6 )
+
+[node name="Highscores" parent="GUI" instance=ExtResource( 17 )]
+visible = false
+
+[node name="Startup" parent="GUI" instance=ExtResource( 15 )]
+
+[node name="GUI" parent="GUI" instance=ExtResource( 4 )]
+visible = false
+
+[node name="PlayerScoreBalance" parent="GUI" instance=ExtResource( 11 )]
+visible = false
+margin_right = -1171.0
+margin_bottom = -677.0
+
+[node name="Shop" parent="GUI" instance=ExtResource( 9 )]
+visible = false
+
+[node name="MainMenu" parent="GUI" instance=ExtResource( 8 )]
+visible = false
+
+[node name="ShopButton" parent="GUI" instance=ExtResource( 16 )]
+visible = false
+
+[node name="Credits" parent="GUI" instance=ExtResource( 18 )]
+visible = false
+
+[node name="SoundButton" parent="GUI" instance=ExtResource( 12 )]
+
+[node name="VersionTag" parent="GUI" instance=ExtResource( 13 )]
+margin_top = -50.0
+margin_right = 163.0
+version = "2.0 - beta"
 
 [node name="WiosClient" parent="." instance=ExtResource( 14 )]
 
@@ -62,61 +103,6 @@ curve = SubResource( 1 )
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2( -36.3195, 1.46259 )
 rotation = -0.000110607
-
-[node name="GUI" type="CanvasLayer" parent="."]
-script = ExtResource( 10 )
-
-[node name="Music" type="AudioStreamPlayer" parent="GUI"]
-stream = ExtResource( 6 )
-
-[node name="Highscores" parent="GUI" instance=ExtResource( 17 )]
-visible = false
-
-[node name="Startup" parent="GUI" instance=ExtResource( 15 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 1024.0
-margin_bottom = 576.0
-
-[node name="GUI" parent="GUI" instance=ExtResource( 4 )]
-visible = false
-
-[node name="PlayerScoreBalance" parent="GUI" instance=ExtResource( 11 )]
-visible = false
-margin_right = -1171.0
-margin_bottom = -677.0
-
-[node name="Shop" parent="GUI" instance=ExtResource( 9 )]
-visible = false
-
-[node name="MainMenu" parent="GUI" instance=ExtResource( 8 )]
-visible = false
-
-[node name="ShopButton" parent="GUI" instance=ExtResource( 16 )]
-visible = false
-
-[node name="Credits" parent="GUI" instance=ExtResource( 18 )]
-visible = false
-
-[node name="SoundButton" parent="GUI" instance=ExtResource( 12 )]
-
-[node name="VersionTag" parent="GUI" instance=ExtResource( 13 )]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -50.0
-margin_right = 163.0
-margin_bottom = 0.0
-version = "1.0"
-[connection signal="data_arrived" from="WiosClient" to="." method="_on_WiosClient_data_arrived"]
-[connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
-[connection signal="hit" from="Player" to="." method="game_over"]
-[connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]
-[connection signal="rage_mode_off" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_off"]
-[connection signal="rage_mode_on" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_on"]
-[connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
-[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
-[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
-[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="buy_item" from="GUI" to="." method="buy_item"]
 [connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
 [connection signal="save_username" from="GUI/Startup" to="GUI" method="_on_Startup_save_username"]
@@ -132,3 +118,13 @@ version = "1.0"
 [connection signal="sound_off" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_off"]
 [connection signal="sound_on" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_on"]
 [connection signal="show_credits" from="GUI/VersionTag" to="GUI" method="show_credits"]
+[connection signal="data_arrived" from="WiosClient" to="." method="_on_WiosClient_data_arrived"]
+[connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]
+[connection signal="rage_mode_off" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_off"]
+[connection signal="rage_mode_on" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_on"]
+[connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

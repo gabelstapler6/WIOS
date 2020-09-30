@@ -2,8 +2,8 @@ extends MarginContainer
 
 
 onready var warning_label = $VBox/VBox/WarningLabel
-onready var line_edit = $VBox/VBox/Margin/Panel/VBox/LineEdit
-onready var save_button = $VBox/VBox/Margin/Panel/VBox/Margin/SaveButton
+onready var line_edit = $VBox/VBox/Margin/VBox/LineEdit
+onready var save_button = $VBox/VBox/Margin/VBox/Margin/SaveButton
 
 signal save_username(username)
 

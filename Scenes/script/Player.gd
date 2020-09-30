@@ -4,7 +4,7 @@ signal hit
 signal shoot_bullet
 signal ammo_change(player_ammo)
 
-signal rage_mode_on
+signal rage_mode_on(sec)
 signal rage_mode_off
 
 signal inventory_stock_changed(item_name, stock)
@@ -18,9 +18,11 @@ var ammo = 0
 var score = 0
 
 var rage_mode_on = false
+var rage_mode_sec
 var ammo_save = 0
 
 onready var sprite = $AnimatedSprite
+onready var collision_polygon = $CollisionPolygon2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -77,7 +79,7 @@ func _process(delta):
 func start(pos):
 	position = pos
 	show()
-	$CollisionShape2D.disabled = false
+	collision_polygon.disabled = false
 
 func add_ammo():
 	if rage_mode_on == false:
@@ -89,11 +91,12 @@ func use_rage_mode():
 		if rage_mode_on == false:
 			PlayerInventory.inventory["RageModeStock"] -= 1
 			$RageModeTimer.start()
+			rage_mode_sec = 0
 			ammo_save = ammo
 			ammo = 9999999999
 			rage_mode_on = true
 			emit_signal("inventory_stock_changed", "RageMode", PlayerInventory.inventory["RageModeStock"])
-			emit_signal("rage_mode_on")
+			emit_signal("rage_mode_on", rage_mode_sec)
 
 
 func _on_Player_body_entered(_body):
@@ -104,11 +107,16 @@ func _on_Player_body_entered(_body):
 		emit_signal("rage_mode_off")
 		rage_mode_on = false
 	# collision sicher entfernen
-	$CollisionShape2D.set_deferred("disabled", true)
+	collision_polygon.set_deferred("disabled", true)
 
 
 func _on_RageModeTimer_timeout():
-	emit_signal("rage_mode_off")
-	ammo = ammo_save
-	emit_signal("ammo_change", ammo)
-	rage_mode_on = false
+	if rage_mode_sec == 10:
+		emit_signal("rage_mode_off")
+		ammo = ammo_save
+		emit_signal("ammo_change", ammo)
+		rage_mode_on = false
+		return
+	rage_mode_sec += 1
+	$RageModeTimer.start()
+	emit_signal("rage_mode_on", rage_mode_sec)

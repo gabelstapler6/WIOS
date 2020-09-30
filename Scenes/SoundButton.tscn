@@ -15,22 +15,23 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -55.0
-margin_top = -55.0
-custom_constants/margin_right = 25
-custom_constants/margin_bottom = 25
+margin_left = -70.0
+margin_top = -70.0
+custom_constants/margin_right = 0
+custom_constants/margin_bottom = 0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Button" type="TextureButton" parent="."]
-margin_right = 30.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 30, 30 )
+margin_right = 70.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 70, 70 )
 size_flags_horizontal = 8
 size_flags_vertical = 8
 toggle_mode = true
+shortcut_in_tooltip = false
 shortcut = SubResource( 2 )
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 1 )

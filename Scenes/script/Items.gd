@@ -4,7 +4,7 @@ extends Node
 var items = [
 	{
 		"name": "RageMode",
-		"price": 242
+		"price": 64
 	},
 	{
 		"name": "AmmoIncrease",
