@@ -21,12 +21,13 @@ var rage_mode_on = false
 var rage_mode_sec
 var ammo_save = 0
 
-onready var sprite = $AnimatedSprite
+onready var sprite = $Spaceship
+onready var fire = $Spaceship/AnimatedFire
 onready var collision_polygon = $CollisionPolygon2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	sprite.animation = "idle"
+	fire.animation = "idle"
 	screen_size = get_viewport_rect().size
 	hide()
 	emit_signal("ammo_change", ammo)
@@ -45,15 +46,12 @@ func _process(delta):
 		if PlayerInventory.inventory["VerticalMovementStock"]:
 			if Input.is_action_pressed("ui_down"):
 				velocity.y += 1
-				sprite.animation = "move"
-				sprite.play()
+				start_fire_animation()
 			elif Input.is_action_pressed("ui_up"):
 				velocity.y -= 1
-				sprite.play()
-				sprite.animation = "move"
+				start_fire_animation()
 			else:
-				sprite.animation = "idle"
-				sprite.stop()
+				stop_fire_animation()
 				
 		if Input.is_action_just_pressed("ui_shoot"):
 			if ammo > 0:
@@ -120,3 +118,12 @@ func _on_RageModeTimer_timeout():
 	rage_mode_sec += 1
 	$RageModeTimer.start()
 	emit_signal("rage_mode_on", rage_mode_sec)
+
+
+func start_fire_animation():
+	fire.animation = "move"
+	fire.play()
+	
+func stop_fire_animation():
+	fire.animation = "idle"
+	fire.stop()
