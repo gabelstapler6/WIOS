@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "Bullet",
 "language": "GDScript",
-"path": "res://Scenes/script/Bullet.gd"
+"path": "res://Scenes/character/player/bullet/Bullet.gd"
 }, {
 "base": "Node",
 "class": "WiosClient",
 "language": "GDScript",
-"path": "res://Scenes/script/Client.gd"
+"path": "res://Scenes/network/Client.gd"
 } ]
 _global_script_class_icons={
 "Bullet": "",
@@ -32,8 +32,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Items="*res://Scenes/script/Items.gd"
-PlayerInventory="*res://Scenes/script/PlayerInventory.gd"
+Items="*res://Scenes/character/player/Items.gd"
+PlayerInventory="*res://Scenes/character/player/PlayerInventory.gd"
 
 [display]
 

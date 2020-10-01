@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/img/soundOff.png" type="Texture" id=1]
+[ext_resource path="res://Assets/img/sound.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/ui/sound_toggle/SoundButton.gd" type="Script" id=3]
+
+[sub_resource type="InputEventAction" id=1]
+action = "mute_sound"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
+
+[node name="SoundButton" type="MarginContainer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -70.0
+margin_top = -70.0
+custom_constants/margin_right = 10
+custom_constants/margin_bottom = 10
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="TextureButton" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 60.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 8
+size_flags_vertical = 8
+toggle_mode = true
+shortcut_in_tooltip = false
+shortcut = SubResource( 2 )
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="toggled" from="Button" to="." method="_on_Button_toggled"]

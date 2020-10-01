@@ -1,24 +1,23 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Scenes/script/Main.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/CollisionTile.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/GUI.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Main.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/character/player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/character/collision_tile/CollisionTile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/ui/gui/GUI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/character/player/bullet/Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Assets/music/Wasted in outta Space App version.wav" type="AudioStream" id=6]
-[ext_resource path="res://Scenes/MainMenu.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Shop.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/script/OverallGUI.gd" type="Script" id=10]
-[ext_resource path="res://Scenes/PlayerScoreBalance.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/SoundButton.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/VersionTag.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Scenes/WiosClient.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scenes/Startup.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Scenes/ShopButton.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Scenes/Highscores.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Scenes/Credits.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Assets/img/light/light.png" type="Texture" id=19]
-[ext_resource path="res://Scenes/InGameBackground.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Scenes/ui/main_menu/MainMenu.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/ui/shop/Shop.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/ui/OverallGUI.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/ui/score_balance/PlayerScoreBalance.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/ui/sound_toggle/SoundButton.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/ui/version_tag/VersionTag.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/network/WiosClient.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/ui/startup/Startup.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/ui/shop/ShopButton.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/ui/highscores/Highscores.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/ui/credits/Credits.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Scenes/ui/InGameBackground.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -31,15 +30,6 @@ Tile = ExtResource( 3 )
 Bullet = ExtResource( 5 )
 
 [node name="InGameBackground" parent="." instance=ExtResource( 20 )]
-
-[node name="Light2D" type="Light2D" parent="."]
-visible = false
-position = Vector2( 1128, 104 )
-scale = Vector2( 1.12891, 0.6875 )
-texture = ExtResource( 19 )
-shadow_enabled = true
-shadow_gradient_length = 5.0
-shadow_filter = 2
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource( 10 )
@@ -107,13 +97,13 @@ rotation = -0.000110607
 [connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
 [connection signal="save_username" from="GUI/Startup" to="GUI" method="_on_Startup_save_username"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
-[connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
+[connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="buy_item" from="GUI/Shop" to="GUI" method="buy_item"]
 [connection signal="go_back" from="GUI/Shop" to="GUI" method="go_to_main_menu"]
 [connection signal="show_highscores" from="GUI/MainMenu" to="." method="show_highscores"]
-[connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
 [connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]
+[connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
 [connection signal="open_shop" from="GUI/ShopButton" to="GUI" method="_on_ShopButton_open_shop"]
 [connection signal="sound_off" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_off"]
 [connection signal="sound_on" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_on"]
