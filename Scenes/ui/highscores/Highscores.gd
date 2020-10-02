@@ -13,8 +13,9 @@ signal go_back
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	font = DynamicFont.new()
-	font.font_data = load("res://Assets/font/Plateia Bold.ttf")
+	font.font_data = load("res://Assets/font/RussoOne-Regular.ttf")
 	font.size = 18
+	font.extra_spacing_char = 3
 	pass
 
 

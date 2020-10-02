@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_0004.png-ce5f9d16f18729dece8100d73225f6dc.stex"
+path="res://.import/fire_0004.png-ac31243fbfe95b111712832dd35cdf92.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/img/Spaceship/fire/fire_0004.png"
-dest_files=[ "res://.import/fire_0004.png-ce5f9d16f18729dece8100d73225f6dc.stex" ]
+source_file="res://Assets/img/spaceship/fire/fire_0004.png"
+dest_files=[ "res://.import/fire_0004.png-ac31243fbfe95b111712832dd35cdf92.stex" ]
 
 [params]
 
@@ -21,12 +21,12 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
+process/premult_alpha=true
+process/HDR_as_SRGB=true
 process/invert_color=false
 stream=false
 size_limit=0

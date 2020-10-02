@@ -66,4 +66,4 @@ func _on_Player_rage_mode_off():
 	
 
 func _on_Player_ammo_change(player_ammo):
-	ammo_label.text = "Ammo: " + str(player_ammo)
+	ammo_label.text = "AMMO: " + str(player_ammo)

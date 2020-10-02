@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/img/soundOff.png" type="Texture" id=1]
-[ext_resource path="res://Assets/img/sound.png" type="Texture" id=2]
+[ext_resource path="res://Assets/img/sound_on.png" type="Texture" id=1]
+[ext_resource path="res://Assets/img/sound_off.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/ui/sound_toggle/SoundButton.gd" type="Script" id=3]
 
 [sub_resource type="InputEventAction" id=1]
@@ -35,8 +35,8 @@ size_flags_vertical = 8
 toggle_mode = true
 shortcut_in_tooltip = false
 shortcut = SubResource( 2 )
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 1 )
+texture_normal = ExtResource( 1 )
+texture_pressed = ExtResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false

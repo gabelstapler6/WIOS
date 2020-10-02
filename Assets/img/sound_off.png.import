@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/2.png-08883c97cda94c121fed775d59b48421.stex"
+path="res://.import/sound_off.png-f20fb9235b8b4ae111da1b6143d0ad38.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/img/Spaceship/2.png"
-dest_files=[ "res://.import/2.png-08883c97cda94c121fed775d59b48421.stex" ]
+source_file="res://Assets/img/sound_off.png"
+dest_files=[ "res://.import/sound_off.png-f20fb9235b8b4ae111da1b6143d0ad38.stex" ]
 
 [params]
 
@@ -21,12 +21,12 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=true
-flags/mipmaps=false
-flags/anisotropic=false
+flags/mipmaps=true
+flags/anisotropic=true
 flags/srgb=2
 process/fix_alpha_border=true
-process/premult_alpha=false
-process/HDR_as_SRGB=false
+process/premult_alpha=true
+process/HDR_as_SRGB=true
 process/invert_color=false
 stream=false
 size_limit=0

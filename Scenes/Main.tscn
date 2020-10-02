@@ -69,11 +69,11 @@ margin_top = -50.0
 margin_right = 163.0
 version = "2.0 - beta"
 
-[node name="WiosClient" parent="." instance=ExtResource( 14 )]
-
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( -1.18921, 0 )
 scale = Vector2( 0.5, 0.5 )
+
+[node name="WiosClient" parent="." instance=ExtResource( 14 )]
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -97,24 +97,24 @@ rotation = -0.000110607
 [connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
 [connection signal="save_username" from="GUI/Startup" to="GUI" method="_on_Startup_save_username"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
-[connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
+[connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
 [connection signal="buy_item" from="GUI/Shop" to="GUI" method="buy_item"]
 [connection signal="go_back" from="GUI/Shop" to="GUI" method="go_to_main_menu"]
 [connection signal="show_highscores" from="GUI/MainMenu" to="." method="show_highscores"]
-[connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]
 [connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
+[connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]
 [connection signal="open_shop" from="GUI/ShopButton" to="GUI" method="_on_ShopButton_open_shop"]
 [connection signal="sound_off" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_off"]
 [connection signal="sound_on" from="GUI/SoundButton" to="GUI" method="_on_SoundButton_sound_on"]
 [connection signal="show_credits" from="GUI/VersionTag" to="GUI" method="show_credits"]
-[connection signal="data_arrived" from="WiosClient" to="." method="_on_WiosClient_data_arrived"]
 [connection signal="ammo_change" from="Player" to="GUI/GUI" method="_on_Player_ammo_change"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="inventory_stock_changed" from="Player" to="." method="_on_Player_inventory_stock_changed"]
 [connection signal="rage_mode_off" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_off"]
 [connection signal="rage_mode_on" from="Player" to="GUI/GUI" method="_on_Player_rage_mode_on"]
 [connection signal="shoot_bullet" from="Player" to="." method="_on_Player_shoot_bullet"]
+[connection signal="data_arrived" from="WiosClient" to="." method="_on_WiosClient_data_arrived"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
