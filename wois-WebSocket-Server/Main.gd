@@ -59,7 +59,7 @@ func _on_data_received(id):
 	
 func save():
 	var backup = File.new()
-	backup.open_encrypted_with_pass(backup_path, File.WRITE, "Password")
+	backup.open_encrypted_with_pass(backup_path, File.WRITE, OS.get_unique_id())
 	backup.store_line(to_json(PlayerData.highscore_list))
 	backup.close()
 	
@@ -68,7 +68,7 @@ func load_backup():
 	
 	if not backup.file_exists(backup_path):
 		return
-	backup.open_encrypted_with_pass(backup_path, File.READ, "Password")
+	backup.open_encrypted_with_pass(backup_path, File.READ, OS.get_unique_id())
 	
 	PlayerData.highscore_list = parse_json(backup.get_line())
 	backup.close()

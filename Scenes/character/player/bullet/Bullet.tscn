@@ -3,13 +3,10 @@
 [ext_resource path="res://Assets/img/circle.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/character/player/bullet/Bullet.gd" type="Script" id=2]
 
-
-
-
-[sub_resource type="OccluderPolygon2D" id=2]
+[sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -0.0385914, -7.81188, 1.93103, -7.62607, 3.26889, -7.06863, 4.04931, -6.62267, 5.72163, -5.32198, 6.91084, -3.72398, 7.43112, -2.20031, 7.72842, -0.119198, 7.65409, 1.44164, 7.13381, 3.15112, 6.20475, 4.67479, 5.01554, 6.01265, 3.90066, 6.79307, 2.8601, 7.23902, 1.89387, 7.53632, 0.667501, 7.64781, -0.0014286, 7.72214, -1.63659, 7.61065, -2.49133, 7.27618, -3.30891, 6.83023, -4.38663, 6.34711, -5.12988, 5.64102, -5.83597, 5.04642, -6.54207, 3.89438, -7.24816, 2.48219, -7.47113, 1.40447, -7.73127, -0.0448723, -7.73127, -0.862453, -7.32248, -2.6091, -6.95086, -3.61249, -6.24476, -4.54156, -5.76165, -5.28482, -4.75826, -6.1024, -3.94068, -6.697, -2.04538, -7.51458, -0.893333, -7.77472 )
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 7.84612
 
 [node name="Bullet" type="RigidBody2D"]
@@ -20,15 +17,15 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 0.203922, 0.203922, 0.203922, 1 )
+modulate = Color( 0.392157, 0.392157, 0.392157, 1 )
 scale = Vector2( 0.0302546, 0.0302546 )
 texture = ExtResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 2 )
+occluder = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

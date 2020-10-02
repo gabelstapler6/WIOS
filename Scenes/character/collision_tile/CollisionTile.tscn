@@ -1,40 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Assets/img/square.png" type="Texture" id=1]
+[ext_resource path="res://Assets/img/meteorite/meteorite.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/character/collision_tile/CollisionTile.gd" type="Script" id=2]
-[ext_resource path="res://Scenes/character/collision_tile/CollisionSprite.gd" type="Script" id=3]
-
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 34.1398, 34.1174 )
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends VisibilityNotifier2D
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-"
-
-[sub_resource type="OccluderPolygon2D" id=4]
-polygon = PoolVector2Array( -34.1679, -34.2, 34.0679, -34.0232, 34.2447, 34.2126, -34.1679, 34.3894 )
 
 [node name="CollisionTile" type="RigidBody2D" groups=[
 "tiles",
@@ -42,20 +9,14 @@ polygon = PoolVector2Array( -34.1679, -34.2, 34.0679, -34.0232, 34.2447, 34.2126
 gravity_scale = 0.0
 script = ExtResource( 2 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-scale = Vector2( 0.131554, 0.131554 )
-frames = SubResource( 1 )
-playing = true
-script = ExtResource( 3 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.109375, 0.109375 )
+texture = ExtResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-position = Vector2( 0.0518328, 0.0155689 )
-scale = Vector2( 3.41744, 3.41167 )
-script = SubResource( 3 )
+position = Vector2( 1.66893e-06, -4 )
+scale = Vector2( 3.2, 2.8 )
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 4 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -32.4062, -29.9906, -28.6198, -32.3292, -27.1721, -35.336, -22.7176, -37.5632, -19.5995, -37.2291, -14.4768, -36.8951, -8.57462, -36.1155, -7.01554, -38.3428, -2.1156, -40.0132, 1.89344, -37.8973, 9.35472, -38.5655, 18.9319, -38.2314, 23.1636, -37.1178, 26.0591, -38.5655, 30.4022, -37.6746, 33.0749, -36.0042, 32.9635, -33.2201, 39.6453, -28.3202, 43.543, -23.977, 45.6588, -19.7453, 47.9974, -19.4112, 48.8883, -17.2953, 48.9997, -11.7272, 47.4406, -10.1681, 43.4045, -1.73782, 39.3112, 4.64309, 28.8431, 18.2293, 29.2886, 20.2338, 28.4382, 22.1167, 25.4886, 24.7123, 23.1289, 24.5944, 17.5836, 28.6058, 13.6901, 31.2015, 8.26285, 33.3252, 0.239914, 34.623, -0.350006, 35.9209, -2.94566, 36.2748, -7.31108, 35.9209, -10.1427, 35.095, -10.7326, 32.8533, -20.6433, 28.0159, -22.2951, 29.0778, -24.5368, 29.0778, -28.4303, 27.8979, -29.7281, 26.4821, -32.4417, 25.7742, -34.9194, 23.8865, -37.0431, 20.111, -38.3409, 16.0995, -39.7568, 15.8635, -42.2344, 12.324, -42.8244, 9.2564, -42.3524, 6.54277, -41.4085, 5.12695, -41.8805, -1.48017, -41.8805, -7.61535, -41.5265, -9.03116, -42.2344, -9.97504, -41.9985, -13.1606, -40.9366, -15.8743, -39.8747, -15.9922, -37.5151, -20.9476, -35.8037, -25.5399, -34.1333, -28.324 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
