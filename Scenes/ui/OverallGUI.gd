@@ -141,4 +141,4 @@ func _on_Startup_save_username(username):
 	main.load_game()
 	setup_gui()
 	show_gui()
-	
+

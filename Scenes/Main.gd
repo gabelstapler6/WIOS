@@ -278,3 +278,11 @@ func _on_WiosClient_data_arrived(data):
 	gui.highscores.add_entries(highscore_list)
 	gui.show_highscores()
 
+
+
+func _on_login(username, password):
+	gui._on_Startup_save_username(username)
+
+
+func _on_register(username, password):
+	pass # Replace with function body.

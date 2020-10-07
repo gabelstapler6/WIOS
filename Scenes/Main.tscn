@@ -95,7 +95,8 @@ position = Vector2( -36.3195, 1.46259 )
 rotation = -0.000110607
 [connection signal="buy_item" from="GUI" to="." method="buy_item"]
 [connection signal="go_back" from="GUI/Highscores" to="GUI" method="go_to_main_menu"]
-[connection signal="save_username" from="GUI/Startup" to="GUI" method="_on_Startup_save_username"]
+[connection signal="login" from="GUI/Startup" to="." method="_on_login"]
+[connection signal="register" from="GUI/Startup" to="." method="_on_register"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]

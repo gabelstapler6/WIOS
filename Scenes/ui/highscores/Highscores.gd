@@ -5,17 +5,12 @@ extends MarginContainer
 # var a = 2
 # var b = "text"
 onready var scroll_grid = $VBox/Scroll/Grid
-var font
 var label_array = []
 
 signal go_back
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	font = DynamicFont.new()
-	font.font_data = load("res://Assets/font/RussoOne-Regular.ttf")
-	font.size = 18
-	font.extra_spacing_char = 3
 	pass
 
 
@@ -29,9 +24,9 @@ func add_entries(players_array):
 		username.text = i["username"]
 		score.text = str(i["score"])
 
-		number.add_font_override("font", font)
-		username.add_font_override("font", font)
-		score.add_font_override("font", font)
+		number.add_font_override("font", GlobalTheme.text_font)
+		username.add_font_override("font", GlobalTheme.text_font)
+		score.add_font_override("font", GlobalTheme.text_font)
 		
 		label_array.append(number)
 		label_array.append(username)

@@ -5,6 +5,11 @@ var consumable_items = [
 		"description": "Rage-Mode (unlimited Ammo for 10sec)",
 		"price": 123,
 		"name": "RageMode"
+	},
+	{
+		"description": "Start your NEXT Run with the Ammo you buy",
+		"price": 20,
+		"name": "StartAmmo"
 	}
 ]
 

@@ -32,8 +32,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-PlayerInventory="*res://Scenes/character/player/PlayerInventory.gd"
+GlobalTheme="*res://Scenes/ui/theme.gd"
 Items="*res://Scenes/character/player/Items.gd"
+PlayerInventory="*res://Scenes/character/player/PlayerInventory.gd"
 
 [display]
 

@@ -25,7 +25,8 @@ func vertical_movement_bought():
 	var nodes = get_tree().get_nodes_in_group("VerticalMovement")
 	for node in nodes:
 		node.add_color_override("font_color", "8a8a8a")
-		node.disabled = true
+		if "disabled" in node:
+			node.disabled = true
 
 
 # update func for price and stock of the item in the parameter
@@ -50,22 +51,27 @@ func fill_shop():
 				var label = Label.new()
 				if item_key == "price":
 					label.add_to_group(group_name + "Price")
+					label.align = Label.ALIGN_CENTER
+					
 				label.add_to_group(group_name)
 				label.text = str(item[item_key])
-				# TODO:
-				# font, size
+				label.add_font_override("font", GlobalTheme.text_font)
 				items_grid.add_child(label)
 				
-			#TODO: font, size
 			var stock_label = Label.new()
 			stock_label.add_to_group(group_name + "Stock")
 			stock_label.add_to_group(group_name)
 			stock_label.text = str(PlayerInventory.inventory[group_name + "Stock"])
+			stock_label.add_font_override("font", GlobalTheme.text_font)
+			stock_label.align = Label.ALIGN_CENTER
 			items_grid.add_child(stock_label)
+			
 			var buy_button = Button.new()
 			buy_button.add_to_group(group_name)
 			items_grid.add_child(buy_button)
 			buy_button.text = "buy"
+			buy_button.add_font_override("font", GlobalTheme.text_font)
+			buy_button.flat = true
+			
 			buy_button.connect("pressed", self, "buy_item", [group_name])
-			# TODO: connect signal -> buy_item mit group_name als parameter
 
