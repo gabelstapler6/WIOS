@@ -32,8 +32,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Items="*res://Scenes/character/player/Items.gd"
 PlayerInventory="*res://Scenes/character/player/PlayerInventory.gd"
+Items="*res://Scenes/character/player/Items.gd"
 
 [display]
 

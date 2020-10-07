@@ -163,11 +163,11 @@ func _on_MainMenu_start_game():
 # 		gui.login_view.popup.popup_centered_minsize()
 	
 func update_ammo_price():
-	var name = "AmmoIncrease"
-	for i in Items.items:
-		if i["name"] == name:
-			i["price"] = PlayerInventory.inventory[name + "Stock"] * 1000
-			gui.shop.update_shop_price(i["name"], i["price"])
+	for key in Items.items:
+		for item in Items.items[key]:
+			if item["name"] == "AmmoIncrease":
+				item["price"] = PlayerInventory.inventory["AmmoIncreaseStock"] * 1000
+				gui.shop.update_shop(item["name"], item["price"], "Price")
 
 
 func item_bought(item_name):
@@ -175,26 +175,30 @@ func item_bought(item_name):
 	# db.update_item_stock(item_name, stock)
 	# db.update_player_scoreBalance(player.score)
 	gui.update_score_tag(PlayerInventory.score_balance)
-	gui.shop.update_shop_stock(item_name, stock)
+	gui.shop.update_shop(item_name, stock, "Stock")
+	if item_name == "VerticalMovement":
+		gui.shop.vertical_movement_bought()
 
 
 func buy_item(item_name):
-	for i in Items.items:
-		if i["name"] == item_name:
-			if PlayerInventory.score_balance >= i["price"]:
-				PlayerInventory.score_balance -= i["price"]
-				PlayerInventory.inventory[item_name + "Stock"] += 1
-				item_bought(item_name)
-				update_ammo_price()
-				save_game()
-				return
-			else:
-				gui.shop.show_buy_fail()
+	for key in Items.items:
+		for item in Items.items[key]:
+			if item["name"] == item_name:
+				if PlayerInventory.score_balance >= item["price"]:
+					PlayerInventory.score_balance -= item["price"]
+					PlayerInventory.inventory[item_name + "Stock"] += 1
+					item_bought(item_name)
+					if item_name == "AmmoIncrease":
+						update_ammo_price()
+					save_game()
+					return
+				else:
+					gui.shop.show_buy_fail()
 
 
 func _on_Player_inventory_stock_changed(item_name, stock):
 	# db.update_item_stock(item_name, stock)
-	gui.shop.update_shop_stock(item_name, stock)
+	gui.shop.update_shop(item_name, stock, "Stock")
 
 
 # func refresh_highscores():

@@ -55,10 +55,13 @@ func setup_gui():
 	if not OS.is_userfs_persistent():
 		main_menu.popup.dialog_text = "you need to enable coockies to save your progress!"
 		main_menu.popup.popup_centered_minsize()
-		
-	for i in Items.items:
-		shop.update_shop_stock(i["name"], PlayerInventory.inventory[i["name"] + "Stock"])
-		shop.update_shop_price(i["name"], i["price"])
+	
+	shop.fill_shop()
+	
+	for key in Items.items:
+		for item in Items.items[key]:
+			shop.update_shop(item["name"], PlayerInventory.inventory[item["name"] + "Stock"])
+			shop.update_shop(item["name"], item["price"], "Price")
 		
 	update_score_tag(PlayerInventory.score_balance)
 	main_menu.welcome_label.text = "Hello " + PlayerInventory.username + "!"

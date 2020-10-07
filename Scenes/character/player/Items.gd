@@ -1,30 +1,30 @@
 extends Node
 
-
-var items = [
+var consumable_items = [
 	{
-		"name": "RageMode",
-		"price": 64
-	},
-	{
-		"name": "AmmoIncrease",
-		"price": 1000
-	},
-	{
-		"name": "VerticalMovement",
-		"price": 1312
+		"description": "Rage-Mode (unlimited Ammo for 10sec)",
+		"price": 123,
+		"name": "RageMode"
 	}
 ]
 
-	
+var upgrade_items = [
+	{
+		"description": "Ammo increase +1 every 10sec",
+		"price": 1000,
+		"name": "AmmoIncrease"
+	},
+	{
+		"description": "Enable vertical movement",
+		"price": 1312,
+		"name": "VerticalMovement"
+	}
+]
+
+var items = {
+	"consumable_items": consumable_items,
+	"upgrade_items": upgrade_items
+}
 
 func _ready():
-	add_to_group("persistence")
 	pass
-
-func save():
-	var save_dict = {
-		"filename": "Items",
-		"items": items
-	}
-	return save_dict

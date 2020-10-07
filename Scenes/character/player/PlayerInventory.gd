@@ -8,11 +8,13 @@ var username = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("persistence")
-	for i in Items.items:
-		var stock = 0
-		if i.name == "AmmoIncrease":
-			stock = 1
-		inventory[i.name + "Stock"] = stock
+	for item_category in Items.items:
+		for item in Items.items[item_category]:
+			var stock = 0
+			if item["name"] == "AmmoIncrease":
+				stock = 1
+			var key = item["name"] + "Stock"
+			inventory[key] = stock
 
 
 func save():

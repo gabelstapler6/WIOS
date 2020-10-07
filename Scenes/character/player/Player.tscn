@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/character/player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Assets/img/Spaceship/fire/fire_0001.png" type="Texture" id=3]
 [ext_resource path="res://Assets/img/Spaceship/fire/fire_0003.png" type="Texture" id=4]
-[ext_resource path="res://Assets/img/spaceship/spaceship_v3.png" type="Texture" id=5]
+[ext_resource path="res://Assets/img/Spaceship/spaceship_v3.png" type="Texture" id=5]
 [ext_resource path="res://Assets/img/Spaceship/fire/fire_0000.png" type="Texture" id=6]
 [ext_resource path="res://Assets/img/Spaceship/fire/fire_0004.png" type="Texture" id=7]
 
