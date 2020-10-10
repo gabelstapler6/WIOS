@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/ui/startup/Startup.gd" type="Script" id=1]
 
@@ -18,18 +18,12 @@ size = 14
 extra_spacing_char = 3
 font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFontData" id=6]
+[sub_resource type="DynamicFontData" id=5]
 font_path = "res://Assets/font/RussoOne-Regular.ttf"
 
-[sub_resource type="DynamicFont" id=7]
-font_data = SubResource( 6 )
-
-[sub_resource type="DynamicFontData" id=8]
-font_path = "res://Assets/font/RussoOne-Regular.ttf"
-
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=6]
 extra_spacing_char = 3
-font_data = SubResource( 8 )
+font_data = SubResource( 5 )
 
 [node name="Startup" type="MarginContainer"]
 anchor_right = 1.0
@@ -61,7 +55,7 @@ align = 1
 [node name="VBox" type="VBoxContainer" parent="VBox"]
 margin_top = 128.0
 margin_right = 824.0
-margin_bottom = 260.0
+margin_bottom = 248.0
 custom_constants/separation = 15
 
 [node name="WarningLabel" type="Label" parent="VBox/VBox"]
@@ -75,39 +69,37 @@ align = 1
 [node name="Margin" type="MarginContainer" parent="VBox/VBox"]
 margin_top = 32.0
 margin_right = 824.0
-margin_bottom = 132.0
+margin_bottom = 120.0
 custom_constants/margin_right = 250
 custom_constants/margin_left = 250
 
 [node name="VBox" type="VBoxContainer" parent="VBox/VBox/Margin"]
 margin_left = 250.0
 margin_right = 574.0
-margin_bottom = 100.0
+margin_bottom = 88.0
 custom_constants/separation = 7
 
 [node name="UsernameLineEdit" type="LineEdit" parent="VBox/VBox/Margin/VBox"]
 margin_right = 324.0
-margin_bottom = 30.0
-custom_fonts/font = SubResource( 7 )
+margin_bottom = 24.0
 align = 1
 max_length = 24
 context_menu_enabled = false
 placeholder_text = "enter your username"
 
 [node name="PasswordLineEdit" type="LineEdit" parent="VBox/VBox/Margin/VBox"]
-margin_top = 37.0
+margin_top = 31.0
 margin_right = 324.0
-margin_bottom = 67.0
-custom_fonts/font = SubResource( 7 )
+margin_bottom = 55.0
 align = 1
 max_length = 16
 secret = true
 placeholder_text = "enter your password"
 
 [node name="Center" type="CenterContainer" parent="VBox/VBox/Margin/VBox"]
-margin_top = 74.0
+margin_top = 62.0
 margin_right = 324.0
-margin_bottom = 100.0
+margin_bottom = 88.0
 
 [node name="HBox" type="HBoxContainer" parent="VBox/VBox/Margin/VBox/Center"]
 margin_left = 72.0
@@ -118,7 +110,7 @@ custom_constants/separation = 18
 [node name="RegisterButton" type="Button" parent="VBox/VBox/Margin/VBox/Center/HBox"]
 margin_right = 98.0
 margin_bottom = 26.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 6 )
 text = "register"
 flat = true
 
@@ -126,7 +118,7 @@ flat = true
 margin_left = 116.0
 margin_right = 180.0
 margin_bottom = 26.0
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 6 )
 shortcut_in_tooltip = false
 text = "login"
 flat = true

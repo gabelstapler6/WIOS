@@ -94,3 +94,7 @@ func _on_LoginButton_pressed():
 func _on_RegisterButton_pressed():
 	if validate_input():
 		emit_signal("register", username_line_edit.text, password_line_edit.text)
+
+
+func show_warning_message(message):
+	warning_label.text = message

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/fire_0002.png-cd661c7cde693aaefe96f0a8699d05ab.stex"
+path="res://.import/fire_0002.png-b14c5921b51810e0695b6e84d1f0283b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/img/Spaceship/fire/fire_0002.png"
-dest_files=[ "res://.import/fire_0002.png-cd661c7cde693aaefe96f0a8699d05ab.stex" ]
+source_file="res://Assets/img/spaceship/fire/fire_0002.png"
+dest_files=[ "res://.import/fire_0002.png-b14c5921b51810e0695b6e84d1f0283b.stex" ]
 
 [params]
 

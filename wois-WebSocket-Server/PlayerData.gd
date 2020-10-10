@@ -2,6 +2,8 @@ extends Node
 
 
 var highscore_list = []
+var user_list = []
+
 
 func _ready():
 	pass
@@ -13,7 +15,7 @@ class Sorter:
 			return true
 		return false
 
-func insert_data(username, score):
+func insert_highscore(username, score):
 	# if the username already exists in teh list the score value gets updated
 	for i in highscore_list:
 		if i["username"] == username:

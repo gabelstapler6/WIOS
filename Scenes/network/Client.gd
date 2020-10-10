@@ -7,14 +7,20 @@ var client = WebSocketClient.new()
 
 var websocket_url = "ws://and1dev.space:9080"
 var is_connected_to_host = false
-signal data_arrived(data)
+onready var parent = get_parent()
+
+var callback_functions = [
+	"register_callback",
+	"login_callback",
+	"highscores_callback"
+]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	client.connect("connection_closed", self, "_on_closed")
 	client.connect("connection_error", self, "_on_closed")
 	client.connect("connection_established", self, "_on_connected")
-	client.connect("data_received", self, "_on_data")
+	client.connect("data_received", self, "_on_data_received")
 
 	var err = client.connect_to_url(websocket_url)
 	if err != OK:
@@ -36,26 +42,41 @@ func _on_connected(proto = ""):
 	print("Connected with protocol: ", proto)
 
 
-func post_highscore(username, score):
+# server parses through the dictionary and calls the function: name with the arguments
+func call_server_function(name, args):
 	if is_connected_to_host:
-		var dict = {
-			"username": username,
-			"score": score 
+		var server_function = {
+			"name": name,
+			"args": args
 		}
-		var json_data = to_json(dict)
-		
+		var json_data = to_json(server_function)
 		client.get_peer(1).put_packet(json_data.to_utf8())
 
 
+func post_highscore(username, score):
+	call_server_function("post_highscore", {"username": username, "score": score})
+
 func retrieve_highscore_list():
-	if is_connected_to_host:
-		client.get_peer(1).put_packet("get_highscore_list".to_utf8())
+	call_server_function("get_highscore_list", [])
+
+func register_user(username, password):
+	call_server_function("register_user", {"username": username, "password": password})
+
+func login_user(username, password):
+	call_server_function("login_user", {"username": username, "password": password})
 
 
-func _on_data():
+# server sends data back in the format:
+# data = {
+#	"callback_func": some_data
+# }
+func _on_data_received():
 	var pkt = client.get_peer(1).get_packet()
 	var string = pkt.get_string_from_utf8()
 	var data = parse_json(string)
-	emit_signal("data_arrived", data)
-
+	
+	for callback in callback_functions:
+		if data.has_key(callback):
+			parent.call(callback, data[callback])
+			return
 	

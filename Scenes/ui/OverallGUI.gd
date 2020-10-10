@@ -136,10 +136,5 @@ func show_highscores():
 	highscores.show()
 
 func _on_Startup_save_username(username):
-	PlayerInventory.username = username
-	var main = get_parent()
-	main.save_path = "user://" + username + "_save.bin"
-	main.load_game()
-	setup_gui()
-	show_gui()
+	
 

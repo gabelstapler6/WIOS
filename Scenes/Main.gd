@@ -221,21 +221,38 @@ func load_game():
 	save.close()
 
 
-
-func show_highscores():
-	client.retrieve_highscore_list()
-
-
-func _on_WiosClient_data_arrived(data):
+func highscores_callback(data):
 	highscore_list = data
 	gui.highscores.add_entries(highscore_list)
 	gui.show_highscores()
 
+func show_highscores():
+	client.call_server_function("get_highscore_list", {})
 
 
 func _on_login(username, password):
+	PlayerInventory.username = username
+	save_path = "user://" + username + "_save.bin"
+	load_game()
+	gui.setup_gui()
+	gui.show_gui()
 	gui._on_Startup_save_username(username)
 
 
-func _on_register(username, password):
-	pass # Replace with function body.
+func login_callback(data):
+	pass
+
+func login(username, password):
+	client.call_server_function("login_user", {"username": username, "password": password})
+
+
+func register_callback(data):
+	if data:
+		gui.startup.show_warning_message("This username is already taken! You need to pick another one")
+	else:
+		gui.startup.show_warning_message("Registered successfully! You can login now")
+
+
+func register(username, password):
+	client.call_server_function("register_user", {"username": username, "password": password})
+
