@@ -52,20 +52,6 @@ func call_server_function(name, args):
 		var json_data = to_json(server_function)
 		client.get_peer(1).put_packet(json_data.to_utf8())
 
-
-func post_highscore(username, score):
-	call_server_function("post_highscore", {"username": username, "score": score})
-
-func retrieve_highscore_list():
-	call_server_function("get_highscore_list", [])
-
-func register_user(username, password):
-	call_server_function("register_user", {"username": username, "password": password})
-
-func login_user(username, password):
-	call_server_function("login_user", {"username": username, "password": password})
-
-
 # server sends data back in the format:
 # data = {
 #	"callback_func": some_data

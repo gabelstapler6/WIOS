@@ -135,6 +135,3 @@ func show_highscores():
 	shop_button.hide()
 	highscores.show()
 
-func _on_Startup_save_username(username):
-	
-

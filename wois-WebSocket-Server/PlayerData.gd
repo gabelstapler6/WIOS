@@ -1,8 +1,10 @@
 extends Node
 
-
+# array of dictionaries containint the username and the corresponding score
 var highscore_list = []
-var user_list = []
+
+# dictionary contianing values like this -> "username": password
+var user_list = {}
 
 
 func _ready():

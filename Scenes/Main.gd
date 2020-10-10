@@ -213,9 +213,6 @@ func load_game():
 		var node_data = parse_json(save.get_line())
 
 		for key in node_data:
-			if node_data["filename"] == "Items":
-				Items.set(key, node_data[key])
-			else:
 				PlayerInventory.set(key, node_data[key])
 
 	save.close()
@@ -240,7 +237,11 @@ func _on_login(username, password):
 
 
 func login_callback(data):
-	pass
+	if data["correct"]:
+		for key in data["game_save"]:
+			PlayerInventory.inventory.set(key, data["game_save"][key])
+	else:
+		gui.startup.show_warning_message("Wrong username or password")
 
 func login(username, password):
 	client.call_server_function("login_user", {"username": username, "password": password})
