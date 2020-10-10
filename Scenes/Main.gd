@@ -57,7 +57,6 @@ func game_over():
 			
 	# add the cash
 	PlayerInventory.score_balance += score_balance
-	# db.update_player_scoreBalance(player.score)
 	gui.update_score_tag(PlayerInventory.score_balance)
 		
 	gui.show_game_over()
@@ -88,9 +87,7 @@ func _on_ScoreTimer_timeout():
 		
 	if score % 10 == 0:
 		player.add_ammo()
-		# every 100 score 1 ammo gets added
-		# for _i in range(100, score+1, 100):
-			# player.add_ammo()
+		
 	var message
 	if score % 50 == 0:
 		if $MobTimer.wait_time <= 0.3:
@@ -143,25 +140,6 @@ func _on_MainMenu_start_game():
 	
 	gui.update_score(score)
 	
-# func _on_LoginView_enter_pressed():
-# 	if db.check_username(gui.get_username()):
-		
-# 		db.setup_game()
-		
-# 		player_values = db.retrieve_player_values()
-# 		player.inventory.init(db.get_player_inventory())
-# 		items_array = db.get_items_array()
-		
-# 		update_ammo_price()
-# 		player.vertical_movement_enabled()
-		
-# 		player.score = player_values.scoreBalance
-
-# 		gui.setup_gui(player_values, items_array, player.inventory.stock_dict)
-# 	else:
-# 		gui.login_view.popup.dialog_text = "This username does not exist!\nYou can add a new User with the 'add user' Button."
-# 		gui.login_view.popup.popup_centered_minsize()
-	
 func update_ammo_price():
 	for key in Items.items:
 		for item in Items.items[key]:
@@ -199,31 +177,6 @@ func buy_item(item_name):
 func _on_Player_inventory_stock_changed(item_name, stock):
 	# db.update_item_stock(item_name, stock)
 	gui.shop.update_shop(item_name, stock, "Stock")
-
-
-# func refresh_highscores():
-	# var player_array = db.get_all_players_highscores()
-	
-	# for _i in range(1, player_array.size()):
-	# 	for j in range(0, player_array.size() - 1):
-	# 		if player_array[j].highscore < player_array[j+1].highscore:
-	# 			var c = player_array[j]
-	# 			player_array[j]= player_array[j+1]
-	# 			player_array[j+1] = c
-			
-	# gui.highscores.add_entries(player_array)
-
-
-# func _on_Main_tree_exiting():
-# 	db.close_connection()
-
-
-# func _on_LoginView_add_user_pressed():
-# 	if db.check_username(gui.login_view.get_username()):
-# 		gui.login_view.popup.dialog_text = "This user already exists!\nPick another username!"
-# 		gui.login_view.popup.popup_centered_minsize()
-# 	else:
-# 		db.add_user(gui.login_view.get_username())
 
 
 func save_game():

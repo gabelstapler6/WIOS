@@ -132,6 +132,7 @@ func show_credits():
 
 func show_highscores():
 	main_menu.hide()
+	shop_button.hide()
 	highscores.show()
 
 func _on_Startup_save_username(username):
