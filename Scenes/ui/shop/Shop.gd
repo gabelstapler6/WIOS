@@ -74,4 +74,6 @@ func fill_shop():
 			buy_button.flat = true
 			
 			buy_button.connect("pressed", self, "buy_item", [group_name])
+	if PlayerInventory.inventory["VerticalMovementStock"] >= 1:
+		vertical_movement_bought()
 

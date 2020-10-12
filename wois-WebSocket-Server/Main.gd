@@ -16,7 +16,6 @@ func _ready():
 	
 	load_backup()
 	
-	
 	var err = _server.listen(PORT)
 	if err != OK:
 		print("Unable to start Server!")
@@ -41,7 +40,7 @@ func _on_client_close_request(id, _proto, reason):
 
 func get_highscore_list(args):
 	var packet = {
-		"highscores_callback": PlayerData.highscore_list
+		"highscores_received": PlayerData.highscore_list
 	}
 	var json_data = to_json(packet)
 	# send the new highscore-list to the client back
@@ -54,17 +53,17 @@ func post_highscore(arg):
 func register_user(arg):
 	var value = false
 	
-	if PlayerData.user_list.has_key(arg["username"]):
+	if arg["username"] in PlayerData.user_list:
 		value = true
 	
 	var packet = {
-		"register_callback": value
+		"register_received": value
 	}
 	var json_data = to_json(packet)
 	_server.get_peer(arg["id"]).put_packet(json_data.to_utf8())
 	
 	if not value:
-		PlayerData[arg["username"]] = arg["password"]
+		PlayerData.user_list[arg["username"]] = arg["password"]
 		var save = File.new()
 		# save changes to server backup
 		save()
@@ -73,14 +72,14 @@ func register_user(arg):
 func login_user(arg):
 	var value = false
 	var data = {}
-	if PlayerData.user_list.has_key(arg["username"]):
+	if arg["username"] in PlayerData.user_list:
 		if PlayerData.user_list[arg["username"]] == arg["password"]:
 			value = true
 			data["game_save"] = get_user_game_save(arg["username"])
 			
 	data["correct"] = value
 	var packet = {
-		"login_callback": data
+		"login_received": data
 	}
 	var json_data = to_json(packet)
 	_server.get_peer(arg["id"]).put_packet(json_data.to_utf8())	
@@ -99,12 +98,18 @@ func get_user_game_save(username):
 		
 	return node_data
 
+func save_user_stats_to_file(arg):
+	var save = File.new()
+	save.open("user://" + arg["username"] + "_save.save", File.WRITE)
+	save.store_line(to_json(arg["inventory"]))
+	
+	
 func _on_data_received(id):
 	# get the data from the peer
 	var pkt = _server.get_peer(id).get_packet()
 	var string = pkt.get_string_from_utf8()
 	var dict = parse_json(string)
-	dict["id"] = id
+	dict["args"]["id"] = id
 	call(dict["name"], dict["args"])
 	
 	
@@ -120,7 +125,7 @@ func load_backup():
 	
 	if not backup.file_exists(backup_path):
 		return
-	backup.open_encrypted_with_pass(backup_path, File.READ, OS.get_unique_id())
+	backup.open(backup_path, File.READ)
 	
 	PlayerData.highscore_list = parse_json(backup.get_line())
 	PlayerData.user_list = parse_json(backup.get_line())

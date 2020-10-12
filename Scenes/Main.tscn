@@ -93,10 +93,13 @@ curve = SubResource( 1 )
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2( -36.3195, 1.46259 )
 rotation = -0.000110607
+[connection signal="login" from="GUI/Startup" to="." method="login"]
 [connection signal="register" from="GUI/Startup" to="." method="register"]
 [connection signal="main_menu" from="GUI/GUI" to="GUI" method="go_to_main_menu"]
 [connection signal="play_again" from="GUI/GUI" to="GUI" method="start_game"]
 [connection signal="play_again" from="GUI/GUI" to="." method="_on_MainMenu_start_game"]
+[connection signal="buy_item" from="GUI/Shop" to="." method="buy_item"]
+[connection signal="go_back" from="GUI/Shop" to="GUI" method="go_to_main_menu"]
 [connection signal="show_highscores" from="GUI/MainMenu" to="." method="show_highscores"]
 [connection signal="start_game" from="GUI/MainMenu" to="GUI" method="start_game"]
 [connection signal="start_game" from="GUI/MainMenu" to="." method="_on_MainMenu_start_game"]

@@ -5,14 +5,14 @@ class_name WiosClient
 
 var client = WebSocketClient.new()
 
-var websocket_url = "ws://and1dev.space:9080"
+var websocket_url = "ws://localhost:9080"
 var is_connected_to_host = false
 onready var parent = get_parent()
 
 var callback_functions = [
-	"register_callback",
-	"login_callback",
-	"highscores_callback"
+	"register_received",
+	"login_received",
+	"highscores_received"
 ]
 
 # Called when the node enters the scene tree for the first time.
@@ -62,7 +62,7 @@ func _on_data_received():
 	var data = parse_json(string)
 	
 	for callback in callback_functions:
-		if data.has_key(callback):
+		if data.has(callback):
 			parent.call(callback, data[callback])
 			return
 	

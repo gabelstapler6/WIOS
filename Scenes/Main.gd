@@ -43,7 +43,7 @@ func game_over():
 	if PlayerInventory.highscore < score:
 		# db.update_player_highscore(score)
 		PlayerInventory.highscore = score
-		client.post_highscore(PlayerInventory.username, PlayerInventory.highscore)
+		client.call_server_function("post_highscore", {"username": PlayerInventory.username, "score": score})
 		
 	# score multiplies at 200 2x, 300 3x and so on
 	# only the difference to another stage gets multiplied
@@ -62,7 +62,8 @@ func game_over():
 	gui.show_game_over()
 	score_multiplier = 2
 	cycle_counter = 0
-	save_game()
+	save_user_stats()
+
 
 func _on_MobTimer_timeout():
 	$MobPath/MobSpawnLocation.offset = randi()
@@ -168,7 +169,7 @@ func buy_item(item_name):
 					item_bought(item_name)
 					if item_name == "AmmoIncrease":
 						update_ammo_price()
-					save_game()
+					save_user_stats()
 					return
 				else:
 					gui.shop.show_buy_fail()
@@ -218,7 +219,7 @@ func load_game():
 	save.close()
 
 
-func highscores_callback(data):
+func highscores_received(data):
 	highscore_list = data
 	gui.highscores.add_entries(highscore_list)
 	gui.show_highscores()
@@ -227,27 +228,26 @@ func show_highscores():
 	client.call_server_function("get_highscore_list", {})
 
 
-func _on_login(username, password):
-	PlayerInventory.username = username
-	save_path = "user://" + username + "_save.bin"
-	load_game()
-	gui.setup_gui()
-	gui.show_gui()
-	gui._on_Startup_save_username(username)
-
-
-func login_callback(data):
+func login_received(data):
 	if data["correct"]:
 		for key in data["game_save"]:
-			PlayerInventory.inventory.set(key, data["game_save"][key])
+			# load playersave from server
+			PlayerInventory.set(key, data["game_save"][key])
+			
+		gui.setup_gui()
+		gui.show_gui()	
 	else:
 		gui.startup.show_warning_message("Wrong username or password")
 
 func login(username, password):
 	client.call_server_function("login_user", {"username": username, "password": password})
+	PlayerInventory.username = username
 
 
-func register_callback(data):
+func save_user_stats():
+	client.call_server_function("save_user_stats_to_file", {"username": PlayerInventory.username, "inventory": PlayerInventory.save()})
+
+func register_received(data):
 	if data:
 		gui.startup.show_warning_message("This username is already taken! You need to pick another one")
 	else:

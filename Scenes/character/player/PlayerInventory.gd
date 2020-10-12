@@ -16,6 +16,7 @@ func _ready():
 				stock = 1
 			var key = item["name"] + "Stock"
 			inventory[key] = stock
+	
 
 
 func save():
@@ -23,9 +24,7 @@ func save():
 		"filename": "PlayerInventory",
 		"score_balance": score_balance,
 		"highscore": highscore,
-		"inventory": inventory,
-		"username": username,
-		"password": password
+		"inventory": inventory
 	}
 	
 	return save_dict
