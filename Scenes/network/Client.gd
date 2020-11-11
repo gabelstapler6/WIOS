@@ -5,7 +5,7 @@ class_name WiosClient
 
 var client = WebSocketClient.new()
 
-var websocket_url = "ws://localhost:9080"
+var websocket_url = "ws://85.214.254.22:9080"
 var is_connected_to_host = false
 onready var parent = get_parent()
 

@@ -7,8 +7,8 @@ var consumable_items = [
 		"name": "RageMode"
 	},
 	{
-		"description": "Start your NEXT Run with the Ammo you buy",
-		"price": 20,
+		"description": "Start-Ammo for your NEXT run",
+		"price": 10,
 		"name": "StartAmmo"
 	}
 ]
@@ -21,7 +21,7 @@ var upgrade_items = [
 	},
 	{
 		"description": "Enable vertical movement",
-		"price": 1312,
+		"price": 420,
 		"name": "VerticalMovement"
 	}
 ]

@@ -5,6 +5,7 @@ signal buy_item(item_name)
 
 onready var popup = $VBox/ShopVBox/ItemsCenter/PopupNotification
 onready var items_grid = $VBox/ShopVBox/ItemsCenter/ItemsVBox/Items
+onready var warning_label = $VBox/ShopVBox/WarningLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,12 +14,12 @@ func _ready():
 
 func _on_BackButton_pressed():
 	emit_signal("go_back")
+	warning_label.text = ""
 	hide()
 
 
 func show_buy_fail():
-	popup.dialog_text = "You have not enough Score to buy this!"
-	popup.popup_centered_minsize()
+	warning_label.text = "You have not enough Score to buy this!"
 
 
 func vertical_movement_bought():
@@ -37,7 +38,9 @@ func update_shop(item_name, value, attribute="Stock"):
 	
 
 func buy_item(item_name):
+	warning_label.text = ""
 	emit_signal("buy_item", item_name)
+	
 	
 
 func fill_shop():

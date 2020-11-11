@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/ui/shop/Shop.gd" type="Script" id=1]
 
@@ -21,9 +21,16 @@ font_data = SubResource( 3 )
 font_path = "res://Assets/font/RussoOne-Regular.ttf"
 
 [sub_resource type="DynamicFont" id=6]
+extra_spacing_char = 1
+font_data = SubResource( 5 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://Assets/font/RussoOne-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=8]
 size = 29
 extra_spacing_char = 3
-font_data = SubResource( 5 )
+font_data = SubResource( 7 )
 
 [node name="Shop" type="MarginContainer"]
 anchor_right = 1.0
@@ -57,8 +64,8 @@ flat = true
 [node name="ShopVBox" type="VBoxContainer" parent="VBox"]
 margin_top = 38.0
 margin_right = 974.0
-margin_bottom = 171.0
-custom_constants/separation = 52
+margin_bottom = 203.0
+custom_constants/separation = 32
 
 [node name="ShopCenter" type="CenterContainer" parent="VBox/ShopVBox"]
 margin_right = 974.0
@@ -72,10 +79,17 @@ margin_bottom = 45.0
 custom_fonts/font = SubResource( 4 )
 text = "SHOP"
 
-[node name="ItemsCenter" type="CenterContainer" parent="VBox/ShopVBox"]
-margin_top = 97.0
+[node name="WarningLabel" type="Label" parent="VBox/ShopVBox"]
+margin_top = 77.0
 margin_right = 974.0
-margin_bottom = 133.0
+margin_bottom = 97.0
+custom_fonts/font = SubResource( 6 )
+align = 1
+
+[node name="ItemsCenter" type="CenterContainer" parent="VBox/ShopVBox"]
+margin_top = 129.0
+margin_right = 974.0
+margin_bottom = 165.0
 
 [node name="ItemsVBox" type="VBoxContainer" parent="VBox/ShopVBox/ItemsCenter"]
 margin_left = 262.0
@@ -92,7 +106,7 @@ columns = 4
 [node name="ItemsLabel" type="Label" parent="VBox/ShopVBox/ItemsCenter/ItemsVBox/Items"]
 margin_right = 98.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0.972549, 0.686275, 1 )
 text = "Items"
 
@@ -100,7 +114,7 @@ text = "Items"
 margin_left = 154.0
 margin_right = 242.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0.972549, 0.686275, 1 )
 text = "Price"
 align = 1
@@ -112,7 +126,7 @@ __meta__ = {
 margin_left = 298.0
 margin_right = 393.0
 margin_bottom = 36.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 1, 0.972549, 0.686275, 1 )
 text = "Stock"
 align = 1
@@ -128,12 +142,4 @@ margin_bottom = 25.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="PopupNotification" type="AcceptDialog" parent="VBox/ShopVBox/ItemsCenter"]
-margin_left = 357.0
-margin_top = -11.0
-margin_right = 617.0
-margin_bottom = 47.0
-window_title = ""
-dialog_text = "You have not enough Score to buy this"
 [connection signal="pressed" from="VBox/BackButton" to="." method="_on_BackButton_pressed"]

@@ -132,7 +132,11 @@ func _on_Player_shoot_bullet():
 func _on_MainMenu_start_game():
 	ingame_bg.set_process(true)
 	player.shooting = true
-	player.ammo = 0
+	
+	player.ammo = PlayerInventory.inventory["StartAmmoStock"]
+	PlayerInventory.inventory["StartAmmoStock"] = 0
+	gui.shop.update_shop("StartAmmo", 0)
+	
 	$MobTimer.wait_time = 0.5
 	score = 0
 	player.start($StartPosition.position)

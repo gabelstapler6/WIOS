@@ -15,6 +15,7 @@ onready var sound_button = $SoundButton
 onready var startup = $Startup
 onready var highscores = $Highscores
 onready var credits = $Credits
+onready var how_to_play = $HowToPlay
 
 var credits_shown = false
 
@@ -101,6 +102,7 @@ func go_to_main_menu():
 	gui.hide()
 	shop.hide()
 	highscores.hide()
+	how_to_play.hide()
 	main_menu.show()
 	shop_button.show()
 
@@ -135,3 +137,10 @@ func show_highscores():
 	shop_button.hide()
 	highscores.show()
 
+
+
+func show_how_to_play():
+	main_menu.hide()
+	shop_button.hide()
+	how_to_play.show()
+	
